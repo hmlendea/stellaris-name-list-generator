@@ -23,5 +23,28 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> PsionicArmy { get; set; }
         public List<NameGroup> XenomorphArmy { get; set; }
         public List<NameGroup> SuperSoldierArmy { get; set; }
+
+        public ArmyNames()
+        {
+            Fleet = new List<NameGroup>();
+
+            DefenceArmy = new List<NameGroup>();
+            AssaultArmy = new List<NameGroup>();
+            OccupationArmy = new List<NameGroup>();
+
+            SlaveArmy = new List<NameGroup>();
+            CloneArmy = new List<NameGroup>();
+
+            RoboticDefenceArmy = new List<NameGroup>();
+            RoboticAssaultArmy = new List<NameGroup>();
+            RoboticOccupationArmy = new List<NameGroup>();
+
+            AndroidAssaultArmy = new List<NameGroup>();
+            AndroidDefenceArmy = new List<NameGroup>();
+
+            PsionicArmy = new List<NameGroup>();
+            XenomorphArmy = new List<NameGroup>();
+            SuperSoldierArmy = new List<NameGroup>();
+        }
     }
 }

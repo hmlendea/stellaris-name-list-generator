@@ -15,11 +15,13 @@ namespace StellarisNameListGenerator
         /// <param name="args">CLI arguments</param>
         public static void Main(string[] args)
         {
+            string fileName = "names";
+
             IFileContentBuilder fileContentBuilder = new FileContentBuilder();
-            IRepository<NameList> nameListRepository = new XmlRepository<NameList>("names.xml");
+            IRepository<NameList> nameListRepository = new XmlRepository<NameList>($"{fileName}.xml");
             INameListGenerator nameListGenerator = new NameListGenerator(fileContentBuilder, nameListRepository);
 
-            nameListGenerator.Generate("ui_extra_humans_germanic");
+            nameListGenerator.Generate(fileName);
         }
     }
 }

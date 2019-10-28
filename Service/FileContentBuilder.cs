@@ -9,7 +9,7 @@ namespace StellarisNameListGenerator.Service
     public sealed class FileContentBuilder : IFileContentBuilder
     {
         const int IndentationSize = 4;
-        const int MaximumLineLength = 160;
+        const int MaximumLineLength = 140;
 
         public string BuildContent(NameList nameList)
         {
@@ -25,6 +25,8 @@ namespace StellarisNameListGenerator.Service
             content += BuildArmyNames(nameList);
             content += Environment.NewLine;
             content += BuildPlanetNames(nameList);
+            content += Environment.NewLine;
+            content += BuildCharacterNames(nameList);
             content += "}";
 
             return content;
@@ -37,6 +39,7 @@ namespace StellarisNameListGenerator.Service
             content += $"{GetIndentation(1)}ship_names = {{{Environment.NewLine}";
 
             IEnumerable<NameGroup> genericShipNames = nameList.Ships.Generic.Concat(nameList.Nationalities);
+            IEnumerable<NameGroup> corvetteShipNames = nameList.Ships.Corvette.Concat(nameList.Weapons);
             IEnumerable<NameGroup> destroyerShipNames = nameList.Ships.Destroyer.Concat(nameList.Places.Cities);
             IEnumerable<NameGroup> coloniserShipNames = nameList.Ships.Coloniser.Concat(nameList.Places.Countries).Concat(nameList.Places.Cities);
             IEnumerable<NameGroup> transportShipNames = nameList.Ships.Transport.Concat(nameList.Weapons);
@@ -51,7 +54,7 @@ namespace StellarisNameListGenerator.Service
             
             content += BuildNameArray(genericShipNames, "generic", 2);
             content += Environment.NewLine;
-            content += BuildNameArray(nameList.Ships.Corvette, "corvette", 2);
+            content += BuildNameArray(corvetteShipNames, "corvette", 2);
             content += BuildNameArray(destroyerShipNames, "destroyer", 2);
             content += BuildNameArray(nameList.Ships.Cruiser, "cruiser", 2);
             content += BuildNameArray(nameList.Ships.Battleship, "battleship", 2);
@@ -212,12 +215,45 @@ namespace StellarisNameListGenerator.Service
             return content;
         }
 
+        string BuildCharacterNames(NameList nameList)
+        {
+            string content = string.Empty;
+            
+            content += $"{GetIndentation(1)}character_names = {{{Environment.NewLine}";
+            
+            foreach (CharacterNames characterNames in nameList.Characters.OrderByDescending(x => x.Weight))
+            {
+                content += BuildCharacterNamesArray(characterNames);
+            }
+
+            content += $"{GetIndentation(1)}}}{Environment.NewLine}";
+
+            return content;
+        }
+
         string BuildPlanetNameArray(IEnumerable<NameGroup> nameGroups, string planetClass)
         {
             string content = string.Empty;
 
             content += $"{GetIndentation(2)}{planetClass} = {{{Environment.NewLine}";
             content += BuildNameArray(nameGroups, "names", 3);
+            content += $"{GetIndentation(2)}}}{Environment.NewLine}";
+
+            return content;
+        }
+
+        string BuildCharacterNamesArray(CharacterNames characterNames)
+        {
+            string content = string.Empty;
+            
+            content += $"{GetIndentation(2)}{characterNames.Id} = {{{Environment.NewLine}";
+            content += $"{GetIndentation(3)}weight = {characterNames.Weight}{Environment.NewLine}";
+            content += BuildNameArray(characterNames.MaleFirstNames, "first_names_male", 3);
+            content += BuildNameArray(characterNames.MaleRoyalFirstNames, "regnal_first_names_male", 3);
+            content += BuildNameArray(characterNames.FemaleFirstNames, "first_names_female", 3);
+            content += BuildNameArray(characterNames.FemaleRoyalFirstNames, "regnal_first_names_female", 3);
+            content += BuildNameArray(characterNames.SecondNames, "second_first_names", 3);
+            content += BuildNameArray(characterNames.RoyalSecondNames, "regnal_second_names", 3);
             content += $"{GetIndentation(2)}}}{Environment.NewLine}";
 
             return content;
@@ -287,7 +323,10 @@ namespace StellarisNameListGenerator.Service
                     continue;
                 }
 
-                value += $"{indentation}# >>> {group.Name}{Environment.NewLine}";
+                if (!string.IsNullOrWhiteSpace(group.Name))
+                {
+                    value += $"{indentation}# >>> {group.Name}{Environment.NewLine}";
+                }
 
                 foreach (string line in lines)
                 {
