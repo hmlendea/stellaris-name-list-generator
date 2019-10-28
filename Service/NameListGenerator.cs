@@ -41,9 +41,13 @@ namespace StellarisNameListGenerator.Service
 
             NameList mergedNameList = new NameList();
 
+            int i = 0;
             foreach (NameList nameList in nameLists.OrderByDescending(x => x.Name))
             {
-                mergedNameList.AddRange(nameList);
+                string discriminator = $"{i.ToString().PadLeft(2, '0')} | {nameList.Name}";
+                mergedNameList.AddRange(nameList, discriminator);
+
+                i += 1;
             }
 
             return mergedNameList;

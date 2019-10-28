@@ -286,15 +286,11 @@ namespace StellarisNameListGenerator.Service
         string GetFormattedNameCollection(IEnumerable<NameGroup> groups, int indentationLevels)
         {
             string indentation = GetIndentation(indentationLevels);
-            string value = string.Empty;
-            int groupsCount = groups.Count();
-
             IList<string> usedNames = new List<string>();
+            IList<string> values = new List<string>();
 
-            for (int i = 0; i < groupsCount; i++)
+            foreach (NameGroup group in groups.OrderBy(x => x.Name))
             {
-                NameGroup group = groups.ElementAt(i);
-
                 IList<string> lines = new List<string> { indentation };
                 bool hasNames = false;
 
@@ -323,6 +319,8 @@ namespace StellarisNameListGenerator.Service
                     continue;
                 }
 
+                string value = string.Empty;
+
                 if (!string.IsNullOrWhiteSpace(group.Name))
                 {
                     value += $"{indentation}# >>> {group.Name}{Environment.NewLine}";
@@ -332,14 +330,11 @@ namespace StellarisNameListGenerator.Service
                 {
                     value += $"{line.Substring(0, line.Length - 1)}{Environment.NewLine}";
                 }
-
-                if (i < groupsCount - 1)
-                {
-                    value += Environment.NewLine;
-                }
+                
+                values.Add(value);
             }
 
-            return value;
+            return string.Join('\n', values);
         }
 
         string GetIndentation(int levels)
