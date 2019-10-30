@@ -10,8 +10,11 @@ namespace StellarisNameListGenerator.Models
         public string Name { get; set; }
         
         public List<NameGroup> Nationalities { get; set; }
-        public List<NameGroup> Weapons { get; set; }
         public PlaceNames Places { get; set; }
+
+        public List<NameGroup> Weapons { get; set; }
+        public List<NameGroup> MilitaryUnitTypes { get; set; }
+        public List<NameGroup> MythologicalCreatures { get; set; }
 
         public ShipNames Ships { get; set; }
         public ShipNames ShipClasses { get; set; }
@@ -30,8 +33,11 @@ namespace StellarisNameListGenerator.Models
             Name = string.Empty;
 
             Nationalities = new List<NameGroup>();
-            Weapons = new List<NameGroup>();
             Places = new PlaceNames();
+
+            Weapons = new List<NameGroup>();
+            MilitaryUnitTypes = new List<NameGroup>();
+            MythologicalCreatures = new List<NameGroup>();
 
             Ships = new ShipNames();
             ShipClasses = new ShipNames();
@@ -49,11 +55,18 @@ namespace StellarisNameListGenerator.Models
         public void AddRange(NameList other, string discriminator)
         {
             Nationalities.AddRange(ImportNames(other.Nationalities, discriminator));
-            Weapons.AddRange(ImportNames(other.Weapons, discriminator));
 
             Places.Countries.AddRange(ImportNames(other.Places.Countries, discriminator));
+            Places.States.AddRange(ImportNames(other.Places.States, discriminator));
             Places.Cities.AddRange(ImportNames(other.Places.Cities, discriminator));
-
+            Places.Rivers.AddRange(ImportNames(other.Places.Rivers, discriminator));
+            Places.Lakes.AddRange(ImportNames(other.Places.Lakes, discriminator));
+            Places.Seas.AddRange(ImportNames(other.Places.Seas, discriminator));
+            
+            Weapons.AddRange(ImportNames(other.Weapons, discriminator));
+            MilitaryUnitTypes.AddRange(ImportNames(other.MilitaryUnitTypes, discriminator));
+            MythologicalCreatures.AddRange(ImportNames(other.MythologicalCreatures, discriminator));
+            
             Ships.Generic.AddRange(ImportNames(other.Ships.Generic, discriminator));
             Ships.Corvette.AddRange(ImportNames(other.Ships.Corvette, discriminator));
             Ships.Destroyer.AddRange(ImportNames(other.Ships.Destroyer, discriminator));
