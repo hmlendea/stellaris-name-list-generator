@@ -6,7 +6,7 @@ namespace StellarisNameListGenerator.Models
     {
         public MilitaryStationNames MilitaryStations { get; set; }
 
-        public StarbaseNames StarbaseNames { get; set; }
+        public StarbaseNames Starbases { get; set; }
 
         public List<NameGroup> MiningStations { get; set; }
         public List<NameGroup> ResearchStations { get; set; }
@@ -16,7 +16,7 @@ namespace StellarisNameListGenerator.Models
         {
             MilitaryStations = new MilitaryStationNames();
 
-            StarbaseNames = new StarbaseNames();
+            Starbases = new StarbaseNames();
 
             MiningStations = new List<NameGroup>();
             ResearchStations = new List<NameGroup>();

@@ -66,11 +66,11 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas);
             IEnumerable<NameGroup> transportShipNames = nameList.Ships.Transport.Concat(nameList.Weapons);
-            IEnumerable<NameGroup> outpostNames = nameList.Stations.StarbaseNames.Generic.Concat(nameList.Stations.StarbaseNames.Outposts);
-            IEnumerable<NameGroup> starportNames = nameList.Stations.StarbaseNames.Generic.Concat(nameList.Stations.StarbaseNames.Starports);
-            IEnumerable<NameGroup> starholdNames = nameList.Stations.StarbaseNames.Generic.Concat(nameList.Stations.StarbaseNames.Starholds);
-            IEnumerable<NameGroup> starfortressNames = nameList.Stations.StarbaseNames.Generic.Concat(nameList.Stations.StarbaseNames.Starfortresses);
-            IEnumerable<NameGroup> citadelNames = nameList.Stations.StarbaseNames.Generic.Concat(nameList.Stations.StarbaseNames.Citadels);
+            IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Outposts);
+            IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starports);
+            IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starholds);
+            IEnumerable<NameGroup> starfortressNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starfortresses);
+            IEnumerable<NameGroup> citadelNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Citadels);
             IEnumerable<NameGroup> smallMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Stations.MilitaryStations.Small);
             IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Stations.MilitaryStations.Medium);
             IEnumerable<NameGroup> largeMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Stations.MilitaryStations.Large);
@@ -119,11 +119,11 @@ namespace StellarisNameListGenerator.Service
             content += $"{GetIndentation(1)}ship_class_names = {{{Environment.NewLine}";
 
             IEnumerable<NameGroup> genericShipClasses = nameList.ShipClasses.Generic.Concat(nameList.Nationalities);
-            IEnumerable<NameGroup> outpostClasses = nameList.StationClasses.StarbaseNames.Generic.Concat(nameList.StationClasses.StarbaseNames.Outposts);
-            IEnumerable<NameGroup> starportClasses = nameList.StationClasses.StarbaseNames.Generic.Concat(nameList.StationClasses.StarbaseNames.Starports);
-            IEnumerable<NameGroup> starholdClasses = nameList.StationClasses.StarbaseNames.Generic.Concat(nameList.StationClasses.StarbaseNames.Starholds);
-            IEnumerable<NameGroup> starfortressClasses = nameList.StationClasses.StarbaseNames.Generic.Concat(nameList.StationClasses.StarbaseNames.Starfortresses);
-            IEnumerable<NameGroup> citadelClasses = nameList.StationClasses.StarbaseNames.Generic.Concat(nameList.StationClasses.StarbaseNames.Citadels);
+            IEnumerable<NameGroup> outpostClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Outposts);
+            IEnumerable<NameGroup> starportClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Starports);
+            IEnumerable<NameGroup> starholdClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Starholds);
+            IEnumerable<NameGroup> starfortressClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Starfortresses);
+            IEnumerable<NameGroup> citadelClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Citadels);
             IEnumerable<NameGroup> smallMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Small);
             IEnumerable<NameGroup> mediumMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Medium);
             IEnumerable<NameGroup> largeMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Large);
