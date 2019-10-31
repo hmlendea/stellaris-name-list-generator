@@ -326,6 +326,14 @@ namespace StellarisNameListGenerator.Service
             IList<string> usedNames = new List<string>();
             IList<string> values = new List<string>();
 
+            groups = groups
+                .GroupBy(x => x.Name)
+                .Select(g => new NameGroup
+                {
+                    Name = g.First().Name,
+                    Values = g.SelectMany(x => x.Values).ToList()
+                });
+
             foreach (NameGroup group in groups.OrderBy(x => x.Name))
             {
                 IList<string> lines = new List<string> { indentation };

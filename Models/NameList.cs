@@ -52,104 +52,93 @@ namespace StellarisNameListGenerator.Models
             Characters = new List<CharacterNames>();
         }
 
-        public void AddRange(NameList other, string discriminator)
+        public void AddRange(NameList other)
         {
-            Nationalities.AddRange(ImportNames(other.Nationalities, discriminator));
+            Nationalities.AddRange(other.Nationalities);
 
-            Places.Countries.AddRange(ImportNames(other.Places.Countries, discriminator));
-            Places.States.AddRange(ImportNames(other.Places.States, discriminator));
-            Places.Cities.AddRange(ImportNames(other.Places.Cities, discriminator));
-            Places.Rivers.AddRange(ImportNames(other.Places.Rivers, discriminator));
-            Places.Lakes.AddRange(ImportNames(other.Places.Lakes, discriminator));
-            Places.Seas.AddRange(ImportNames(other.Places.Seas, discriminator));
+            Places.Countries.AddRange(other.Places.Countries);
+            Places.States.AddRange(other.Places.States);
+            Places.Cities.AddRange(other.Places.Cities);
+            Places.Rivers.AddRange(other.Places.Rivers);
+            Places.Lakes.AddRange(other.Places.Lakes);
+            Places.Seas.AddRange(other.Places.Seas);
             
-            Weapons.AddRange(ImportNames(other.Weapons, discriminator));
-            MilitaryUnitTypes.AddRange(ImportNames(other.MilitaryUnitTypes, discriminator));
-            MythologicalCreatures.AddRange(ImportNames(other.MythologicalCreatures, discriminator));
+            Weapons.AddRange(other.Weapons);
+            MilitaryUnitTypes.AddRange(other.MilitaryUnitTypes);
+            MythologicalCreatures.AddRange(other.MythologicalCreatures);
             
-            Ships.Generic.AddRange(ImportNames(other.Ships.Generic, discriminator));
-            Ships.Corvette.AddRange(ImportNames(other.Ships.Corvette, discriminator));
-            Ships.Destroyer.AddRange(ImportNames(other.Ships.Destroyer, discriminator));
-            Ships.Cruiser.AddRange(ImportNames(other.Ships.Cruiser, discriminator));
-            Ships.Battleship.AddRange(ImportNames(other.Ships.Battleship, discriminator));
-            Ships.Titan.AddRange(ImportNames(other.Ships.Titan, discriminator));
-            Ships.Colossus.AddRange(ImportNames(other.Ships.Colossus, discriminator));
-            Ships.Constructor.AddRange(ImportNames(other.Ships.Constructor, discriminator));
-            Ships.Science.AddRange(ImportNames(other.Ships.Science, discriminator));
-            Ships.Coloniser.AddRange(ImportNames(other.Ships.Coloniser, discriminator));
-            Ships.Transport.AddRange(ImportNames(other.Ships.Transport, discriminator));
-            Ships.IonCannon.AddRange(ImportNames(other.Ships.IonCannon, discriminator));
+            Ships.Generic.AddRange(other.Ships.Generic);
+            Ships.Corvette.AddRange(other.Ships.Corvette);
+            Ships.Destroyer.AddRange(other.Ships.Destroyer);
+            Ships.Cruiser.AddRange(other.Ships.Cruiser);
+            Ships.Battleship.AddRange(other.Ships.Battleship);
+            Ships.Titan.AddRange(other.Ships.Titan);
+            Ships.Colossus.AddRange(other.Ships.Colossus);
+            Ships.Constructor.AddRange(other.Ships.Constructor);
+            Ships.Science.AddRange(other.Ships.Science);
+            Ships.Coloniser.AddRange(other.Ships.Coloniser);
+            Ships.Transport.AddRange(other.Ships.Transport);
+            Ships.IonCannon.AddRange(other.Ships.IonCannon);
 
-            ShipClasses.Generic.AddRange(ImportNames(other.ShipClasses.Generic, discriminator));
-            ShipClasses.Corvette.AddRange(ImportNames(other.ShipClasses.Corvette, discriminator));
-            ShipClasses.Destroyer.AddRange(ImportNames(other.ShipClasses.Destroyer, discriminator));
-            ShipClasses.Cruiser.AddRange(ImportNames(other.ShipClasses.Cruiser, discriminator));
-            ShipClasses.Battleship.AddRange(ImportNames(other.ShipClasses.Battleship, discriminator));
-            ShipClasses.Titan.AddRange(ImportNames(other.ShipClasses.Titan, discriminator));
-            ShipClasses.Colossus.AddRange(ImportNames(other.ShipClasses.Colossus, discriminator));
-            ShipClasses.Constructor.AddRange(ImportNames(other.ShipClasses.Constructor, discriminator));
-            ShipClasses.Science.AddRange(ImportNames(other.ShipClasses.Science, discriminator));
-            ShipClasses.Coloniser.AddRange(ImportNames(other.ShipClasses.Coloniser, discriminator));
-            ShipClasses.Transport.AddRange(ImportNames(other.ShipClasses.Transport, discriminator));
-            ShipClasses.IonCannon.AddRange(ImportNames(other.ShipClasses.IonCannon, discriminator));
+            ShipClasses.Generic.AddRange(other.ShipClasses.Generic);
+            ShipClasses.Corvette.AddRange(other.ShipClasses.Corvette);
+            ShipClasses.Destroyer.AddRange(other.ShipClasses.Destroyer);
+            ShipClasses.Cruiser.AddRange(other.ShipClasses.Cruiser);
+            ShipClasses.Battleship.AddRange(other.ShipClasses.Battleship);
+            ShipClasses.Titan.AddRange(other.ShipClasses.Titan);
+            ShipClasses.Colossus.AddRange(other.ShipClasses.Colossus);
+            ShipClasses.Constructor.AddRange(other.ShipClasses.Constructor);
+            ShipClasses.Science.AddRange(other.ShipClasses.Science);
+            ShipClasses.Coloniser.AddRange(other.ShipClasses.Coloniser);
+            ShipClasses.Transport.AddRange(other.ShipClasses.Transport);
+            ShipClasses.IonCannon.AddRange(other.ShipClasses.IonCannon);
 
-            Stations.MilitaryStations.Generic.AddRange(ImportNames(other.Stations.MilitaryStations.Generic, discriminator));
-            Stations.MilitaryStations.Small.AddRange(ImportNames(other.Stations.MilitaryStations.Small, discriminator));
-            Stations.MilitaryStations.Medium.AddRange(ImportNames(other.Stations.MilitaryStations.Medium, discriminator));
-            Stations.MilitaryStations.Large.AddRange(ImportNames(other.Stations.MilitaryStations.Large, discriminator));
-            Stations.StarbaseNames.Generic.AddRange(ImportNames(other.Stations.StarbaseNames.Generic, discriminator));
-            Stations.StarbaseNames.Outposts.AddRange(ImportNames(other.Stations.StarbaseNames.Outposts, discriminator));
-            Stations.StarbaseNames.Starports.AddRange(ImportNames(other.Stations.StarbaseNames.Starports, discriminator));
-            Stations.StarbaseNames.Starholds.AddRange(ImportNames(other.Stations.StarbaseNames.Starholds, discriminator));
-            Stations.StarbaseNames.Starfortresses.AddRange(ImportNames(other.Stations.StarbaseNames.Starfortresses, discriminator));
-            Stations.StarbaseNames.Citadels.AddRange(ImportNames(other.Stations.StarbaseNames.Citadels, discriminator));
-            Stations.MiningStations.AddRange(ImportNames(other.Stations.MiningStations, discriminator));
-            Stations.ResearchStations.AddRange(ImportNames(other.Stations.ResearchStations, discriminator));
-            Stations.ObservationStations.AddRange(ImportNames(other.Stations.ObservationStations, discriminator));
+            Stations.MilitaryStations.Generic.AddRange(other.Stations.MilitaryStations.Generic);
+            Stations.MilitaryStations.Small.AddRange(other.Stations.MilitaryStations.Small);
+            Stations.MilitaryStations.Medium.AddRange(other.Stations.MilitaryStations.Medium);
+            Stations.MilitaryStations.Large.AddRange(other.Stations.MilitaryStations.Large);
+            Stations.StarbaseNames.Generic.AddRange(other.Stations.StarbaseNames.Generic);
+            Stations.StarbaseNames.Outposts.AddRange(other.Stations.StarbaseNames.Outposts);
+            Stations.StarbaseNames.Starports.AddRange(other.Stations.StarbaseNames.Starports);
+            Stations.StarbaseNames.Starholds.AddRange(other.Stations.StarbaseNames.Starholds);
+            Stations.StarbaseNames.Starfortresses.AddRange(other.Stations.StarbaseNames.Starfortresses);
+            Stations.StarbaseNames.Citadels.AddRange(other.Stations.StarbaseNames.Citadels);
+            Stations.MiningStations.AddRange(other.Stations.MiningStations);
+            Stations.ResearchStations.AddRange(other.Stations.ResearchStations);
+            Stations.ObservationStations.AddRange(other.Stations.ObservationStations);
 
-            Armies.Fleet.AddRange(ImportNames(other.Armies.Fleet, discriminator));
-            Armies.DefenceArmy.AddRange(ImportNames(other.Armies.DefenceArmy, discriminator));
-            Armies.AssaultArmy.AddRange(ImportNames(other.Armies.AssaultArmy, discriminator));
-            Armies.OccupationArmy.AddRange(ImportNames(other.Armies.OccupationArmy, discriminator));
-            Armies.SlaveArmy.AddRange(ImportNames(other.Armies.SlaveArmy, discriminator));
-            Armies.CloneArmy.AddRange(ImportNames(other.Armies.CloneArmy, discriminator));
-            Armies.RoboticDefenceArmy.AddRange(ImportNames(other.Armies.RoboticDefenceArmy, discriminator));
-            Armies.RoboticAssaultArmy.AddRange(ImportNames(other.Armies.RoboticAssaultArmy, discriminator));
-            Armies.RoboticOccupationArmy.AddRange(ImportNames(other.Armies.RoboticOccupationArmy, discriminator));
-            Armies.AndroidAssaultArmy.AddRange(ImportNames(other.Armies.AndroidAssaultArmy, discriminator));
-            Armies.AndroidDefenceArmy.AddRange(ImportNames(other.Armies.AndroidDefenceArmy, discriminator));
-            Armies.PsionicArmy.AddRange(ImportNames(other.Armies.PsionicArmy, discriminator));
-            Armies.XenomorphArmy.AddRange(ImportNames(other.Armies.XenomorphArmy, discriminator));
-            Armies.SuperSoldierArmy.AddRange(ImportNames(other.Armies.SuperSoldierArmy, discriminator));
+            Armies.Fleet.AddRange(other.Armies.Fleet);
+            Armies.DefenceArmy.AddRange(other.Armies.DefenceArmy);
+            Armies.AssaultArmy.AddRange(other.Armies.AssaultArmy);
+            Armies.OccupationArmy.AddRange(other.Armies.OccupationArmy);
+            Armies.SlaveArmy.AddRange(other.Armies.SlaveArmy);
+            Armies.CloneArmy.AddRange(other.Armies.CloneArmy);
+            Armies.RoboticDefenceArmy.AddRange(other.Armies.RoboticDefenceArmy);
+            Armies.RoboticAssaultArmy.AddRange(other.Armies.RoboticAssaultArmy);
+            Armies.RoboticOccupationArmy.AddRange(other.Armies.RoboticOccupationArmy);
+            Armies.AndroidAssaultArmy.AddRange(other.Armies.AndroidAssaultArmy);
+            Armies.AndroidDefenceArmy.AddRange(other.Armies.AndroidDefenceArmy);
+            Armies.PsionicArmy.AddRange(other.Armies.PsionicArmy);
+            Armies.XenomorphArmy.AddRange(other.Armies.XenomorphArmy);
+            Armies.SuperSoldierArmy.AddRange(other.Armies.SuperSoldierArmy);
 
-            Planets.Generic.AddRange(ImportNames(other.Planets.Generic, discriminator));
-            Planets.Desert.AddRange(ImportNames(other.Planets.Desert, discriminator));
-            Planets.Arid.AddRange(ImportNames(other.Planets.Arid, discriminator));
-            Planets.Tropical.AddRange(ImportNames(other.Planets.Tropical, discriminator));
-            Planets.Continental.AddRange(ImportNames(other.Planets.Continental, discriminator));
-            Planets.Gaia.AddRange(ImportNames(other.Planets.Gaia, discriminator));
-            Planets.Ocean.AddRange(ImportNames(other.Planets.Ocean, discriminator));
-            Planets.Tundra.AddRange(ImportNames(other.Planets.Tundra, discriminator));
-            Planets.Arctic.AddRange(ImportNames(other.Planets.Arctic, discriminator));
-            Planets.Tomb.AddRange(ImportNames(other.Planets.Tomb, discriminator));
-            Planets.Savannah.AddRange(ImportNames(other.Planets.Savannah, discriminator));
-            Planets.Alpine.AddRange(ImportNames(other.Planets.Alpine, discriminator));
-            Planets.Molten.AddRange(ImportNames(other.Planets.Molten, discriminator));
-            Planets.Barren.AddRange(ImportNames(other.Planets.Barren, discriminator));
-            Planets.Asteroid.AddRange(ImportNames(other.Planets.Asteroid, discriminator));
+            Planets.Generic.AddRange(other.Planets.Generic);
+            Planets.Desert.AddRange(other.Planets.Desert);
+            Planets.Arid.AddRange(other.Planets.Arid);
+            Planets.Tropical.AddRange(other.Planets.Tropical);
+            Planets.Continental.AddRange(other.Planets.Continental);
+            Planets.Gaia.AddRange(other.Planets.Gaia);
+            Planets.Ocean.AddRange(other.Planets.Ocean);
+            Planets.Tundra.AddRange(other.Planets.Tundra);
+            Planets.Arctic.AddRange(other.Planets.Arctic);
+            Planets.Tomb.AddRange(other.Planets.Tomb);
+            Planets.Savannah.AddRange(other.Planets.Savannah);
+            Planets.Alpine.AddRange(other.Planets.Alpine);
+            Planets.Molten.AddRange(other.Planets.Molten);
+            Planets.Barren.AddRange(other.Planets.Barren);
+            Planets.Asteroid.AddRange(other.Planets.Asteroid);
 
             Characters.AddRange(other.Characters);
-        }
-
-        List<NameGroup> ImportNames(List<NameGroup> names, string discriminator)
-        {
-            return names
-                .Select(x => new NameGroup
-                {
-                    Name = string.Join(" ", $"[{discriminator}]", x.Name),
-                    Values = x.Values.ToList()
-                })
-                .ToList();
         }
     }
 }
