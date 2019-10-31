@@ -56,7 +56,11 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.MilitaryUnitTypes)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
+                .Concat(nameList.Places.Countries)
+                .Concat(nameList.Places.States)
+                .Concat(nameList.Places.Cities)
                 .Concat(nameList.Places.Rivers)
+                .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas);
             IEnumerable<NameGroup> coloniserShipNames = nameList.Ships.Coloniser
                 .Concat(nameList.Places.Countries)
@@ -171,18 +175,28 @@ namespace StellarisNameListGenerator.Service
 
             IEnumerable<NameGroup> fleetNames = nameList.Armies.Fleet
                 .Concat(nameList.Weapons
-                            .Concat(nameList.MilitaryUnitTypes)
-                            .Concat(nameList.MythologicalCreatures)
-                    .Select(x => new NameGroup
+                    .SelectMany(x => new List<NameGroup>
                     {
-                        Name = $"{x.Name} (Fleets)",
-                        Values = x.Values.Select(y => $"The {y} Fleet").ToList()
+                        new NameGroup { Name = $"Armadas - Weapons", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Fleets - Weapons", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Squadrons - Weapons", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Weapons", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
+                    }))
+                .Concat(nameList.MilitaryUnitTypes
+                    .SelectMany(x => new List<NameGroup>
+                    {
+                        new NameGroup { Name = $"Armadas - Military Unit Types", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Fleets - Military Unit Types", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Squadrons - Military Unit Types", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Military Unit Types", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
                     }))
                 .Concat(nameList.MythologicalCreatures
-                    .Select(x => new NameGroup
+                    .SelectMany(x => new List<NameGroup>
                     {
-                        Name = $"{x.Name} (Strike Teams)",
-                        Values = x.Values.Select(y => $"Strike Team {y}").ToList()
+                        new NameGroup { Name = $"Armadas - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Fleets - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Squadrons - Mythological Creatures", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Mythological Creatures", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
                     }));
             
             content += $"{GetIndentation(1)}fleet_names = {{{Environment.NewLine}";
@@ -307,7 +321,19 @@ namespace StellarisNameListGenerator.Service
 
             if (!string.IsNullOrWhiteSpace(sequentialName))
             {
-                content += $"{GetIndentation(indentationLevels + 1)}sequential_name = \"{sequentialName}\"{Environment.NewLine}";
+                content +=
+                    $"{GetIndentation(indentationLevels + 1)}sequential_name = \"{sequentialName}\"{Environment.NewLine}";
+
+                if (nameGroups.Sum(x => x.Values.Count) == 0)
+                {
+                    content += $"{GetIndentation(indentationLevels)}}}{Environment.NewLine}";
+                    return content;
+                }
+
+                content +=
+                    Environment.NewLine +
+                    $"{GetIndentation(indentationLevels + 1)}random_names = {{{Environment.NewLine}";
+                indentationLevels += 1;
             }
 
             if (!(nameGroups is null))
@@ -316,6 +342,11 @@ namespace StellarisNameListGenerator.Service
             }
 
             content += $"{GetIndentation(indentationLevels)}}}{Environment.NewLine}";
+
+            if (!string.IsNullOrWhiteSpace(sequentialName))
+            {
+                content += $"{GetIndentation(indentationLevels - 1)}}}{Environment.NewLine}";
+            }
 
             return content;
         }
@@ -339,13 +370,13 @@ namespace StellarisNameListGenerator.Service
                 IList<string> lines = new List<string> { indentation };
                 bool hasNames = false;
 
-                foreach (string name in group.Values.OrderBy(x => x).Distinct())
-                {
-                    if (usedNames.Contains(name))
-                    {
-                        continue;
-                    }
+                IEnumerable<string> validNames = group.Values
+                    .Where(x => !usedNames.Contains(x))
+                    .OrderBy(x => x)
+                    .Distinct();
 
+                foreach (string name in validNames)
+                {
                     hasNames = true;
                     usedNames.Add(name);
 
