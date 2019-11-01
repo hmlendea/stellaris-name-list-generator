@@ -9,7 +9,7 @@ namespace StellarisNameListGenerator.Models
     {
         public string Name { get; set; }
         
-        public List<NameGroup> Nationalities { get; set; }
+        public List<NameGroup> Denonyms { get; set; }
         public PlaceNames Places { get; set; }
 
         public List<NameGroup> Weapons { get; set; }
@@ -32,7 +32,7 @@ namespace StellarisNameListGenerator.Models
         {
             Name = string.Empty;
 
-            Nationalities = new List<NameGroup>();
+            Denonyms = new List<NameGroup>();
             Places = new PlaceNames();
 
             Weapons = new List<NameGroup>();
@@ -54,10 +54,10 @@ namespace StellarisNameListGenerator.Models
 
         public void AddRange(NameList other)
         {
-            Nationalities.AddRange(other.Nationalities);
+            Denonyms.AddRange(other.Denonyms);
 
             Places.Countries.AddRange(other.Places.Countries);
-            Places.States.AddRange(other.Places.States);
+            Places.Regions.AddRange(other.Places.Regions);
             Places.Cities.AddRange(other.Places.Cities);
             Places.Rivers.AddRange(other.Places.Rivers);
             Places.Lakes.AddRange(other.Places.Lakes);

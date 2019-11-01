@@ -5,7 +5,7 @@ namespace StellarisNameListGenerator.Models
     public sealed class PlaceNames
     {
         public List<NameGroup> Countries { get; set; }
-        public List<NameGroup> States { get; set; }
+        public List<NameGroup> Regions { get; set; }
         public List<NameGroup> Cities { get; set; }
 
         public List<NameGroup> Rivers { get; set; }
@@ -15,7 +15,7 @@ namespace StellarisNameListGenerator.Models
         public PlaceNames()
         {
             Countries = new List<NameGroup>();
-            States = new List<NameGroup>();
+            Regions = new List<NameGroup>();
             Cities = new List<NameGroup>();
 
             Rivers = new List<NameGroup>();

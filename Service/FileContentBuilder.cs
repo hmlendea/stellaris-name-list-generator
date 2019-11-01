@@ -38,7 +38,7 @@ namespace StellarisNameListGenerator.Service
             
             content += $"{GetIndentation(1)}ship_names = {{{Environment.NewLine}";
 
-            IEnumerable<NameGroup> genericShipNames = nameList.Ships.Generic.Concat(nameList.Nationalities);
+            IEnumerable<NameGroup> genericNames = nameList.Ships.Generic.Concat(nameList.Denonyms);
             IEnumerable<NameGroup> corvetteNames = nameList.Ships.Corvette
                 .Concat(nameList.Weapons)
                 .Concat(nameList.MilitaryUnitTypes)
@@ -48,7 +48,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.MilitaryUnitTypes)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> cruiserNames = nameList.Ships.Cruiser
-                .Concat(nameList.Places.States)
+                .Concat(nameList.Places.Regions)
                 .Concat(nameList.MilitaryUnitTypes)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> battleshipNames = nameList.Ships.Battleship
@@ -57,19 +57,19 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
-                .Concat(nameList.Places.States)
+                .Concat(nameList.Places.Regions)
                 .Concat(nameList.Places.Cities)
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas);
-            IEnumerable<NameGroup> coloniserShipNames = nameList.Ships.Coloniser
+            IEnumerable<NameGroup> coloniserNames = nameList.Ships.Coloniser
                 .Concat(nameList.Places.Countries)
-                .Concat(nameList.Places.States)
+                .Concat(nameList.Places.Regions)
                 .Concat(nameList.Places.Cities)
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas);
-            IEnumerable<NameGroup> transportShipNames = nameList.Ships.Transport.Concat(nameList.Weapons);
+            IEnumerable<NameGroup> transportNames = nameList.Ships.Transport.Concat(nameList.Weapons);
             IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Outposts);
             IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starports);
             IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starholds);
@@ -79,7 +79,7 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Stations.MilitaryStations.Medium);
             IEnumerable<NameGroup> largeMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Stations.MilitaryStations.Large);
             
-            content += BuildNameArray(genericShipNames, "generic", 2);
+            content += BuildNameArray(genericNames, "generic", 2);
             content += Environment.NewLine;
             content += BuildNameArray(corvetteNames, "corvette", 2);
             content += BuildNameArray(destroyerNames, "destroyer", 2);
@@ -91,9 +91,9 @@ namespace StellarisNameListGenerator.Service
             content += Environment.NewLine;
             content += BuildNameArray(constructorNames, "constructor", 2);
             content += BuildNameArray(nameList.Ships.Science, "science", 2);
-            content += BuildNameArray(coloniserShipNames, "colonizer", 2);
-            content += BuildNameArray(coloniserShipNames, "sponsored_colonizer", 2);
-            content += BuildNameArray(transportShipNames, "transport", 2);
+            content += BuildNameArray(coloniserNames, "colonizer", 2);
+            content += BuildNameArray(coloniserNames, "sponsored_colonizer", 2);
+            content += BuildNameArray(transportNames, "transport", 2);
             content += Environment.NewLine;
             content += BuildNameArray(nameList.Stations.MiningStations, "mining_station", 2);
             content += BuildNameArray(nameList.Stations.ResearchStations, "research_station", 2);
@@ -122,7 +122,7 @@ namespace StellarisNameListGenerator.Service
             
             content += $"{GetIndentation(1)}ship_class_names = {{{Environment.NewLine}";
 
-            IEnumerable<NameGroup> genericShipClasses = nameList.ShipClasses.Generic.Concat(nameList.Nationalities);
+            IEnumerable<NameGroup> genericShipClasses = nameList.ShipClasses.Generic.Concat(nameList.Denonyms);
             IEnumerable<NameGroup> outpostClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Outposts);
             IEnumerable<NameGroup> starportClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Starports);
             IEnumerable<NameGroup> starholdClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Starholds);
