@@ -12,8 +12,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> Denonyms { get; set; }
         public PlaceNames Places { get; set; }
 
-        public List<NameGroup> Weapons { get; set; }
-        public List<NameGroup> MilitaryUnitTypes { get; set; }
+        public WarfareNames Warfare { get; set; }
         public List<NameGroup> MythologicalCreatures { get; set; }
 
         public ShipNames Ships { get; set; }
@@ -35,8 +34,7 @@ namespace StellarisNameListGenerator.Models
             Denonyms = new List<NameGroup>();
             Places = new PlaceNames();
 
-            Weapons = new List<NameGroup>();
-            MilitaryUnitTypes = new List<NameGroup>();
+            Warfare = new WarfareNames();
             MythologicalCreatures = new List<NameGroup>();
 
             Ships = new ShipNames();
@@ -63,8 +61,14 @@ namespace StellarisNameListGenerator.Models
             Places.Lakes.AddRange(other.Places.Lakes);
             Places.Seas.AddRange(other.Places.Seas);
             
-            Weapons.AddRange(other.Weapons);
-            MilitaryUnitTypes.AddRange(other.MilitaryUnitTypes);
+            Warfare.Weapons.AddRange(other.Warfare.Weapons);
+            Warfare.MilitaryUnitTypes.AddRange(other.Warfare.MilitaryUnitTypes);
+            Warfare.BattleLocations.AddRange(other.Warfare.BattleLocations);
+
+            Warfare.MilitaryPeopleTier1.AddRange(other.Warfare.MilitaryPeopleTier1);
+            Warfare.MilitaryPeopleTier2.AddRange(other.Warfare.MilitaryPeopleTier2);
+            Warfare.MilitaryPeopleTier3.AddRange(other.Warfare.MilitaryPeopleTier3);
+            
             MythologicalCreatures.AddRange(other.MythologicalCreatures);
             
             Ships.Generic.AddRange(other.Ships.Generic);

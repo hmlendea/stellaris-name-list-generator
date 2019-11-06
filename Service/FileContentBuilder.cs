@@ -40,20 +40,25 @@ namespace StellarisNameListGenerator.Service
 
             IEnumerable<NameGroup> genericNames = nameList.Ships.Generic.Concat(nameList.Denonyms);
             IEnumerable<NameGroup> corvetteNames = nameList.Ships.Corvette
-                .Concat(nameList.Weapons)
-                .Concat(nameList.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.Weapons)
+                .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.MilitaryPeopleTier1)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> destroyerNames = nameList.Ships.Destroyer
                 .Concat(nameList.Places.Cities)
-                .Concat(nameList.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> cruiserNames = nameList.Ships.Cruiser
                 .Concat(nameList.Places.Regions)
-                .Concat(nameList.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.Warfare.MilitaryPeopleTier2)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> battleshipNames = nameList.Ships.Battleship
                 .Concat(nameList.Places.Countries)
-                .Concat(nameList.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.Warfare.MilitaryPeopleTier3)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
@@ -69,15 +74,33 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas);
-            IEnumerable<NameGroup> transportNames = nameList.Ships.Transport.Concat(nameList.Weapons);
+            IEnumerable<NameGroup> transportNames = nameList.Ships.Transport
+                .Concat(nameList.Warfare.Weapons)
+                .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.BattleLocations);
             IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Outposts);
             IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starports);
             IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starholds);
             IEnumerable<NameGroup> starfortressNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starfortresses);
             IEnumerable<NameGroup> citadelNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Citadels);
-            IEnumerable<NameGroup> smallMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Stations.MilitaryStations.Small);
-            IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Stations.MilitaryStations.Medium);
-            IEnumerable<NameGroup> largeMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Stations.MilitaryStations.Large);
+            IEnumerable<NameGroup> genericMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Warfare.BattleLocations);
+            IEnumerable<NameGroup> smallMilitaryStations = nameList.Stations.MilitaryStations.Small
+                .Concat(nameList.Stations.MilitaryStations.Generic)
+                .Concat(nameList.Warfare.Weapons)
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.Warfare.MilitaryPeopleTier1)
+                .Concat(nameList.Warfare.MilitaryPeopleTier3);
+            IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Medium
+                .Concat(nameList.Stations.MilitaryStations.Generic)
+                .Concat(nameList.Warfare.Weapons)
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.Warfare.MilitaryPeopleTier2)
+                .Concat(nameList.Warfare.MilitaryPeopleTier3);
+            IEnumerable<NameGroup> largeMilitaryStations = nameList.Stations.MilitaryStations.Large
+                .Concat(nameList.Stations.MilitaryStations.Generic)
+                .Concat(nameList.Warfare.Weapons)
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.Warfare.MilitaryPeopleTier3);
             
             content += BuildNameArray(genericNames, "generic", 2);
             content += Environment.NewLine;
@@ -174,7 +197,7 @@ namespace StellarisNameListGenerator.Service
             string content = string.Empty;
 
             IEnumerable<NameGroup> fleetNames = nameList.Armies.Fleet
-                .Concat(nameList.Weapons
+                .Concat(nameList.Warfare.Weapons
                     .SelectMany(x => new List<NameGroup>
                     {
                         new NameGroup { Name = $"Armadas - Weapons", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
@@ -182,7 +205,7 @@ namespace StellarisNameListGenerator.Service
                         new NameGroup { Name = $"Squadrons - Weapons", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
                         new NameGroup { Name = $"Strike Teams - Weapons", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
                     }))
-                .Concat(nameList.MilitaryUnitTypes
+                .Concat(nameList.Warfare.MilitaryUnitTypes
                     .SelectMany(x => new List<NameGroup>
                     {
                         new NameGroup { Name = $"Armadas - Military Unit Types", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
@@ -271,8 +294,13 @@ namespace StellarisNameListGenerator.Service
             string content = string.Empty;
             
             content += $"{GetIndentation(1)}character_names = {{{Environment.NewLine}";
+
+            IEnumerable<CharacterNames> characterNameLists = nameList.Characters
+                .GroupBy(x => x.Id)
+                .Select(x => x.First())
+                .OrderByDescending(x => x.Weight);
             
-            foreach (CharacterNames characterNames in nameList.Characters.OrderByDescending(x => x.Weight))
+            foreach (CharacterNames characterNames in characterNameLists)
             {
                 content += BuildCharacterNamesArray(characterNames);
             }
@@ -380,7 +408,7 @@ namespace StellarisNameListGenerator.Service
                     hasNames = true;
                     usedNames.Add(name);
 
-                    string formattedName = $"\"{name}\"";
+                    string formattedName = $"\"{ProcessName(name)}\"";
 
                     if (lines.Last().Length + 1 + formattedName.Length > MaximumLineLength)
                     {
@@ -411,6 +439,14 @@ namespace StellarisNameListGenerator.Service
             }
 
             return string.Join('\n', values);
+        }
+
+        string ProcessName(string name)
+        {
+            return name
+                .Replace('ă', 'ã')
+                .Replace('ș', 's')
+                .Replace('ț', 't');
         }
 
         string GetIndentation(int levels)
