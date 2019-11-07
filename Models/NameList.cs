@@ -57,6 +57,10 @@ namespace StellarisNameListGenerator.Models
             Places.Countries.AddRange(other.Places.Countries);
             Places.Regions.AddRange(other.Places.Regions);
             Places.Cities.AddRange(other.Places.Cities);
+
+            Places.Mountains.AddRange(other.Places.Mountains);
+            Places.Deserts.AddRange(other.Places.Deserts);
+
             Places.Rivers.AddRange(other.Places.Rivers);
             Places.Lakes.AddRange(other.Places.Lakes);
             Places.Seas.AddRange(other.Places.Seas);

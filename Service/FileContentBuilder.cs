@@ -64,6 +64,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
                 .Concat(nameList.Places.Cities)
+                .Concat(nameList.Places.Mountains)
+                .Concat(nameList.Places.Deserts)
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas);
@@ -71,6 +73,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
                 .Concat(nameList.Places.Cities)
+                .Concat(nameList.Places.Mountains)
+                .Concat(nameList.Places.Deserts)
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas);
@@ -236,6 +240,16 @@ namespace StellarisNameListGenerator.Service
             
             content += $"{GetIndentation(1)}army_names = {{{Environment.NewLine}";
 
+            IEnumerable<NameGroup> psionicArmyNames = nameList.Armies.PsionicArmy
+                .Concat(nameList.MythologicalCreatures
+                    .SelectMany(x => new List<NameGroup>
+                    {
+                        new NameGroup { Name = $"Covert Ops - Mythological creatures", Values = x.Values.Select(y => $"{y} Covert Ops").ToList() },
+                        new NameGroup { Name = $"Divisions - Mythological creatures", Values = x.Values.Select(y => $"{y} Divison").ToList() },
+                        new NameGroup { Name = $"Legions - Mythological creatures", Values = x.Values.Select(y => $"{y} Legion").ToList() },
+                        new NameGroup { Name = $"Squadrons - Mythological creatures", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
+                    }));
+
             content += BuildNameArray(nameList.Armies.DefenceArmy, "defense_army", 2, "%O% Planetary Guard");
             content += BuildNameArray(nameList.Armies.AssaultArmy, "assault_army", 2, "%O% Expeditionary Force");
             content += BuildNameArray(nameList.Armies.OccupationArmy, "occupation_army", 2, "%O% Garrison Force");
@@ -250,7 +264,7 @@ namespace StellarisNameListGenerator.Service
             content += BuildNameArray(nameList.Armies.AndroidDefenceArmy, "android_defense_army", 2, "%O% Synthetic Sentinels");
             content += BuildNameArray(nameList.Armies.AndroidAssaultArmy, "android_army", 2, "%O% Synthetic Rangers");
             content += Environment.NewLine;
-            content += BuildNameArray(nameList.Armies.PsionicArmy, "psionic_army", 2, "%O% Psi Commando");
+            content += BuildNameArray(psionicArmyNames, "psionic_army", 2, "%O% Psi Commando");
             content += BuildNameArray(nameList.Armies.XenomorphArmy, "xenomorph_army", 2, "%O% Bio-Warfare Division");
             content += BuildNameArray(nameList.Armies.SuperSoldierArmy, "gene_warrior_army", 2, "%O% Bio-Engineered Squadron");
 
@@ -263,14 +277,18 @@ namespace StellarisNameListGenerator.Service
         {
             string content = string.Empty;
 
+            IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
+                .Concat(nameList.Places.Deserts);
             IEnumerable<NameGroup> oceanNames = nameList.Planets.Ocean
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas);
+            IEnumerable<NameGroup> alpineNames = nameList.Planets.Alpine
+                .Concat(nameList.Places.Mountains);
             
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
             content += BuildPlanetNameArray(nameList.Planets.Generic, "generic");
-            content += BuildPlanetNameArray(nameList.Planets.Desert, "pc_desert");
+            content += BuildPlanetNameArray(desertNames, "pc_desert");
             content += BuildPlanetNameArray(nameList.Planets.Arid, "pc_arid");
             content += BuildPlanetNameArray(nameList.Planets.Tropical, "pc_tropical");
             content += BuildPlanetNameArray(nameList.Planets.Continental, "pc_continental");
@@ -280,7 +298,7 @@ namespace StellarisNameListGenerator.Service
             content += BuildPlanetNameArray(nameList.Planets.Arctic, "pc_arctic");
             content += BuildPlanetNameArray(nameList.Planets.Tomb, "pc_nuked");
             content += BuildPlanetNameArray(nameList.Planets.Savannah, "pc_savannah");
-            content += BuildPlanetNameArray(nameList.Planets.Alpine, "pc_alpine");
+            content += BuildPlanetNameArray(alpineNames, "pc_alpine");
             content += BuildPlanetNameArray(nameList.Planets.Molten, "pc_molten");
             content += BuildPlanetNameArray(nameList.Planets.Barren, "pc_barren");
             content += BuildPlanetNameArray(nameList.Planets.Asteroid, "pc_asteroid");

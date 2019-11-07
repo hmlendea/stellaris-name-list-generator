@@ -8,6 +8,9 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> Regions { get; set; }
         public List<NameGroup> Cities { get; set; }
 
+        public List<NameGroup> Mountains { get; set; }
+        public List<NameGroup> Deserts { get; set; }
+
         public List<NameGroup> Rivers { get; set; }
         public List<NameGroup> Lakes { get; set; }
         public List<NameGroup> Seas { get; set; }
@@ -17,6 +20,9 @@ namespace StellarisNameListGenerator.Models
             Countries = new List<NameGroup>();
             Regions = new List<NameGroup>();
             Cities = new List<NameGroup>();
+
+            Mountains = new List<NameGroup>();
+            Deserts = new List<NameGroup>();
 
             Rivers = new List<NameGroup>();
             Lakes = new List<NameGroup>();
