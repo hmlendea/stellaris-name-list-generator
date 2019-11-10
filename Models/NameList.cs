@@ -59,6 +59,7 @@ namespace StellarisNameListGenerator.Models
             Places.Cities.AddRange(other.Places.Cities);
 
             Places.Mountains.AddRange(other.Places.Mountains);
+            Places.Forests.AddRange(other.Places.Forests);
             Places.Deserts.AddRange(other.Places.Deserts);
 
             Places.Rivers.AddRange(other.Places.Rivers);
@@ -67,6 +68,8 @@ namespace StellarisNameListGenerator.Models
             
             Warfare.Weapons.AddRange(other.Warfare.Weapons);
             Warfare.MilitaryUnitTypes.AddRange(other.Warfare.MilitaryUnitTypes);
+
+            Warfare.Forts.AddRange(other.Warfare.Forts);
             Warfare.BattleLocations.AddRange(other.Warfare.BattleLocations);
 
             Warfare.MilitaryPeopleTier1.AddRange(other.Warfare.MilitaryPeopleTier1);
@@ -124,11 +127,14 @@ namespace StellarisNameListGenerator.Models
             Armies.RoboticDefenceArmy.AddRange(other.Armies.RoboticDefenceArmy);
             Armies.RoboticAssaultArmy.AddRange(other.Armies.RoboticAssaultArmy);
             Armies.RoboticOccupationArmy.AddRange(other.Armies.RoboticOccupationArmy);
-            Armies.AndroidAssaultArmy.AddRange(other.Armies.AndroidAssaultArmy);
             Armies.AndroidDefenceArmy.AddRange(other.Armies.AndroidDefenceArmy);
+            Armies.AndroidAssaultArmy.AddRange(other.Armies.AndroidAssaultArmy);
             Armies.PsionicArmy.AddRange(other.Armies.PsionicArmy);
             Armies.XenomorphArmy.AddRange(other.Armies.XenomorphArmy);
             Armies.SuperSoldierArmy.AddRange(other.Armies.SuperSoldierArmy);
+            Armies.PrimitiveArmy.AddRange(other.Armies.PrimitiveArmy);
+            Armies.IndustrialArmy.AddRange(other.Armies.IndustrialArmy);
+            Armies.PostAtomicArmy.AddRange(other.Armies.PostAtomicArmy);
 
             Planets.Generic.AddRange(other.Planets.Generic);
             Planets.Desert.AddRange(other.Planets.Desert);

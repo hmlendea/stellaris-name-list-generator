@@ -4,6 +4,8 @@ using System.Linq;
 
 using StellarisNameListGenerator.Models;
 
+using NuciExtensions;
+
 namespace StellarisNameListGenerator.Service
 {
     public sealed class FileContentBuilder : IFileContentBuilder
@@ -11,21 +13,24 @@ namespace StellarisNameListGenerator.Service
         const int IndentationSize = 4;
         const int MaximumLineLength = 140;
 
+        readonly Random random = new Random(873);
+
         public string BuildContent(NameList nameList)
         {
-            string content = $"### {nameList.Name}{Environment.NewLine}{Environment.NewLine}";
+            string content = $"### {nameList.Id}{Environment.NewLine}";
+            content += $"### {nameList.Name}{Environment.NewLine}";
+            content += $"### Leaders: {GetRandomLeaderName(nameList)}, {GetRandomLeaderName(nameList)}{Environment.NewLine}";
+            content += $"### Ships: {GetRandomShipName(nameList)}, {GetRandomShipName(nameList)}{Environment.NewLine}";
+            content += $"### Fleets: {GetRandomFleetName(nameList)}, {GetRandomFleetName(nameList)}{Environment.NewLine}";
+            content += $"### Colonies: {GetRandomPlanetName(nameList)}, {GetRandomPlanetName(nameList)}{Environment.NewLine}";
+            content += Environment.NewLine;
 
             content += $"{nameList.Id} = {{{Environment.NewLine}";
             content += BuildShipNames(nameList);
-            content += Environment.NewLine;
             content += BuildShipClassNames(nameList);
-            content += Environment.NewLine;
             content += BuildFleetNames(nameList);
-            content += Environment.NewLine;
             content += BuildArmyNames(nameList);
-            content += Environment.NewLine;
             content += BuildPlanetNames(nameList);
-            content += Environment.NewLine;
             content += BuildCharacterNames(nameList);
             content += "}";
 
@@ -47,10 +52,12 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> destroyerNames = nameList.Ships.Destroyer
                 .Concat(nameList.Places.Cities)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> cruiserNames = nameList.Ships.Cruiser
                 .Concat(nameList.Places.Regions)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.Warfare.MilitaryPeopleTier2)
                 .Concat(nameList.MythologicalCreatures);
@@ -60,11 +67,14 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.Warfare.MilitaryPeopleTier3)
                 .Concat(nameList.MythologicalCreatures);
+            IEnumerable<NameGroup> titanNames = nameList.Ships.Titan
+                .Concat(nameList.Warfare.MilitaryPeopleTier3);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
                 .Concat(nameList.Places.Cities)
                 .Concat(nameList.Places.Mountains)
+                .Concat(nameList.Places.Forests)
                 .Concat(nameList.Places.Deserts)
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
@@ -74,6 +84,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Regions)
                 .Concat(nameList.Places.Cities)
                 .Concat(nameList.Places.Mountains)
+                .Concat(nameList.Places.Forests)
                 .Concat(nameList.Places.Deserts)
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
@@ -87,55 +98,51 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starholds);
             IEnumerable<NameGroup> starfortressNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starfortresses);
             IEnumerable<NameGroup> citadelNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Citadels);
-            IEnumerable<NameGroup> genericMilitaryStations = nameList.Stations.MilitaryStations.Generic.Concat(nameList.Warfare.BattleLocations);
+            IEnumerable<NameGroup> genericMilitaryStations = nameList.Stations.MilitaryStations.Generic
+                .Concat(nameList.Warfare.Forts)
+                .Concat(nameList.Warfare.BattleLocations);
             IEnumerable<NameGroup> smallMilitaryStations = nameList.Stations.MilitaryStations.Small
                 .Concat(nameList.Stations.MilitaryStations.Generic)
                 .Concat(nameList.Warfare.Weapons)
+                .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.Warfare.MilitaryPeopleTier1)
                 .Concat(nameList.Warfare.MilitaryPeopleTier3);
             IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Medium
                 .Concat(nameList.Stations.MilitaryStations.Generic)
-                .Concat(nameList.Warfare.Weapons)
+                .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.Warfare.MilitaryPeopleTier2)
                 .Concat(nameList.Warfare.MilitaryPeopleTier3);
             IEnumerable<NameGroup> largeMilitaryStations = nameList.Stations.MilitaryStations.Large
                 .Concat(nameList.Stations.MilitaryStations.Generic)
-                .Concat(nameList.Warfare.Weapons)
+                .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.Warfare.MilitaryPeopleTier3);
             
             content += BuildNameArray(genericNames, "generic", 2);
-            content += Environment.NewLine;
             content += BuildNameArray(corvetteNames, "corvette", 2);
             content += BuildNameArray(destroyerNames, "destroyer", 2);
             content += BuildNameArray(cruiserNames, "cruiser", 2);
             content += BuildNameArray(battleshipNames, "battleship", 2);
-            content += Environment.NewLine;
-            content += BuildNameArray(nameList.Ships.Titan, "titan", 2);
+            content += BuildNameArray(titanNames, "titan", 2);
             content += BuildNameArray(nameList.Ships.Colossus, "colossus", 2);
-            content += Environment.NewLine;
             content += BuildNameArray(constructorNames, "constructor", 2);
             content += BuildNameArray(nameList.Ships.Science, "science", 2);
             content += BuildNameArray(coloniserNames, "colonizer", 2);
             content += BuildNameArray(coloniserNames, "sponsored_colonizer", 2);
             content += BuildNameArray(transportNames, "transport", 2);
-            content += Environment.NewLine;
             content += BuildNameArray(nameList.Stations.MiningStations, "mining_station", 2);
             content += BuildNameArray(nameList.Stations.ResearchStations, "research_station", 2);
             content += BuildNameArray(nameList.Stations.ObservationStations, "observation_station", 2);
-            content += Environment.NewLine;
             content += BuildNameArray(outpostNames, "starbase_outpost", 2, "%O% Starbase");
             content += BuildNameArray(starportNames, "starbase_starport", 2, "%O% Starbase");
             content += BuildNameArray(starholdNames, "starbase_starhold", 2, "%O% Starbase");
             content += BuildNameArray(starfortressNames, "starbase_starfortress", 2, "%O% Starbase");
             content += BuildNameArray(citadelNames, "starbase_citadel", 2, "%O% Starbase");
-            content += Environment.NewLine;
             content += BuildNameArray(smallMilitaryStations, "military_station_small", 2);
             content += BuildNameArray(mediumMilitaryStations, "military_station_medium", 2);
             content += BuildNameArray(largeMilitaryStations, "military_station_large", 2);
-            content += Environment.NewLine;
             content += BuildNameArray(nameList.Ships.IonCannon, "ion_cannon", 2);
 
             content += $"{GetIndentation(1)}}}{Environment.NewLine}";
@@ -159,38 +166,38 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> mediumMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Medium);
             IEnumerable<NameGroup> largeMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Large);
             
-            content += BuildNameArray(genericShipClasses, "generic", 2);
-            content += Environment.NewLine;
-            content += BuildNameArray(nameList.ShipClasses.Corvette, "corvette", 2);
-            content += BuildNameArray(nameList.ShipClasses.Destroyer, "destroyer", 2);
-            content += BuildNameArray(nameList.ShipClasses.Cruiser, "cruiser", 2);
-            content += BuildNameArray(nameList.ShipClasses.Battleship, "battleship", 2);
-            content += Environment.NewLine;
-            content += BuildNameArray(nameList.ShipClasses.Titan, "titan", 2);
-            content += BuildNameArray(nameList.ShipClasses.Colossus, "colossus", 2);
-            content += Environment.NewLine;
-            content += BuildNameArray(nameList.ShipClasses.Constructor, "constructor", 2);
-            content += BuildNameArray(nameList.ShipClasses.Science, "science", 2);
-            content += BuildNameArray(nameList.ShipClasses.Coloniser, "coloniser", 2);
-            content += BuildNameArray(nameList.ShipClasses.Coloniser, "sponsored_coloniser", 2);
-            content += BuildNameArray(nameList.ShipClasses.Transport, "transport", 2);
-            content += Environment.NewLine;
-            content += BuildNameArray(nameList.StationClasses.MiningStations, "mining_station", 2);
-            content += BuildNameArray(nameList.StationClasses.ResearchStations, "research_station", 2);
-            content += BuildNameArray(nameList.StationClasses.ObservationStations, "observation_station", 2);
-            content += Environment.NewLine;
-            content += BuildNameArray(outpostClasses, "starbase_outpost", 2);
-            content += BuildNameArray(starportClasses, "starbase_starport", 2);
-            content += BuildNameArray(starholdClasses, "starbase_starhold", 2);
-            content += BuildNameArray(starfortressClasses, "starbase_starfortress", 2);
-            content += BuildNameArray(citadelClasses, "starbase_citadel", 2);
-            content += Environment.NewLine;
-            content += BuildNameArray(smallMilitaryStationClasses, "military_station_small", 2);
-            content += BuildNameArray(mediumMilitaryStationClasses, "military_station_medium", 2);
-            content += BuildNameArray(largeMilitaryStationClasses, "military_station_large", 2);
-            content += Environment.NewLine;
-            content += BuildNameArray(nameList.Ships.IonCannon, "ion_cannon", 2);
+            string innerContent = string.Empty;
+            innerContent += BuildNameArray(genericShipClasses, "generic", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Corvette, "corvette", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Destroyer, "destroyer", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Cruiser, "cruiser", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Battleship, "battleship", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Titan, "titan", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Colossus, "colossus", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Constructor, "constructor", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Science, "science", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Coloniser, "coloniser", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Coloniser, "sponsored_coloniser", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Transport, "transport", 2);
+            innerContent += BuildNameArray(nameList.StationClasses.MiningStations, "mining_station", 2);
+            innerContent += BuildNameArray(nameList.StationClasses.ResearchStations, "research_station", 2);
+            innerContent += BuildNameArray(nameList.StationClasses.ObservationStations, "observation_station", 2);
+            innerContent += BuildNameArray(outpostClasses, "starbase_outpost", 2);
+            innerContent += BuildNameArray(starportClasses, "starbase_starport", 2);
+            innerContent += BuildNameArray(starholdClasses, "starbase_starhold", 2);
+            innerContent += BuildNameArray(starfortressClasses, "starbase_starfortress", 2);
+            innerContent += BuildNameArray(citadelClasses, "starbase_citadel", 2);
+            innerContent += BuildNameArray(smallMilitaryStationClasses, "military_station_small", 2);
+            innerContent += BuildNameArray(mediumMilitaryStationClasses, "military_station_medium", 2);
+            innerContent += BuildNameArray(largeMilitaryStationClasses, "military_station_large", 2);
+            innerContent += BuildNameArray(nameList.Ships.IonCannon, "ion_cannon", 2);
 
+            if (string.IsNullOrWhiteSpace(innerContent))
+            {
+                return string.Empty;
+            }
+
+            content += innerContent;
             content += $"{GetIndentation(1)}}}{Environment.NewLine}";
 
             return content;
@@ -200,35 +207,11 @@ namespace StellarisNameListGenerator.Service
         {
             string content = string.Empty;
 
-            IEnumerable<NameGroup> fleetNames = nameList.Armies.Fleet
-                .Concat(nameList.Warfare.Weapons
-                    .SelectMany(x => new List<NameGroup>
-                    {
-                        new NameGroup { Name = $"Armadas - Weapons", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Fleets - Weapons", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Squadrons - Weapons", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Weapons", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
-                    }))
-                .Concat(nameList.Warfare.MilitaryUnitTypes
-                    .SelectMany(x => new List<NameGroup>
-                    {
-                        new NameGroup { Name = $"Armadas - Military Unit Types", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Fleets - Military Unit Types", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Squadrons - Military Unit Types", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Military Unit Types", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
-                    }))
-                .Concat(nameList.MythologicalCreatures
-                    .SelectMany(x => new List<NameGroup>
-                    {
-                        new NameGroup { Name = $"Armadas - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Fleets - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Squadrons - Mythological Creatures", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Mythological Creatures", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
-                    }));
+            IEnumerable<NameGroup> fleetNames = GenerateFleetNames(nameList);
             
             content += $"{GetIndentation(1)}fleet_names = {{{Environment.NewLine}";
             content += BuildNameArray(fleetNames, "random_names", 2);
-            content += $"{GetIndentation(2)}sequential_name = \"%O% Fleet\"{Environment.NewLine}";
+            content += $"{GetIndentation(2)}sequential_name = \"{nameList.Armies.FleetSequentialName}\"{Environment.NewLine}";
             content += $"{GetIndentation(1)}}}{Environment.NewLine}";
 
             return content;
@@ -250,24 +233,27 @@ namespace StellarisNameListGenerator.Service
                         new NameGroup { Name = $"Squadrons - Mythological creatures", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
                     }));
 
-            content += BuildNameArray(nameList.Armies.DefenceArmy, "defense_army", 2, "%O% Planetary Guard");
-            content += BuildNameArray(nameList.Armies.AssaultArmy, "assault_army", 2, "%O% Expeditionary Force");
-            content += BuildNameArray(nameList.Armies.OccupationArmy, "occupation_army", 2, "%O% Garrison Force");
-            content += Environment.NewLine;
-            content += BuildNameArray(nameList.Armies.SlaveArmy, "slave_army", 2, "%O% Indentured Rifles");
-            content += BuildNameArray(nameList.Armies.CloneArmy, "clone_army", 2, "%O% Clone Army");
-            content += Environment.NewLine;
-            content += BuildNameArray(nameList.Armies.RoboticDefenceArmy, "robotic_defense_army", 2, "%O% Ground Defence Matrix");
-            content += BuildNameArray(nameList.Armies.RoboticAssaultArmy, "robotic_army", 2, "%O% Hunter-Killer Group");
-            content += BuildNameArray(nameList.Armies.RoboticOccupationArmy, "robotic_occupation_army", 2, "%O% Mechanised Garrison");
-            content += Environment.NewLine;
-            content += BuildNameArray(nameList.Armies.AndroidDefenceArmy, "android_defense_army", 2, "%O% Synthetic Sentinels");
-            content += BuildNameArray(nameList.Armies.AndroidAssaultArmy, "android_army", 2, "%O% Synthetic Rangers");
-            content += Environment.NewLine;
-            content += BuildNameArray(psionicArmyNames, "psionic_army", 2, "%O% Psi Commando");
-            content += BuildNameArray(nameList.Armies.XenomorphArmy, "xenomorph_army", 2, "%O% Bio-Warfare Division");
-            content += BuildNameArray(nameList.Armies.SuperSoldierArmy, "gene_warrior_army", 2, "%O% Bio-Engineered Squadron");
+            string innerContent = string.Empty;
+            innerContent += BuildNameArray(nameList.Armies.DefenceArmy, "defense_army", 2, nameList.Armies.DefenceArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.AssaultArmy, "assault_army", 2, nameList.Armies.AssaultArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.OccupationArmy, "occupation_army", 2, nameList.Armies.OccupationArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.SlaveArmy, "slave_army", 2, nameList.Armies.SlaveArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.CloneArmy, "clone_army", 2, nameList.Armies.CloneArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.RoboticDefenceArmy, "robotic_defense_army", 2, nameList.Armies.RoboticDefenceArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.RoboticAssaultArmy, "robotic_army", 2, nameList.Armies.RoboticAssaultArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.RoboticOccupationArmy, "robotic_occupation_army", 2, nameList.Armies.RoboticOccupationArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.AndroidDefenceArmy, "android_defense_army", 2, nameList.Armies.AndroidDefenceArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.AndroidAssaultArmy, "android_army", 2, nameList.Armies.AndroidAssaultArmySequentialName);
+            innerContent += BuildNameArray(psionicArmyNames, "psionic_army", 2, nameList.Armies.PsionicArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.XenomorphArmy, "xenomorph_army", 2, nameList.Armies.XenomorphArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.SuperSoldierArmy, "gene_warrior_army", 2, nameList.Armies.SuperSoldierArmySequentialName);
 
+            if (string.IsNullOrWhiteSpace(innerContent))
+            {
+                return string.Empty;
+            }
+
+            content += innerContent;
             content += $"{GetIndentation(1)}}}{Environment.NewLine}";
 
             return content;
@@ -277,8 +263,31 @@ namespace StellarisNameListGenerator.Service
         {
             string content = string.Empty;
 
+            IEnumerable<NameGroup> genericNames = nameList.Planets.Generic
+                .Select(x => new NameGroup
+                {
+                    Name = x.Name,
+                    Values = x.Values
+                        .Except(nameList.Planets.Desert.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Arid.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Tropical.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Continental.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Gaia.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Ocean.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Tundra.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Arctic.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Tomb.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Savannah.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Alpine.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Molten.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Barren.SelectMany(y => y.Values))
+                        .Except(nameList.Planets.Asteroid.SelectMany(y => y.Values))
+                        .ToList()
+                });
             IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
                 .Concat(nameList.Places.Deserts);
+            IEnumerable<NameGroup> tropicalNames = nameList.Planets.Tropical
+                .Concat(nameList.Places.Forests);
             IEnumerable<NameGroup> oceanNames = nameList.Planets.Ocean
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
@@ -290,7 +299,7 @@ namespace StellarisNameListGenerator.Service
             content += BuildPlanetNameArray(nameList.Planets.Generic, "generic");
             content += BuildPlanetNameArray(desertNames, "pc_desert");
             content += BuildPlanetNameArray(nameList.Planets.Arid, "pc_arid");
-            content += BuildPlanetNameArray(nameList.Planets.Tropical, "pc_tropical");
+            content += BuildPlanetNameArray(tropicalNames, "pc_tropical");
             content += BuildPlanetNameArray(nameList.Planets.Continental, "pc_continental");
             content += BuildPlanetNameArray(nameList.Planets.Gaia, "pc_gaia");
             content += BuildPlanetNameArray(oceanNames, "pc_ocean");
@@ -332,6 +341,11 @@ namespace StellarisNameListGenerator.Service
         {
             string content = string.Empty;
 
+            if (nameGroups.All(x => x.Values.Count == 0))
+            {
+                return content;
+            }
+
             content += $"{GetIndentation(2)}{planetClass} = {{{Environment.NewLine}";
             content += BuildNameArray(nameGroups, "names", 3);
             content += $"{GetIndentation(2)}}}{Environment.NewLine}";
@@ -345,12 +359,19 @@ namespace StellarisNameListGenerator.Service
             
             content += $"{GetIndentation(2)}{characterNames.Id} = {{{Environment.NewLine}";
             content += $"{GetIndentation(3)}weight = {characterNames.Weight}{Environment.NewLine}";
+
+            content += BuildNameArray(characterNames.FullNames, "full_names", 3);
+            content += BuildNameArray(characterNames.FirstNames, "first_names", 3);
+            content += BuildNameArray(characterNames.RoyalFirstNames, "regnal_first_names", 3);
+            content += BuildNameArray(characterNames.MaleFullNames, "full_names_male", 3);
             content += BuildNameArray(characterNames.MaleFirstNames, "first_names_male", 3);
             content += BuildNameArray(characterNames.MaleRoyalFirstNames, "regnal_first_names_male", 3);
+            content += BuildNameArray(characterNames.FemaleFullNames, "full_names_female", 3);
             content += BuildNameArray(characterNames.FemaleFirstNames, "first_names_female", 3);
             content += BuildNameArray(characterNames.FemaleRoyalFirstNames, "regnal_first_names_female", 3);
             content += BuildNameArray(characterNames.SecondNames, "second_first_names", 3);
             content += BuildNameArray(characterNames.RoyalSecondNames, "regnal_second_names", 3);
+
             content += $"{GetIndentation(2)}}}{Environment.NewLine}";
 
             return content;
@@ -362,6 +383,11 @@ namespace StellarisNameListGenerator.Service
         string BuildNameArray(IEnumerable<NameGroup> nameGroups, string arrayName, int indentationLevels, string sequentialName)
         {
             string content = string.Empty;
+
+            if (string.IsNullOrWhiteSpace(sequentialName) && !nameGroups.Any(x => x.Values.Count > 0))
+            {
+                return content;
+            }
 
             content += $"{GetIndentation(indentationLevels)}{arrayName} = {{{Environment.NewLine}";
 
@@ -417,7 +443,7 @@ namespace StellarisNameListGenerator.Service
                 bool hasNames = false;
 
                 IEnumerable<string> validNames = group.Values
-                    .Where(x => !usedNames.Contains(x))
+                    .Where(x => !usedNames.Contains(x) && !string.IsNullOrWhiteSpace(x))
                     .OrderBy(x => x)
                     .Distinct();
 
@@ -426,7 +452,12 @@ namespace StellarisNameListGenerator.Service
                     hasNames = true;
                     usedNames.Add(name);
 
-                    string formattedName = $"\"{ProcessName(name)}\"";
+                    string formattedName = ProcessName(name);
+
+                    if (formattedName.Contains(" "))
+                    {
+                        formattedName = $"\"{formattedName}\"";
+                    }
 
                     if (lines.Last().Length + 1 + formattedName.Length > MaximumLineLength)
                     {
@@ -470,6 +501,182 @@ namespace StellarisNameListGenerator.Service
         string GetIndentation(int levels)
         {
             return string.Empty.PadRight(levels * IndentationSize, ' ');
+        }
+
+        IEnumerable<NameGroup> GenerateFleetNames(NameList nameList)
+        {
+            return nameList.Armies.Fleet
+                .Concat(nameList.Warfare.Weapons
+                    .SelectMany(x => new List<NameGroup>
+                    {
+                        new NameGroup { Name = $"Armadas - Weapons", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Fleets - Weapons", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Squadrons - Weapons", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Weapons", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
+                    }))
+                .Concat(nameList.Warfare.MilitaryUnitTypes
+                    .SelectMany(x => new List<NameGroup>
+                    {
+                        new NameGroup { Name = $"Armadas - Military Unit Types", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Fleets - Military Unit Types", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Squadrons - Military Unit Types", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Military Unit Types", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
+                    }))
+                .Concat(nameList.MythologicalCreatures
+                    .SelectMany(x => new List<NameGroup>
+                    {
+                        new NameGroup { Name = $"Armadas - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Fleets - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Squadrons - Mythological Creatures", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Mythological Creatures", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
+                    }));
+        }
+
+        string GetRandomLeaderName(NameList nameList)
+        {
+            if (nameList.Characters is null ||
+                nameList.Characters.Count == 0 ||
+                nameList.Characters.All(x => x.IsEmpty))
+            {
+                return string.Empty;
+            }
+
+            CharacterNames characterNames = nameList.Characters.Where(x => !x.IsEmpty).GetRandomElement(random);
+
+            bool takeMale = new List<bool> { true, false }.GetRandomElement(random);
+            
+            if (characterNames.FullNames.Any(x => x.Values.Count > 0))
+            {
+                return characterNames.FullNames.SelectMany(x => x.Values).GetRandomElement(random);
+            }
+
+            if (takeMale && characterNames.MaleFullNames.Any(x => x.Values.Count > 0))
+            {
+                return characterNames.MaleFullNames.SelectMany(x => x.Values).GetRandomElement(random);
+            }
+
+            if (!takeMale && characterNames.FemaleFullNames.Any(x => x.Values.Count > 0))
+            {
+                return characterNames.FemaleFullNames.SelectMany(x => x.Values).GetRandomElement(random);
+            }
+
+            if (characterNames.SecondNames.Any(x => x.Values.Count > 0))
+            {
+                if (characterNames.FirstNames.Any(x => x.Values.Count > 0))
+                {
+                    return
+                        characterNames.FirstNames.SelectMany(x => x.Values).GetRandomElement(random) + " " +
+                        characterNames.SecondNames.SelectMany(x => x.Values).GetRandomElement(random);
+                }
+
+                if (takeMale && characterNames.MaleFirstNames.Any(x => x.Values.Count > 0))
+                {
+                    return
+                        characterNames.MaleFirstNames.SelectMany(x => x.Values).GetRandomElement(random) + " " +
+                        characterNames.SecondNames.SelectMany(x => x.Values).GetRandomElement(random);
+                }
+
+                if (!takeMale && characterNames.FemaleFirstNames.Any(x => x.Values.Count > 0))
+                {
+                    return
+                        characterNames.FemaleFirstNames.SelectMany(x => x.Values).GetRandomElement(random) + " " +
+                        characterNames.SecondNames.SelectMany(x => x.Values).GetRandomElement(random);
+                }
+            }
+
+            return string.Empty;
+        }
+
+        string GetRandomShipName(NameList nameList)
+        {
+            IEnumerable<NameGroup> shipNames = nameList.Ships.Generic
+                .Concat(nameList.Denonyms)
+                .Concat(nameList.MythologicalCreatures)
+                .Concat(nameList.Places.Cities)
+                .Concat(nameList.Places.Countries)
+                .Concat(nameList.Places.Deserts)
+                .Concat(nameList.Places.Forests)
+                .Concat(nameList.Places.Lakes)
+                .Concat(nameList.Places.Mountains)
+                .Concat(nameList.Places.Regions)
+                .Concat(nameList.Places.Rivers)
+                .Concat(nameList.Places.Seas)
+                .Concat(nameList.Ships.Battleship)
+                .Concat(nameList.Ships.Coloniser)
+                .Concat(nameList.Ships.Constructor)
+                .Concat(nameList.Ships.Corvette)
+                .Concat(nameList.Ships.Cruiser)
+                .Concat(nameList.Ships.Destroyer)
+                .Concat(nameList.Ships.Science)
+                .Concat(nameList.Ships.Titan)
+                .Concat(nameList.Ships.Transport)
+                .Concat(nameList.Stations.MilitaryStations.Generic)
+                .Concat(nameList.Stations.MilitaryStations.Large)
+                .Concat(nameList.Stations.MilitaryStations.Medium)
+                .Concat(nameList.Stations.MilitaryStations.Small)
+                .Concat(nameList.Stations.Starbases.Citadels)
+                .Concat(nameList.Stations.Starbases.Generic)
+                .Concat(nameList.Stations.Starbases.Outposts)
+                .Concat(nameList.Stations.Starbases.Starfortresses)
+                .Concat(nameList.Stations.Starbases.Starholds)
+                .Concat(nameList.Stations.Starbases.Starports)
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.Warfare.Forts)
+                .Concat(nameList.Warfare.MilitaryPeopleTier1)
+                .Concat(nameList.Warfare.MilitaryPeopleTier2)
+                .Concat(nameList.Warfare.MilitaryPeopleTier3)
+                .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.Weapons);
+
+            return shipNames.SelectMany(x => x.Values).GetRandomElement(random);
+        }
+
+        string GetRandomFleetName(NameList nameList)
+        {
+            IEnumerable<NameGroup> fleetNames = GenerateFleetNames(nameList);
+
+            if (fleetNames.Any(x => x.Values.Count > 0))
+            {
+                return fleetNames
+                    .SelectMany(x => x.Values)
+                    .GetRandomElement(random);
+            }
+
+            List<string> cardinalNumbers = new List<string> { "1", "10", "33", "42", "56", "86", "101", "303", "500", "613", "743", "873" };
+            List<string> ordinalNumbers = new List<string> { "1st", "21st", "101st", "42nd", "62nd", "72nd", "53rd", "83rd", "123rd", "103rd", "4th", "12th", "14th", "404th" };
+            List<string> romanNumbers = new List<string> { "I", "II", "IV", "XI", "XXXII", "CXXXII", "CDII", "DLXII" };
+
+            return nameList.Armies.FleetSequentialName
+                .Replace("%O%", ordinalNumbers.GetRandomElement())
+                .Replace("%C%", cardinalNumbers.GetRandomElement())
+                .Replace("%R%", romanNumbers.GetRandomElement());
+        }
+
+        string GetRandomPlanetName(NameList nameList)
+        {
+            IEnumerable<NameGroup> planetNames = nameList.Planets.Generic
+                .Concat(nameList.Places.Deserts)
+                .Concat(nameList.Places.Forests)
+                .Concat(nameList.Places.Lakes)
+                .Concat(nameList.Places.Mountains)
+                .Concat(nameList.Places.Rivers)
+                .Concat(nameList.Places.Seas)
+                .Concat(nameList.Planets.Alpine)
+                .Concat(nameList.Planets.Arctic)
+                .Concat(nameList.Planets.Arid)
+                .Concat(nameList.Planets.Asteroid)
+                .Concat(nameList.Planets.Barren)
+                .Concat(nameList.Planets.Continental)
+                .Concat(nameList.Planets.Desert)
+                .Concat(nameList.Planets.Gaia)
+                .Concat(nameList.Planets.Molten)
+                .Concat(nameList.Planets.Ocean)
+                .Concat(nameList.Planets.Savannah)
+                .Concat(nameList.Planets.Tomb)
+                .Concat(nameList.Planets.Tropical)
+                .Concat(nameList.Planets.Tundra);
+
+            return planetNames.SelectMany(x => x.Values).GetRandomElement(random);
         }
     }
 }

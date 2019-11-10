@@ -9,6 +9,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> Cities { get; set; }
 
         public List<NameGroup> Mountains { get; set; }
+        public List<NameGroup> Forests { get; set; }
         public List<NameGroup> Deserts { get; set; }
 
         public List<NameGroup> Rivers { get; set; }
@@ -22,6 +23,7 @@ namespace StellarisNameListGenerator.Models
             Cities = new List<NameGroup>();
 
             Mountains = new List<NameGroup>();
+            Forests = new List<NameGroup>();
             Deserts = new List<NameGroup>();
 
             Rivers = new List<NameGroup>();
