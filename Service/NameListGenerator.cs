@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 using NuciDAL.Repositories;
 
@@ -22,16 +22,16 @@ namespace StellarisNameListGenerator.Service
             this.nameListRepository = nameListRepository;
         }
 
-        public void Generate(string filePath)
+        public void Generate(string filePath, string name)
         {
             NameList nameList = GetMergedNameList();
             string fileName = Path.GetFileNameWithoutExtension(filePath);
             nameList.Id = fileName;
+            nameList.Name = name;
 
             string fileContent = fileContentBuilder.BuildContent(nameList);
 
-
-            File.WriteAllText(filePath, fileContent);
+            File.WriteAllText(filePath, fileContent, new UTF8Encoding(true));
         }
 
         public NameList GetMergedNameList()

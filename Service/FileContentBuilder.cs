@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 using StellarisNameListGenerator.Models;
 
@@ -11,7 +12,7 @@ namespace StellarisNameListGenerator.Service
     public sealed class FileContentBuilder : IFileContentBuilder
     {
         const int IndentationSize = 4;
-        const int MaximumLineLength = 140;
+        const int MaximumLineLength = 150;
 
         readonly Random random = new Random(873);
 
@@ -32,7 +33,7 @@ namespace StellarisNameListGenerator.Service
             content += BuildArmyNames(nameList);
             content += BuildPlanetNames(nameList);
             content += BuildCharacterNames(nameList);
-            content += "}";
+            content += $"}}{Environment.NewLine}";
 
             return content;
         }
@@ -208,11 +209,7 @@ namespace StellarisNameListGenerator.Service
             string content = string.Empty;
 
             IEnumerable<NameGroup> fleetNames = GenerateFleetNames(nameList);
-            
-            content += $"{GetIndentation(1)}fleet_names = {{{Environment.NewLine}";
-            content += BuildNameArray(fleetNames, "random_names", 2);
-            content += $"{GetIndentation(2)}sequential_name = \"{nameList.Armies.FleetSequentialName}\"{Environment.NewLine}";
-            content += $"{GetIndentation(1)}}}{Environment.NewLine}";
+            content += BuildNameArray(fleetNames, "fleet_names", 1, nameList.Armies.FleetSequentialName);
 
             return content;
         }
@@ -319,14 +316,19 @@ namespace StellarisNameListGenerator.Service
         string BuildCharacterNames(NameList nameList)
         {
             string content = string.Empty;
-            
-            content += $"{GetIndentation(1)}character_names = {{{Environment.NewLine}";
 
             IEnumerable<CharacterNames> characterNameLists = nameList.Characters
                 .GroupBy(x => x.Id)
                 .Select(x => x.First())
                 .OrderByDescending(x => x.Weight);
             
+            if (characterNameLists.All(x => x.IsEmpty))
+            {
+                return content;
+            }
+
+            content += $"{GetIndentation(1)}character_names = {{{Environment.NewLine}";
+
             foreach (CharacterNames characterNames in characterNameLists)
             {
                 content += BuildCharacterNamesArray(characterNames);
@@ -356,22 +358,36 @@ namespace StellarisNameListGenerator.Service
         string BuildCharacterNamesArray(CharacterNames characterNames)
         {
             string content = string.Empty;
+
+            string characterNamesId = characterNames.Id;
+
+            if (string.IsNullOrWhiteSpace(characterNamesId))
+            {
+                characterNamesId = $"names{DateTime.Now.Ticks}";
+            }
             
-            content += $"{GetIndentation(2)}{characterNames.Id} = {{{Environment.NewLine}";
+            content += $"{GetIndentation(2)}{characterNamesId} = {{{Environment.NewLine}";
             content += $"{GetIndentation(3)}weight = {characterNames.Weight}{Environment.NewLine}";
 
-            content += BuildNameArray(characterNames.FullNames, "full_names", 3);
-            content += BuildNameArray(characterNames.FirstNames, "first_names", 3);
-            content += BuildNameArray(characterNames.RoyalFirstNames, "regnal_first_names", 3);
-            content += BuildNameArray(characterNames.MaleFullNames, "full_names_male", 3);
-            content += BuildNameArray(characterNames.MaleFirstNames, "first_names_male", 3);
-            content += BuildNameArray(characterNames.MaleRoyalFirstNames, "regnal_first_names_male", 3);
-            content += BuildNameArray(characterNames.FemaleFullNames, "full_names_female", 3);
-            content += BuildNameArray(characterNames.FemaleFirstNames, "first_names_female", 3);
-            content += BuildNameArray(characterNames.FemaleRoyalFirstNames, "regnal_first_names_female", 3);
-            content += BuildNameArray(characterNames.SecondNames, "second_first_names", 3);
-            content += BuildNameArray(characterNames.RoyalSecondNames, "regnal_second_names", 3);
+            string innerContent = string.Empty;
+            innerContent += BuildNameArray(characterNames.FullNames, "full_names", 3);
+            innerContent += BuildNameArray(characterNames.FirstNames, "first_names", 3);
+            innerContent += BuildNameArray(characterNames.RoyalFirstNames, "regnal_first_names", 3);
+            innerContent += BuildNameArray(characterNames.MaleFullNames, "full_names_male", 3);
+            innerContent += BuildNameArray(characterNames.MaleFirstNames, "first_names_male", 3);
+            innerContent += BuildNameArray(characterNames.MaleRoyalFirstNames, "regnal_first_names_male", 3);
+            innerContent += BuildNameArray(characterNames.FemaleFullNames, "full_names_female", 3);
+            innerContent += BuildNameArray(characterNames.FemaleFirstNames, "first_names_female", 3);
+            innerContent += BuildNameArray(characterNames.FemaleRoyalFirstNames, "regnal_first_names_female", 3);
+            innerContent += BuildNameArray(characterNames.SecondNames, "second_names", 3);
+            innerContent += BuildNameArray(characterNames.RoyalSecondNames, "regnal_second_names", 3);
 
+            if (string.IsNullOrWhiteSpace(innerContent))
+            {
+                return string.Empty;
+            }
+
+            content += innerContent;
             content += $"{GetIndentation(2)}}}{Environment.NewLine}";
 
             return content;
@@ -384,41 +400,37 @@ namespace StellarisNameListGenerator.Service
         {
             string content = string.Empty;
 
-            if (string.IsNullOrWhiteSpace(sequentialName) && !nameGroups.Any(x => x.Values.Count > 0))
+            if (string.IsNullOrWhiteSpace(sequentialName) && nameGroups.All(x => x.Values.Count == 0))
             {
                 return content;
             }
 
             content += $"{GetIndentation(indentationLevels)}{arrayName} = {{{Environment.NewLine}";
 
-            if (!string.IsNullOrWhiteSpace(sequentialName))
-            {
-                content +=
-                    $"{GetIndentation(indentationLevels + 1)}sequential_name = \"{sequentialName}\"{Environment.NewLine}";
 
-                if (nameGroups.Sum(x => x.Values.Count) == 0)
+            if (nameGroups?.Sum(x => x.Values.Count) > 0)
+            {
+                if (!string.IsNullOrWhiteSpace(sequentialName))
                 {
-                    content += $"{GetIndentation(indentationLevels)}}}{Environment.NewLine}";
-                    return content;
+                    content += $"{GetIndentation(indentationLevels + 1)}random_names = {{{Environment.NewLine}";
+                    indentationLevels += 1;
                 }
 
-                content +=
-                    Environment.NewLine +
-                    $"{GetIndentation(indentationLevels + 1)}random_names = {{{Environment.NewLine}";
-                indentationLevels += 1;
+                content += GetFormattedNameCollection(nameGroups, indentationLevels + 1);
+                
+                if (!string.IsNullOrWhiteSpace(sequentialName))
+                {
+                    content += $"{GetIndentation(indentationLevels)}}}{Environment.NewLine}";
+                    indentationLevels -= 1;
+                }
             }
 
-            if (!(nameGroups is null))
+            if (!string.IsNullOrWhiteSpace(sequentialName))
             {
-                content += GetFormattedNameCollection(nameGroups, indentationLevels + 1);
+                content += $"{GetIndentation(indentationLevels + 1)}sequential_name = \"{sequentialName}\"{Environment.NewLine}";
             }
 
             content += $"{GetIndentation(indentationLevels)}}}{Environment.NewLine}";
-
-            if (!string.IsNullOrWhiteSpace(sequentialName))
-            {
-                content += $"{GetIndentation(indentationLevels - 1)}}}{Environment.NewLine}";
-            }
 
             return content;
         }
@@ -492,10 +504,19 @@ namespace StellarisNameListGenerator.Service
 
         string ProcessName(string name)
         {
-            return name
-                .Replace('ă', 'ã')
-                .Replace('ș', 's')
-                .Replace('ț', 't');
+            string processedName = name;
+
+            processedName = Regex.Replace(processedName, "[Ă]", "Ã");
+            processedName = Regex.Replace(processedName, "[Đ]", "D");
+            processedName = Regex.Replace(processedName, "[Ș]", "S");
+            processedName = Regex.Replace(processedName, "[Ț]", "T");
+            processedName = Regex.Replace(processedName, "[Ư]", "U");
+            processedName = Regex.Replace(processedName, "[ă]", "ã");
+            processedName = Regex.Replace(processedName, "[đ]", "d");
+            processedName = Regex.Replace(processedName, "[ș]", "s");
+            processedName = Regex.Replace(processedName, "[ț]", "t");
+
+            return processedName;
         }
 
         string GetIndentation(int levels)
