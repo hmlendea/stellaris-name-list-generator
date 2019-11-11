@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfNameList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <NameList>
+    <Id></Id>
+    <Name></Name>
+    <Nationalities>
+      <NameGroup>
+        <Name>Denonyms</Name>
+        <Values>
+
+        </Values>
+      </NameGroup>
+    </Nationalities>
+    <Places>
+      <Countries>
+        <NameGroup>
+          <Name>Countries</Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Countries>
+      <Regions>
+        <NameGroup>
+          <Name>Regions - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Regions>
+      <Cities>
+        <NameGroup>
+          <Name>Cities - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Cities>
+      <Mountains>
+        <NameGroup>
+          <Name>Mountains - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Mountains>
+      <Forests>
+        <NameGroup>
+          <Name>Forests - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Forests>
+      <Deserts>
+        <NameGroup>
+          <Name>Deserts - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Deserts>
+    </Places>
+    <GreatPeople>
+      <Explorers>
+        <NameGroup>
+          <Name>Explorers - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Explorers>
+      <Pioneers>
+        <NameGroup>
+          <Name>Pioneers - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Pioneers>
+      <Scientists>
+        <NameGroup>
+          <Name>Scientists - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Scientists>
+      <LeadersTier1>
+        <NameGroup>
+          <Name>Leaders - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </LeadersTier1>
+      <LeadersTier2>
+        <NameGroup>
+          <Name>Leaders - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </LeadersTier2>
+      <LeadersTier3>
+        <NameGroup>
+          <Name>Leaders - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </LeadersTier3>
+      <GeneralsTier3>
+        <NameGroup>
+          <Name>Generals - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </GeneralsTier3>
+    </GreatPeople>
+    <Warfare>
+      <Weapons>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Weapons>
+      <MilitaryUnitTypes>
+        <NameGroup>
+          <Name>Military unit types - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </MilitaryUnitTypes>
+      <Forts>
+        <NameGroup>
+          <Name>Forts - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Forts>
+      <BattleLocations>
+        <NameGroup>
+          <Name>Battle locations - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </BattleLocations>
+    </Warfare>
+    <MythologicalCreatures>
+      <NameGroup>
+        <Name>Mythological creatures - </Name>
+        <Values>
+
+        </Values>
+      </NameGroup>
+    </MythologicalCreatures>
+    <Ships>
+      <Corvette>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Corvette>
+      <Destroyer>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Destroyer>
+      <Cruiser>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Cruiser>
+      <Battleship>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Battleship>
+      <Science>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Science>
+      <Coloniser>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Coloniser>
+    </Ships>
+    <ShipClasses>
+      <Generic>
+        <NameGroup>
+          <Name>Spacecraft manufacturers - </Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Generic>
+    </ShipClasses>
+    <Stations>
+      <MilitaryStations>
+        <Generic>
+          <NameGroup>
+            <Name></Name>
+            <Values>
+
+            </Values>
+          </NameGroup>
+        </Generic>
+      </MilitaryStations>
+      <Starbases>
+        <Generic>
+          <NameGroup>
+            <Name></Name>
+            <Values>
+
+            </Values>
+          </NameGroup>
+        </Generic>
+      </Starbases>
+      <ResearchStations>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </ResearchStations>
+    </Stations>
+    <Armies>
+      <Fleet>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Fleet>
+    </Armies>
+    <Planets>
+      <Generic>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Generic>
+      <Desert>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Desert>
+      <Tropical>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Tropical>
+      <Continental>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Continental>
+      <Gaia>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Gaia>
+      <Ocean>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Ocean>
+      <Tundra>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Tundra>
+      <Arctic>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Arctic>
+      <Tomb>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Tomb>
+      <Savannah>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Savannah>
+      <Alpine>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Alpine>
+      <Molten>
+        <NameGroup>
+          <Name></Name>
+          <Values>
+
+          </Values>
+        </NameGroup>
+      </Molten>
+    </Planets>
+    <Characters>
+      <CharacterNames>
+        <Id></Id>
+        <Weight>100</Weight>
+        <MaleFirstNames>
+          <NameGroup>
+            <Values>
+
+            </Values>
+          </NameGroup>
+        </MaleFirstNames>
+        <MaleRoyalFirstNames>
+          <NameGroup>
+            <Values>
+
+            </Values>
+          </NameGroup>
+        </MaleRoyalFirstNames>
+        <FemaleFirstNames>
+          <NameGroup>
+            <Values>
+
+            </Values>
+          </NameGroup>
+        </FemaleFirstNames>
+        <FemaleRoyalFirstNames>
+          <NameGroup>
+            <Values>
+
+            </Values>
+          </NameGroup>
+        </FemaleRoyalFirstNames>
+        <SecondNames>
+          <NameGroup>
+            <Values>
+
+            </Values>
+          </NameGroup>
+        </SecondNames>
+        <RoyalSecondNames>
+          <NameGroup>
+            <Values>
+
+            </Values>
+          </NameGroup>
+        </RoyalSecondNames>
+      </CharacterNames>
+    </Characters>
+  </NameList>
+</ArrayOfNameList>
