@@ -532,13 +532,21 @@ namespace StellarisNameListGenerator.Service
 
             processedName = Regex.Replace(processedName, "[Ă]", "Ã");
             processedName = Regex.Replace(processedName, "[Đ]", "D");
-            processedName = Regex.Replace(processedName, "[Ș]", "S");
+            processedName = Regex.Replace(processedName, "[Ę]", "E");
+            processedName = Regex.Replace(processedName, "[Ł]", "L");
+            processedName = Regex.Replace(processedName, "[Ń]", "N");
+            processedName = Regex.Replace(processedName, "[ȘŚ]", "S");
             processedName = Regex.Replace(processedName, "[Ț]", "T");
             processedName = Regex.Replace(processedName, "[Ư]", "U");
+            processedName = Regex.Replace(processedName, "[ŹŻ]", "Z");
             processedName = Regex.Replace(processedName, "[ă]", "ã");
             processedName = Regex.Replace(processedName, "[đ]", "d");
-            processedName = Regex.Replace(processedName, "[ș]", "s");
+            processedName = Regex.Replace(processedName, "[ę]", "e");
+            processedName = Regex.Replace(processedName, "[ł]", "l");
+            processedName = Regex.Replace(processedName, "[ń]", "n");
+            processedName = Regex.Replace(processedName, "[șś]", "s");
             processedName = Regex.Replace(processedName, "[ț]", "t");
+            processedName = Regex.Replace(processedName, "[źż]", "z");
 
             return processedName;
         }
