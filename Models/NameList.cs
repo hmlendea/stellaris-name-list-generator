@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 using NuciDAL.DataObjects;
 
@@ -8,6 +7,7 @@ namespace StellarisNameListGenerator.Models
     public class NameList : EntityBase
     {
         public string Name { get; set; }
+        public bool IsLocked { get; set; }
         
         public List<NameGroup> Denonyms { get; set; }
         public PlaceNames Places { get; set; }
@@ -31,6 +31,7 @@ namespace StellarisNameListGenerator.Models
         public NameList()
         {
             Name = string.Empty;
+            IsLocked = true;
 
             Denonyms = new List<NameGroup>();
             Places = new PlaceNames();

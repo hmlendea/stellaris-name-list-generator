@@ -22,12 +22,13 @@ namespace StellarisNameListGenerator.Service
             this.nameListRepository = nameListRepository;
         }
 
-        public void Generate(string filePath, string name)
+        public void Generate(string filePath, string name, bool isLocked)
         {
             NameList nameList = GetMergedNameList();
             string fileName = Path.GetFileNameWithoutExtension(filePath);
             nameList.Id = fileName;
             nameList.Name = name;
+            nameList.IsLocked = isLocked;
 
             string fileContent = fileContentBuilder.BuildContent(nameList);
 

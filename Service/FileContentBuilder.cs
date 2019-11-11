@@ -27,6 +27,7 @@ namespace StellarisNameListGenerator.Service
             content += Environment.NewLine;
 
             content += $"{nameList.Id} = {{{Environment.NewLine}";
+            content += BuildRandomisableOption(nameList.IsLocked);
             content += BuildShipNames(nameList);
             content += BuildShipClassNames(nameList);
             content += BuildFleetNames(nameList);
@@ -36,6 +37,16 @@ namespace StellarisNameListGenerator.Service
             content += $"}}{Environment.NewLine}";
 
             return content;
+        }
+
+        string BuildRandomisableOption(bool isLocked)
+        {
+            if (isLocked)
+            {
+                return $"{GetIndentation(1)}randomized = no";
+            }
+
+            return $"{GetIndentation(1)}randomized = yes";
         }
 
         string BuildShipNames(NameList nameList)
