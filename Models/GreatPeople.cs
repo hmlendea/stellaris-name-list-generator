@@ -13,6 +13,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> LeadersTier3 { get; set; }
 
         public List<NameGroup> FlyingAces { get; set; }
+        public List<NameGroup> Heroes { get; set; }
         public List<NameGroup> Admirals { get; set; }
 
         public List<NameGroup> GeneralsTier1 { get; set; }
@@ -30,6 +31,7 @@ namespace StellarisNameListGenerator.Models
             LeadersTier3 = new List<NameGroup>();
 
             FlyingAces = new List<NameGroup>();
+            Heroes = new List<NameGroup>();
             Admirals = new List<NameGroup>();
 
             GeneralsTier1 = new List<NameGroup>();

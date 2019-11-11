@@ -78,7 +78,8 @@ namespace StellarisNameListGenerator.Models
             GreatPeople.LeadersTier3.AddRange(other.GreatPeople.LeadersTier3);
 
             GreatPeople.FlyingAces.AddRange(other.GreatPeople.FlyingAces);
-            GreatPeople.FlyingAces.AddRange(other.GreatPeople.FlyingAces);
+            GreatPeople.Heroes.AddRange(other.GreatPeople.Heroes);
+            GreatPeople.Admirals.AddRange(other.GreatPeople.Admirals);
 
             GreatPeople.GeneralsTier1.AddRange(other.GreatPeople.GeneralsTier1);
             GreatPeople.GeneralsTier2.AddRange(other.GreatPeople.GeneralsTier2);
@@ -89,10 +90,6 @@ namespace StellarisNameListGenerator.Models
 
             Warfare.Forts.AddRange(other.Warfare.Forts);
             Warfare.BattleLocations.AddRange(other.Warfare.BattleLocations);
-
-            Warfare.MilitaryPeopleTier1.AddRange(other.Warfare.MilitaryPeopleTier1);
-            Warfare.MilitaryPeopleTier2.AddRange(other.Warfare.MilitaryPeopleTier2);
-            Warfare.MilitaryPeopleTier3.AddRange(other.Warfare.MilitaryPeopleTier3);
             
             MythologicalCreatures.AddRange(other.MythologicalCreatures);
             

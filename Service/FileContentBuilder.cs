@@ -59,9 +59,10 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> corvetteNames = nameList.Ships.Corvette
                 .Concat(nameList.Warfare.Weapons)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
-                .Concat(nameList.Warfare.MilitaryPeopleTier1)
-                .Concat(nameList.GreatPeople.GeneralsTier1)
                 .Concat(nameList.GreatPeople.LeadersTier1)
+                .Concat(nameList.GreatPeople.FlyingAces)
+                .Concat(nameList.GreatPeople.Heroes)
+                .Concat(nameList.GreatPeople.GeneralsTier1)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> destroyerNames = nameList.Ships.Destroyer
                 .Concat(nameList.Places.Cities)
@@ -73,22 +74,21 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.BattleLocations)
-                .Concat(nameList.Warfare.MilitaryPeopleTier2)
-                .Concat(nameList.GreatPeople.GeneralsTier2)
                 .Concat(nameList.GreatPeople.LeadersTier2)
+                .Concat(nameList.GreatPeople.Admirals)
+                .Concat(nameList.GreatPeople.GeneralsTier2)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> battleshipNames = nameList.Ships.Battleship
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.BattleLocations)
-                .Concat(nameList.Warfare.MilitaryPeopleTier3)
-                .Concat(nameList.GreatPeople.GeneralsTier3)
                 .Concat(nameList.GreatPeople.LeadersTier3)
+                .Concat(nameList.GreatPeople.Admirals)
+                .Concat(nameList.GreatPeople.GeneralsTier3)
                 .Concat(nameList.MythologicalCreatures);
             IEnumerable<NameGroup> titanNames = nameList.Ships.Titan
-                .Concat(nameList.Warfare.MilitaryPeopleTier3)
-                .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.LeadersTier3);
+                .Concat(nameList.GreatPeople.LeadersTier3)
+                .Concat(nameList.GreatPeople.GeneralsTier3);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
@@ -117,42 +117,33 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.Weapons)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.BattleLocations);
-            IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Outposts);
-            IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starports);
-            IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starholds);
-            IEnumerable<NameGroup> starfortressNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Starfortresses);
-            IEnumerable<NameGroup> citadelNames = nameList.Stations.Starbases.Generic.Concat(nameList.Stations.Starbases.Citadels);
+            IEnumerable<NameGroup> genericStarbases = nameList.Stations.Starbases.Generic
+                .Concat(nameList.GreatPeople.Explorers);
+            IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Outposts.Concat(genericStarbases);
+            IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Starports.Concat(genericStarbases);
+            IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Starholds.Concat(genericStarbases);
+            IEnumerable<NameGroup> starfortressNames = nameList.Stations.Starbases.Starfortresses.Concat(genericStarbases);
+            IEnumerable<NameGroup> citadelNames = nameList.Stations.Starbases.Citadels.Concat(genericStarbases);
             IEnumerable<NameGroup> genericMilitaryStations = nameList.Stations.MilitaryStations.Generic
                 .Concat(nameList.Warfare.Forts)
-                .Concat(nameList.Warfare.BattleLocations);
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.GreatPeople.Admirals);
             IEnumerable<NameGroup> smallMilitaryStations = nameList.Stations.MilitaryStations.Small
-                .Concat(nameList.Stations.MilitaryStations.Generic)
-                .Concat(nameList.Warfare.Weapons)
-                .Concat(nameList.Warfare.Forts)
-                .Concat(nameList.Warfare.BattleLocations)
-                .Concat(nameList.Warfare.MilitaryPeopleTier1)
-                .Concat(nameList.GreatPeople.GeneralsTier1)
+                .Concat(genericMilitaryStations)
                 .Concat(nameList.GreatPeople.LeadersTier1)
-                .Concat(nameList.Warfare.MilitaryPeopleTier3)
-                .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.LeadersTier3);
-            IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Medium
-                .Concat(nameList.Stations.MilitaryStations.Generic)
-                .Concat(nameList.Warfare.Forts)
-                .Concat(nameList.Warfare.BattleLocations)
-                .Concat(nameList.Warfare.MilitaryPeopleTier2)
-                .Concat(nameList.GreatPeople.GeneralsTier2)
                 .Concat(nameList.GreatPeople.LeadersTier2)
-                .Concat(nameList.Warfare.MilitaryPeopleTier3)
-                .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.LeadersTier3);
+                .Concat(nameList.GreatPeople.GeneralsTier1)
+                .Concat(nameList.GreatPeople.GeneralsTier2);
+            IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Medium
+                .Concat(genericMilitaryStations)
+                .Concat(nameList.GreatPeople.LeadersTier2)
+                .Concat(nameList.GreatPeople.LeadersTier3)
+                .Concat(nameList.GreatPeople.GeneralsTier2)
+                .Concat(nameList.GreatPeople.GeneralsTier3);
             IEnumerable<NameGroup> largeMilitaryStations = nameList.Stations.MilitaryStations.Large
-                .Concat(nameList.Stations.MilitaryStations.Generic)
-                .Concat(nameList.Warfare.Forts)
-                .Concat(nameList.Warfare.BattleLocations)
-                .Concat(nameList.Warfare.MilitaryPeopleTier3)
-                .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.LeadersTier3);
+                .Concat(genericMilitaryStations)
+                .Concat(nameList.GreatPeople.LeadersTier3)
+                .Concat(nameList.GreatPeople.GeneralsTier3);
             
             content += BuildNameArray(genericNames, "generic", 2);
             content += BuildNameArray(corvetteNames, "corvette", 2);
@@ -645,6 +636,12 @@ namespace StellarisNameListGenerator.Service
         {
             IEnumerable<NameGroup> shipNames = nameList.Ships.Generic
                 .Concat(nameList.Denonyms)
+                .Concat(nameList.GreatPeople.Explorers)
+                .Concat(nameList.GreatPeople.Pioneers)
+                .Concat(nameList.GreatPeople.Scientists)
+                .Concat(nameList.GreatPeople.FlyingAces)
+                .Concat(nameList.GreatPeople.Heroes)
+                .Concat(nameList.GreatPeople.Admirals)
                 .Concat(nameList.GreatPeople.GeneralsTier1)
                 .Concat(nameList.GreatPeople.GeneralsTier2)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
@@ -682,9 +679,6 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Stations.Starbases.Starports)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.Warfare.Forts)
-                .Concat(nameList.Warfare.MilitaryPeopleTier1)
-                .Concat(nameList.Warfare.MilitaryPeopleTier2)
-                .Concat(nameList.Warfare.MilitaryPeopleTier3)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.Weapons);
 
