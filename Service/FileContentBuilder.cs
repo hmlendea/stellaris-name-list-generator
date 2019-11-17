@@ -41,12 +41,18 @@ namespace StellarisNameListGenerator.Service
 
         string BuildRandomisableOption(bool isLocked)
         {
+            string randomisableLine;
+
             if (isLocked)
             {
-                return $"{GetIndentation(1)}randomized = no";
+                randomisableLine = $"{GetIndentation(1)}randomized = no";
+            }
+            else
+            {
+                randomisableLine = $"{GetIndentation(1)}randomized = yes";
             }
 
-            return $"{GetIndentation(1)}randomized = yes";
+            return $"{randomisableLine}{Environment.NewLine}";
         }
 
         string BuildShipNames(NameList nameList)

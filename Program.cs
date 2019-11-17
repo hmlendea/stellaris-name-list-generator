@@ -22,7 +22,7 @@ namespace StellarisNameListGenerator
             string inputFilePath = CliArgumentsReader.GetOptionValue(args, InputFileOptions);
             string outputFilePath = CliArgumentsReader.GetOptionValue(args, OutputFileOptions);
             string namelistName = CliArgumentsReader.GetOptionValue(args, NameOptions);
-            bool isLocked = CliArgumentsReader.HasOption(IsLockedOptions);
+            bool isLocked = CliArgumentsReader.HasOption(args, IsLockedOptions);
 
             IFileContentBuilder fileContentBuilder = new FileContentBuilder();
             IRepository<NameList> nameListRepository = new XmlRepository<NameList>(inputFilePath);
