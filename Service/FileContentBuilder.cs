@@ -136,18 +136,23 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.Admirals);
             IEnumerable<NameGroup> smallMilitaryStations = nameList.Stations.MilitaryStations.Small
                 .Concat(genericMilitaryStations)
+                .Concat(nameList.Warfare.Weapons)
                 .Concat(nameList.GreatPeople.LeadersTier1)
                 .Concat(nameList.GreatPeople.LeadersTier2)
+                .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier1)
-                .Concat(nameList.GreatPeople.GeneralsTier2);
+                .Concat(nameList.GreatPeople.GeneralsTier2)
+                .Concat(nameList.GreatPeople.GeneralsTier3);
             IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Medium
                 .Concat(genericMilitaryStations)
+                .Concat(nameList.Warfare.Weapons)
                 .Concat(nameList.GreatPeople.LeadersTier2)
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier2)
                 .Concat(nameList.GreatPeople.GeneralsTier3);
             IEnumerable<NameGroup> largeMilitaryStations = nameList.Stations.MilitaryStations.Large
                 .Concat(genericMilitaryStations)
+                .Concat(nameList.Warfare.Weapons)
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier3);
             
@@ -485,7 +490,7 @@ namespace StellarisNameListGenerator.Service
                 bool hasNames = false;
 
                 IEnumerable<string> validNames = group.Values
-                    .Where(x => !usedNames.Contains(x) && !string.IsNullOrWhiteSpace(x))
+                    .Where(x => !usedNames.Any(y => DoNamesMatch(x, y)) && !string.IsNullOrWhiteSpace(x))
                     .OrderBy(x => x)
                     .Distinct();
 
@@ -752,6 +757,11 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Planets.Tundra);
 
             return planetNames.SelectMany(x => x.Values).GetRandomElement(random);
+        }
+
+        bool DoNamesMatch(string name1, string name2)
+        {
+            return name1.RemoveDiacritics() == name2.RemoveDiacritics();
         }
     }
 }
