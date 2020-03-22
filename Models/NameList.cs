@@ -13,6 +13,7 @@ namespace StellarisNameListGenerator.Models
         public PlaceNames Places { get; set; }
         public GreatPeople GreatPeople { get; set; }
 
+        public CompanyNames Companies { get; set; }
         public WarfareNames Warfare { get; set; }
         public List<NameGroup> MythologicalCreatures { get; set; }
 
@@ -37,6 +38,7 @@ namespace StellarisNameListGenerator.Models
             Places = new PlaceNames();
             GreatPeople = new GreatPeople();
 
+            Companies = new CompanyNames();
             Warfare = new WarfareNames();
             MythologicalCreatures = new List<NameGroup>();
 
@@ -84,6 +86,17 @@ namespace StellarisNameListGenerator.Models
             GreatPeople.GeneralsTier1.AddRange(other.GreatPeople.GeneralsTier1);
             GreatPeople.GeneralsTier2.AddRange(other.GreatPeople.GeneralsTier2);
             GreatPeople.GeneralsTier3.AddRange(other.GreatPeople.GeneralsTier3);
+
+            GreatPeople.Deities.AddRange(other.GreatPeople.Deities);
+            GreatPeople.LabourDeities.AddRange(other.GreatPeople.LabourDeities);
+
+            Companies.AutomotiveManufacturers.AddRange(other.Companies.AutomotiveManufacturers);
+            Companies.AircraftManufacturers.AddRange(other.Companies.AircraftManufacturers);
+            Companies.SpacecraftManufacturers.AddRange(other.Companies.SpacecraftManufacturers);
+            Companies.RocketDesigners.AddRange(other.Companies.RocketDesigners);
+
+            Companies.ResearchCompanies.AddRange(other.Companies.ResearchCompanies);
+            Companies.InvestmentCompanies.AddRange(other.Companies.InvestmentCompanies);
             
             Warfare.Weapons.AddRange(other.Warfare.Weapons);
             Warfare.MilitaryUnitTypes.AddRange(other.Warfare.MilitaryUnitTypes);
