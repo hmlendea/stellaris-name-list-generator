@@ -4,6 +4,7 @@ namespace StellarisNameListGenerator.Models
 {
     public sealed class CompanyNames
     {
+        public List<NameGroup> RobotManufacturers { get; set; }
         public List<NameGroup> AutomotiveManufacturers { get; set; }
         public List<NameGroup> AircraftManufacturers { get; set; }
         public List<NameGroup> SpacecraftManufacturers { get; set; }
@@ -14,6 +15,7 @@ namespace StellarisNameListGenerator.Models
 
         public CompanyNames()
         {
+            RobotManufacturers = new List<NameGroup>();
             AutomotiveManufacturers = new List<NameGroup>();
             AircraftManufacturers = new List<NameGroup>();
             SpacecraftManufacturers = new List<NameGroup>();
