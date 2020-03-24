@@ -590,6 +590,8 @@ namespace StellarisNameListGenerator.Service
             processedName = Regex.Replace(processedName, "[ț]", "t");
             processedName = Regex.Replace(processedName, "[źż]", "z");
 
+            processedName = Regex.Replace(processedName, "[ʻ]", "'");
+
             return processedName;
         }
 
@@ -605,25 +607,46 @@ namespace StellarisNameListGenerator.Service
                     .SelectMany(x => new List<NameGroup>
                     {
                         new NameGroup { Name = $"Armadas - Weapons", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Battle Groups - Weapons", Values = x.Values.Select(y => $"The {y} Battle Group").ToList() },
+                        new NameGroup { Name = $"Corps - Weapons", Values = x.Values.Select(y => $"The {y} Corps").ToList() },
+                        new NameGroup { Name = $"Expeditionary Fleets - Weapons", Values = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
                         new NameGroup { Name = $"Fleets - Weapons", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Flotillas - Weapons", Values = x.Values.Select(y => $"The {y} Flotilla").ToList() },
                         new NameGroup { Name = $"Squadrons - Weapons", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Weapons", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
+                        new NameGroup { Name = $"Starfleets - Weapons", Values = x.Values.Select(y => $"{y} Starfleet").ToList() },
+                        new NameGroup { Name = $"Strike Forces - Weapons", Values = x.Values.Select(y => $"Strike Force {y}").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Weapons", Values = x.Values.Select(y => $"Strike Team {y}").ToList() },
+                        new NameGroup { Name = $"Task Forces - Weapons", Values = x.Values.Select(y => $"Task Force {y}").ToList() }
                     }))
                 .Concat(nameList.Warfare.MilitaryUnitTypes
                     .SelectMany(x => new List<NameGroup>
                     {
                         new NameGroup { Name = $"Armadas - Military Unit Types", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Battle Groups - Military Unit Types", Values = x.Values.Select(y => $"The {y} Battle Group").ToList() },
+                        new NameGroup { Name = $"Corps - Military Unit Types", Values = x.Values.Select(y => $"The {y} Corps").ToList() },
+                        new NameGroup { Name = $"Expeditionary Fleets - Military Unit Types", Values = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
                         new NameGroup { Name = $"Fleets - Military Unit Types", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Flotillas - Military Unit Types", Values = x.Values.Select(y => $"The {y} Flotilla").ToList() },
                         new NameGroup { Name = $"Squadrons - Military Unit Types", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Military Unit Types", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
+                        new NameGroup { Name = $"Starfleets - Military Unit Types", Values = x.Values.Select(y => $"{y} Starfleet").ToList() },
+                        new NameGroup { Name = $"Strike Forces - Military Unit Types", Values = x.Values.Select(y => $"Strike Force {y}").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Military Unit Types", Values = x.Values.Select(y => $"Strike Team {y}").ToList() },
+                        new NameGroup { Name = $"Task Forces - Military Unit Types", Values = x.Values.Select(y => $"Task Force {y}").ToList() }
                     }))
                 .Concat(nameList.MythologicalCreatures
                     .SelectMany(x => new List<NameGroup>
                     {
                         new NameGroup { Name = $"Armadas - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Battle Groups - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Battle Group").ToList() },
+                        new NameGroup { Name = $"Corps - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Corps").ToList() },
+                        new NameGroup { Name = $"Expeditionary Fleets - Mythological Creatures", Values = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
                         new NameGroup { Name = $"Fleets - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Flotillas - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Flotilla").ToList() },
                         new NameGroup { Name = $"Squadrons - Mythological Creatures", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Mythological Creatures", Values = x.Values.Select(y => $"Strike Team {y}").ToList() }
+                        new NameGroup { Name = $"Starfleets - Mythological Creatures", Values = x.Values.Select(y => $"{y} Starfleet").ToList() },
+                        new NameGroup { Name = $"Strike Forces - Mythological Creatures", Values = x.Values.Select(y => $"Strike Force {y}").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Mythological Creatures", Values = x.Values.Select(y => $"Strike Team {y}").ToList() },
+                        new NameGroup { Name = $"Task Forces - Mythological Creatures", Values = x.Values.Select(y => $"Task Force {y}").ToList() }
                     }));
         }
 
