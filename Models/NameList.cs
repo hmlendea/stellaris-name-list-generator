@@ -98,7 +98,17 @@ namespace StellarisNameListGenerator.Models
             Companies.ResearchCompanies.AddRange(other.Companies.ResearchCompanies);
             Companies.InvestmentCompanies.AddRange(other.Companies.InvestmentCompanies);
             
-            Warfare.Weapons.AddRange(other.Warfare.Weapons);
+            Warfare.Weapons.Artillery.AddRange(other.Warfare.Weapons.Artillery);
+            Warfare.Weapons.Guns.AddRange(other.Warfare.Weapons.Guns);
+            Warfare.Weapons.Crossbows.AddRange(other.Warfare.Weapons.Crossbows);
+            Warfare.Weapons.Bows.AddRange(other.Warfare.Weapons.Bows);
+            Warfare.Weapons.Javelins.AddRange(other.Warfare.Weapons.Javelins);
+            Warfare.Weapons.Swords.AddRange(other.Warfare.Weapons.Swords);
+            Warfare.Weapons.Daggers.AddRange(other.Warfare.Weapons.Daggers);
+            Warfare.Weapons.Polearms.AddRange(other.Warfare.Weapons.Polearms);
+            Warfare.Weapons.Axes.AddRange(other.Warfare.Weapons.Axes);
+            Warfare.Weapons.Hammers.AddRange(other.Warfare.Weapons.Hammers);
+
             Warfare.MilitaryUnitTypes.AddRange(other.Warfare.MilitaryUnitTypes);
 
             Warfare.Forts.AddRange(other.Warfare.Forts);
