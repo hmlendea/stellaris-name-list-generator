@@ -25,17 +25,17 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> RoyalSecondNames { get; set; }
 
         public bool IsEmpty =>
-            FullNames.Sum(x => x.Values.Count) == 0 &&
-            FirstNames.Sum(x => x.Values.Count) == 0 &&
-            RoyalFirstNames.Sum(x => x.Values.Count) == 0 &&
-            MaleFullNames.Sum(x => x.Values.Count) == 0 &&
-            MaleFirstNames.Sum(x => x.Values.Count) == 0 &&
-            MaleRoyalFirstNames.Sum(x => x.Values.Count) == 0 &&
-            FemaleFullNames.Sum(x => x.Values.Count) == 0 &&
-            FemaleFirstNames.Sum(x => x.Values.Count) == 0 &&
-            FemaleRoyalFirstNames.Sum(x => x.Values.Count) == 0 &&
-            SecondNames.Sum(x => x.Values.Count) == 0 &&
-            RoyalSecondNames.Sum(x => x.Values.Count) == 0;
+            FullNames.All(x => x.IsEmpty) &&
+            FirstNames.All(x => x.IsEmpty) &&
+            RoyalFirstNames.All(x => x.IsEmpty) &&
+            MaleFullNames.All(x => x.IsEmpty) &&
+            MaleFirstNames.All(x => x.IsEmpty) &&
+            MaleRoyalFirstNames.All(x => x.IsEmpty) &&
+            FemaleFullNames.All(x => x.IsEmpty) &&
+            FemaleFirstNames.All(x => x.IsEmpty) &&
+            FemaleRoyalFirstNames.All(x => x.IsEmpty) &&
+            SecondNames.All(x => x.IsEmpty) &&
+            RoyalSecondNames.All(x => x.IsEmpty);
 
         public CharacterNames()
         {

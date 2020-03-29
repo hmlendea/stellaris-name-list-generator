@@ -278,10 +278,10 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.MythologicalCreatures
                     .SelectMany(x => new List<NameGroup>
                     {
-                        new NameGroup { Name = $"Covert Ops - Mythological creatures", Values = x.Values.Select(y => $"{y} Covert Ops").ToList() },
-                        new NameGroup { Name = $"Divisions - Mythological creatures", Values = x.Values.Select(y => $"{y} Divison").ToList() },
-                        new NameGroup { Name = $"Legions - Mythological creatures", Values = x.Values.Select(y => $"{y} Legion").ToList() },
-                        new NameGroup { Name = $"Squadrons - Mythological creatures", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Covert Ops - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Covert Ops").ToList() },
+                        new NameGroup { Name = $"Divisions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Divison").ToList() },
+                        new NameGroup { Name = $"Legions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Legion").ToList() },
+                        new NameGroup { Name = $"Squadrons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
                     }));
 
             string innerContent = string.Empty;
@@ -319,7 +319,7 @@ namespace StellarisNameListGenerator.Service
                 .Select(x => new NameGroup
                 {
                     Name = x.Name,
-                    Values = x.Values
+                    ExplicitValues = x.Values
                         .Except(nameList.Planets.Desert.SelectMany(y => y.Values))
                         .Except(nameList.Planets.Arid.SelectMany(y => y.Values))
                         .Except(nameList.Planets.Tropical.SelectMany(y => y.Values))
@@ -505,7 +505,7 @@ namespace StellarisNameListGenerator.Service
                 .Select(g => new NameGroup
                 {
                     Name = g.First().Name,
-                    Values = g.SelectMany(x => x.Values).ToList()
+                    ExplicitValues = g.SelectMany(x => x.Values).ToList()
                 });
 
             foreach (NameGroup group in groups.OrderBy(x => x.Name))
@@ -606,47 +606,47 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.Weapons
                     .SelectMany(x => new List<NameGroup>
                     {
-                        new NameGroup { Name = $"Armadas - Weapons", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Battle Groups - Weapons", Values = x.Values.Select(y => $"The {y} Battle Group").ToList() },
-                        new NameGroup { Name = $"Corps - Weapons", Values = x.Values.Select(y => $"The {y} Corps").ToList() },
-                        new NameGroup { Name = $"Expeditionary Fleets - Weapons", Values = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
-                        new NameGroup { Name = $"Fleets - Weapons", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Flotillas - Weapons", Values = x.Values.Select(y => $"The {y} Flotilla").ToList() },
-                        new NameGroup { Name = $"Squadrons - Weapons", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Starfleets - Weapons", Values = x.Values.Select(y => $"{y} Starfleet").ToList() },
-                        new NameGroup { Name = $"Strike Forces - Weapons", Values = x.Values.Select(y => $"Strike Force {y}").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Weapons", Values = x.Values.Select(y => $"Strike Team {y}").ToList() },
-                        new NameGroup { Name = $"Task Forces - Weapons", Values = x.Values.Select(y => $"Task Force {y}").ToList() }
+                        new NameGroup { Name = $"Armadas - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Battle Groups - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Battle Group").ToList() },
+                        new NameGroup { Name = $"Corps - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Corps").ToList() },
+                        new NameGroup { Name = $"Expeditionary Fleets - Weapons", ExplicitValues = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
+                        new NameGroup { Name = $"Fleets - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Flotillas - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Flotilla").ToList() },
+                        new NameGroup { Name = $"Squadrons - Weapons", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Starfleets - Weapons", ExplicitValues = x.Values.Select(y => $"{y} Starfleet").ToList() },
+                        new NameGroup { Name = $"Strike Forces - Weapons", ExplicitValues = x.Values.Select(y => $"Strike Force {y}").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Weapons", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
+                        new NameGroup { Name = $"Task Forces - Weapons", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
                     }))
                 .Concat(nameList.Warfare.MilitaryUnitTypes
                     .SelectMany(x => new List<NameGroup>
                     {
-                        new NameGroup { Name = $"Armadas - Military Unit Types", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Battle Groups - Military Unit Types", Values = x.Values.Select(y => $"The {y} Battle Group").ToList() },
-                        new NameGroup { Name = $"Corps - Military Unit Types", Values = x.Values.Select(y => $"The {y} Corps").ToList() },
-                        new NameGroup { Name = $"Expeditionary Fleets - Military Unit Types", Values = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
-                        new NameGroup { Name = $"Fleets - Military Unit Types", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Flotillas - Military Unit Types", Values = x.Values.Select(y => $"The {y} Flotilla").ToList() },
-                        new NameGroup { Name = $"Squadrons - Military Unit Types", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Starfleets - Military Unit Types", Values = x.Values.Select(y => $"{y} Starfleet").ToList() },
-                        new NameGroup { Name = $"Strike Forces - Military Unit Types", Values = x.Values.Select(y => $"Strike Force {y}").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Military Unit Types", Values = x.Values.Select(y => $"Strike Team {y}").ToList() },
-                        new NameGroup { Name = $"Task Forces - Military Unit Types", Values = x.Values.Select(y => $"Task Force {y}").ToList() }
+                        new NameGroup { Name = $"Armadas - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Battle Groups - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Battle Group").ToList() },
+                        new NameGroup { Name = $"Corps - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Corps").ToList() },
+                        new NameGroup { Name = $"Expeditionary Fleets - Military Unit Types", ExplicitValues = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
+                        new NameGroup { Name = $"Fleets - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Flotillas - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Flotilla").ToList() },
+                        new NameGroup { Name = $"Squadrons - Military Unit Types", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Starfleets - Military Unit Types", ExplicitValues = x.Values.Select(y => $"{y} Starfleet").ToList() },
+                        new NameGroup { Name = $"Strike Forces - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Strike Force {y}").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
+                        new NameGroup { Name = $"Task Forces - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
                     }))
                 .Concat(nameList.MythologicalCreatures
                     .SelectMany(x => new List<NameGroup>
                     {
-                        new NameGroup { Name = $"Armadas - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Battle Groups - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Battle Group").ToList() },
-                        new NameGroup { Name = $"Corps - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Corps").ToList() },
-                        new NameGroup { Name = $"Expeditionary Fleets - Mythological Creatures", Values = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
-                        new NameGroup { Name = $"Fleets - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Flotillas - Mythological Creatures", Values = x.Values.Select(y => $"The {y} Flotilla").ToList() },
-                        new NameGroup { Name = $"Squadrons - Mythological Creatures", Values = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Starfleets - Mythological Creatures", Values = x.Values.Select(y => $"{y} Starfleet").ToList() },
-                        new NameGroup { Name = $"Strike Forces - Mythological Creatures", Values = x.Values.Select(y => $"Strike Force {y}").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Mythological Creatures", Values = x.Values.Select(y => $"Strike Team {y}").ToList() },
-                        new NameGroup { Name = $"Task Forces - Mythological Creatures", Values = x.Values.Select(y => $"Task Force {y}").ToList() }
+                        new NameGroup { Name = $"Armadas - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Battle Groups - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Battle Group").ToList() },
+                        new NameGroup { Name = $"Corps - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Corps").ToList() },
+                        new NameGroup { Name = $"Expeditionary Fleets - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
+                        new NameGroup { Name = $"Fleets - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Flotillas - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Flotilla").ToList() },
+                        new NameGroup { Name = $"Squadrons - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Starfleets - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"{y} Starfleet").ToList() },
+                        new NameGroup { Name = $"Strike Forces - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"Strike Force {y}").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
+                        new NameGroup { Name = $"Task Forces - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
                     }));
         }
 
@@ -663,38 +663,38 @@ namespace StellarisNameListGenerator.Service
 
             bool takeMale = new List<bool> { true, false }.GetRandomElement(random);
             
-            if (characterNames.FullNames.Any(x => x.Values.Count > 0))
+            if (characterNames.FullNames.Any(x => !x.IsEmpty))
             {
                 return characterNames.FullNames.SelectMany(x => x.Values).GetRandomElement(random);
             }
 
-            if (takeMale && characterNames.MaleFullNames.Any(x => x.Values.Count > 0))
+            if (takeMale && characterNames.MaleFullNames.Any(x => !x.IsEmpty))
             {
                 return characterNames.MaleFullNames.SelectMany(x => x.Values).GetRandomElement(random);
             }
 
-            if (!takeMale && characterNames.FemaleFullNames.Any(x => x.Values.Count > 0))
+            if (!takeMale && characterNames.FemaleFullNames.Any(x => !x.IsEmpty))
             {
                 return characterNames.FemaleFullNames.SelectMany(x => x.Values).GetRandomElement(random);
             }
 
-            if (characterNames.SecondNames.Any(x => x.Values.Count > 0))
+            if (characterNames.SecondNames.Any(x => !x.IsEmpty))
             {
-                if (characterNames.FirstNames.Any(x => x.Values.Count > 0))
+                if (characterNames.FirstNames.Any(x => !x.IsEmpty))
                 {
                     return
                         characterNames.FirstNames.SelectMany(x => x.Values).GetRandomElement(random) + " " +
                         characterNames.SecondNames.SelectMany(x => x.Values).GetRandomElement(random);
                 }
 
-                if (takeMale && characterNames.MaleFirstNames.Any(x => x.Values.Count > 0))
+                if (takeMale && characterNames.MaleFirstNames.Any(x => !x.IsEmpty))
                 {
                     return
                         characterNames.MaleFirstNames.SelectMany(x => x.Values).GetRandomElement(random) + " " +
                         characterNames.SecondNames.SelectMany(x => x.Values).GetRandomElement(random);
                 }
 
-                if (!takeMale && characterNames.FemaleFirstNames.Any(x => x.Values.Count > 0))
+                if (!takeMale && characterNames.FemaleFirstNames.Any(x => !x.IsEmpty))
                 {
                     return
                         characterNames.FemaleFirstNames.SelectMany(x => x.Values).GetRandomElement(random) + " " +
@@ -762,7 +762,7 @@ namespace StellarisNameListGenerator.Service
         {
             IEnumerable<NameGroup> fleetNames = GenerateFleetNames(nameList);
 
-            if (fleetNames.Any(x => x.Values.Count > 0))
+            if (fleetNames.Any(x => !x.IsEmpty))
             {
                 return fleetNames
                     .SelectMany(x => x.Values)
