@@ -13,6 +13,7 @@ namespace StellarisNameListGenerator.Models
 
         public List<NameGroup> Titan { get; set; }
         public List<NameGroup> Colossus { get; set; }
+        public List<NameGroup> Juggernaut { get; set; }
 
         public List<NameGroup> Constructor { get; set; }
         public List<NameGroup> Science { get; set; }
@@ -32,6 +33,7 @@ namespace StellarisNameListGenerator.Models
 
             Titan = new List<NameGroup>();
             Colossus = new List<NameGroup>();
+            Juggernaut = new List<NameGroup>();
 
             Constructor = new List<NameGroup>();
             Science = new List<NameGroup>();

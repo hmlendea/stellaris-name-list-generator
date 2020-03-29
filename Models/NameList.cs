@@ -114,6 +114,7 @@ namespace StellarisNameListGenerator.Models
             Ships.Battleship.AddRange(other.Ships.Battleship);
             Ships.Titan.AddRange(other.Ships.Titan);
             Ships.Colossus.AddRange(other.Ships.Colossus);
+            Ships.Juggernaut.AddRange(other.Ships.Juggernaut);
             Ships.Constructor.AddRange(other.Ships.Constructor);
             Ships.Science.AddRange(other.Ships.Science);
             Ships.Coloniser.AddRange(other.Ships.Coloniser);
@@ -127,6 +128,7 @@ namespace StellarisNameListGenerator.Models
             ShipClasses.Battleship.AddRange(other.ShipClasses.Battleship);
             ShipClasses.Titan.AddRange(other.ShipClasses.Titan);
             ShipClasses.Colossus.AddRange(other.ShipClasses.Colossus);
+            ShipClasses.Juggernaut.AddRange(other.ShipClasses.Juggernaut);
             ShipClasses.Constructor.AddRange(other.ShipClasses.Constructor);
             ShipClasses.Science.AddRange(other.ShipClasses.Science);
             ShipClasses.Coloniser.AddRange(other.ShipClasses.Coloniser);

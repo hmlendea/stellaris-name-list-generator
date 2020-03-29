@@ -173,6 +173,7 @@ namespace StellarisNameListGenerator.Service
             content += BuildNameArray(battleshipNames, "battleship", 2);
             content += BuildNameArray(titanNames, "titan", 2);
             content += BuildNameArray(nameList.Ships.Colossus, "colossus", 2);
+            content += BuildNameArray(nameList.Ships.Juggernaut, "juggernaut", 2);
             content += BuildNameArray(constructorNames, "constructor", 2);
             content += BuildNameArray(scienceNames, "science", 2);
             content += BuildNameArray(coloniserNames, "colonizer", 2);
@@ -230,6 +231,7 @@ namespace StellarisNameListGenerator.Service
             innerContent += BuildNameArray(nameList.ShipClasses.Battleship, "battleship", 2);
             innerContent += BuildNameArray(nameList.ShipClasses.Titan, "titan", 2);
             innerContent += BuildNameArray(nameList.ShipClasses.Colossus, "colossus", 2);
+            innerContent += BuildNameArray(nameList.ShipClasses.Juggernaut, "juggernaut", 2);
             innerContent += BuildNameArray(constructorClasses, "constructor", 2);
             innerContent += BuildNameArray(scienceClasses, "science", 2);
             innerContent += BuildNameArray(coloniserClasses, "coloniser", 2);
