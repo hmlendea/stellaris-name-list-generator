@@ -69,13 +69,14 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.FlyingAces)
                 .Concat(nameList.GreatPeople.Heroes)
                 .Concat(nameList.GreatPeople.GeneralsTier1)
-                .Concat(nameList.MythologicalCreatures)
+                .Concat(nameList.BiosphereNames.Animals)
+                .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities);
             IEnumerable<NameGroup> destroyerNames = nameList.Ships.Destroyer
                 .Concat(nameList.Places.Cities)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.Forts)
-                .Concat(nameList.MythologicalCreatures)
+                .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities);
             IEnumerable<NameGroup> cruiserNames = nameList.Ships.Cruiser
                 .Concat(nameList.Places.Regions)
@@ -85,7 +86,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LeadersTier2)
                 .Concat(nameList.GreatPeople.Admirals)
                 .Concat(nameList.GreatPeople.GeneralsTier2)
-                .Concat(nameList.MythologicalCreatures)
+                .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities);
             IEnumerable<NameGroup> battleshipNames = nameList.Ships.Battleship
                 .Concat(nameList.Places.Countries)
@@ -94,7 +95,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.Admirals)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.MythologicalCreatures)
+                .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities);
             IEnumerable<NameGroup> titanNames = nameList.Ships.Titan
                 .Concat(nameList.GreatPeople.LeadersTier3)
@@ -275,7 +276,7 @@ namespace StellarisNameListGenerator.Service
             content += $"{GetIndentation(1)}army_names = {{{Environment.NewLine}";
 
             IEnumerable<NameGroup> psionicArmyNames = nameList.Armies.PsionicArmy
-                .Concat(nameList.MythologicalCreatures
+                .Concat(nameList.BiosphereNames.MythologicalCreatures
                     .SelectMany(x => new List<NameGroup>
                     {
                         new NameGroup { Name = $"Covert Ops - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Covert Ops").ToList() },
@@ -633,7 +634,7 @@ namespace StellarisNameListGenerator.Service
                         new NameGroup { Name = $"Strike Teams - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
                         new NameGroup { Name = $"Task Forces - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
                     }))
-                .Concat(nameList.MythologicalCreatures
+                .Concat(nameList.BiosphereNames.MythologicalCreatures
                     .SelectMany(x => new List<NameGroup>
                     {
                         new NameGroup { Name = $"Armadas - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Armada").ToList() },
@@ -721,7 +722,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LeadersTier1)
                 .Concat(nameList.GreatPeople.LeadersTier2)
                 .Concat(nameList.GreatPeople.LeadersTier3)
-                .Concat(nameList.MythologicalCreatures)
+                .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.Places.Cities)
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Deserts)

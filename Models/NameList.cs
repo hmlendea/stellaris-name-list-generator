@@ -15,7 +15,7 @@ namespace StellarisNameListGenerator.Models
 
         public CompanyNames Companies { get; set; }
         public WarfareNames Warfare { get; set; }
-        public List<NameGroup> MythologicalCreatures { get; set; }
+        public BiosphereNames BiosphereNames { get; set; }
 
         public ShipNames Ships { get; set; }
         public ShipNames ShipClasses { get; set; }
@@ -40,7 +40,7 @@ namespace StellarisNameListGenerator.Models
 
             Companies = new CompanyNames();
             Warfare = new WarfareNames();
-            MythologicalCreatures = new List<NameGroup>();
+            BiosphereNames = new BiosphereNames();
 
             Ships = new ShipNames();
             ShipClasses = new ShipNames();
@@ -104,7 +104,8 @@ namespace StellarisNameListGenerator.Models
             Warfare.Forts.AddRange(other.Warfare.Forts);
             Warfare.BattleLocations.AddRange(other.Warfare.BattleLocations);
             
-            MythologicalCreatures.AddRange(other.MythologicalCreatures);
+            BiosphereNames.Animals.AddRange(other.BiosphereNames.Animals);
+            BiosphereNames.MythologicalCreatures.AddRange(other.BiosphereNames.MythologicalCreatures);
             
             Ships.Generic.AddRange(other.Ships.Generic);
             Ships.Corvette.AddRange(other.Ships.Corvette);
