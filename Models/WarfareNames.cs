@@ -4,7 +4,7 @@ namespace StellarisNameListGenerator.Models
 {
     public sealed class WarfareNames
     {
-        public List<NameGroup> Weapons { get; set; }
+        public WeaponNames Weapons { get; set; }
         public List<NameGroup> MilitaryUnitTypes { get; set; }
         
         public List<NameGroup> Forts { get; set; }
@@ -12,7 +12,7 @@ namespace StellarisNameListGenerator.Models
 
         public WarfareNames()
         {
-            Weapons = new List<NameGroup>();
+            Weapons = new WeaponNames();
             MilitaryUnitTypes = new List<NameGroup>();
 
             Forts = new List<NameGroup>();
