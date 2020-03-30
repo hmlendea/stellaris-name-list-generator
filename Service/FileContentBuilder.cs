@@ -209,7 +209,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Denonyms)
                 .Concat(nameList.Companies.AircraftManufacturers)
                 .Concat(nameList.Companies.SpacecraftManufacturers)
-                .Concat(nameList.Companies.RocketDesigners);
+                .Concat(nameList.Companies.RocketDesigners)
+                .Concat(nameList.Warfare.ShipTypes);
 
             IEnumerable<NameGroup> constructorClasses = nameList.ShipClasses.Constructor.Concat(nameList.Companies.AutomotiveManufacturers);
             IEnumerable<NameGroup> scienceClasses = nameList.ShipClasses.Science.Concat(nameList.Companies.ResearchCompanies);
@@ -640,6 +641,21 @@ namespace StellarisNameListGenerator.Service
                         new NameGroup { Name = $"Strike Teams - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
                         new NameGroup { Name = $"Task Forces - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
                     }))
+                .Concat(nameList.Warfare.ShipTypes
+                    .SelectMany(x => new List<NameGroup>
+                    {
+                        new NameGroup { Name = $"Armadas - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Armada").ToList() },
+                        new NameGroup { Name = $"Battle Groups - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Battle Group").ToList() },
+                        new NameGroup { Name = $"Corps - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Corps").ToList() },
+                        new NameGroup { Name = $"Expeditionary Fleets - Ship Types", ExplicitValues = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
+                        new NameGroup { Name = $"Fleets - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Fleet").ToList() },
+                        new NameGroup { Name = $"Flotillas - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Flotilla").ToList() },
+                        new NameGroup { Name = $"Squadrons - Ship Types", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new NameGroup { Name = $"Starfleets - Ship Types", ExplicitValues = x.Values.Select(y => $"{y} Starfleet").ToList() },
+                        new NameGroup { Name = $"Strike Forces - Ship Types", ExplicitValues = x.Values.Select(y => $"Strike Force {y}").ToList() },
+                        new NameGroup { Name = $"Strike Teams - Ship Types", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
+                        new NameGroup { Name = $"Task Forces - Ship Types", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
+                    }))
                 .Concat(nameList.BiosphereNames.MythologicalCreatures
                     .SelectMany(x => new List<NameGroup>
                     {
@@ -760,6 +776,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.ShipTypes)
                 .Concat(nameList.Warfare.Weapons.All);
 
             return shipNames.SelectMany(x => x.Values).GetRandomElement(random);

@@ -110,6 +110,7 @@ namespace StellarisNameListGenerator.Models
             Warfare.Weapons.Hammers.AddRange(other.Warfare.Weapons.Hammers);
 
             Warfare.MilitaryUnitTypes.AddRange(other.Warfare.MilitaryUnitTypes);
+            Warfare.ShipTypes.AddRange(other.Warfare.ShipTypes);
 
             Warfare.Forts.AddRange(other.Warfare.Forts);
             Warfare.BattleLocations.AddRange(other.Warfare.BattleLocations);
