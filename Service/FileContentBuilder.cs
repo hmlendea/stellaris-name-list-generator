@@ -346,6 +346,8 @@ namespace StellarisNameListGenerator.Service
                 });
             IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
                 .Concat(nameList.Places.Deserts);
+            IEnumerable<NameGroup> aridNames = nameList.Planets.Arid
+                .Concat(nameList.Places.Deserts);
             IEnumerable<NameGroup> tropicalNames = nameList.Planets.Tropical
                 .Concat(nameList.Places.Forests);
             IEnumerable<NameGroup> oceanNames = nameList.Planets.Ocean
@@ -362,7 +364,7 @@ namespace StellarisNameListGenerator.Service
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
             content += BuildPlanetNameArray(nameList.Planets.Generic, "generic");
             content += BuildPlanetNameArray(desertNames, "pc_desert");
-            content += BuildPlanetNameArray(nameList.Planets.Arid, "pc_arid");
+            content += BuildPlanetNameArray(aridNames, "pc_arid");
             content += BuildPlanetNameArray(tropicalNames, "pc_tropical");
             content += BuildPlanetNameArray(nameList.Planets.Continental, "pc_continental");
             content += BuildPlanetNameArray(nameList.Planets.Gaia, "pc_gaia");
