@@ -100,6 +100,7 @@ namespace StellarisNameListGenerator.Models
             GreatPeople.ArtDeities.AddRange(other.GreatPeople.ArtDeities);
             GreatPeople.FeastDeities.AddRange(other.GreatPeople.FeastDeities);
             GreatPeople.WealthDeities.AddRange(other.GreatPeople.WealthDeities);
+            GreatPeople.DarknessDeities.AddRange(other.GreatPeople.DarknessDeities);
             GreatPeople.SunDeities.AddRange(other.GreatPeople.SunDeities);
             GreatPeople.SkyDeities.AddRange(other.GreatPeople.SkyDeities);
             GreatPeople.AirDeities.AddRange(other.GreatPeople.AirDeities);
