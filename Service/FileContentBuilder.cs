@@ -309,6 +309,26 @@ namespace StellarisNameListGenerator.Service
                         new NameGroup { Name = $"Legions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Legion").ToList() },
                         new NameGroup { Name = $"Squadrons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
                     }));
+            IEnumerable<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy
+                .Concat(nameList.GreatPeople.DeathDeities
+                    .SelectMany(x => new List<NameGroup>
+                    {
+                        new NameGroup { Name = $"Abomination Flocks - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Flock").ToList() },
+                        new NameGroup { Name = $"Abomination Packs - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Pack").ToList() },
+                        new NameGroup { Name = $"Beast Legions - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Legion").ToList() },
+                        new NameGroup { Name = $"Beast Warbands - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Warband").ToList() },
+                        new NameGroup { Name = $"Death Flocks - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Death Flock").ToList() },
+                        new NameGroup { Name = $"Hybrid Packs - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Hybrid Pack").ToList() },
+                        new NameGroup { Name = $"Morphling Marauderss - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Morphling Marauders").ToList() },
+                        new NameGroup { Name = $"Mutant Flocks - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Flock").ToList() },
+                        new NameGroup { Name = $"Mutant Lurkers - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Lurkers").ToList() },
+                        new NameGroup { Name = $"Mutant Swarms - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Swarm").ToList() },
+                        new NameGroup { Name = $"Xenomorph Broods - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Brood").ToList() },
+                        new NameGroup { Name = $"Xenomorph Hordes - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Horde").ToList() },
+                        new NameGroup { Name = $"Xenomorph Packs - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Pack").ToList() },
+                        new NameGroup { Name = $"Xenomorph Swarms - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Swarm").ToList() },
+                        new NameGroup { Name = $"Xenomorph Troopers - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Troopers").ToList() },
+                    }));
 
             string innerContent = string.Empty;
             innerContent += BuildNameArray(nameList.Armies.DefenceArmy, "defense_army", 2, nameList.Armies.DefenceArmySequentialName);
@@ -322,7 +342,7 @@ namespace StellarisNameListGenerator.Service
             innerContent += BuildNameArray(nameList.Armies.AndroidDefenceArmy, "android_defense_army", 2, nameList.Armies.AndroidDefenceArmySequentialName);
             innerContent += BuildNameArray(nameList.Armies.AndroidAssaultArmy, "android_army", 2, nameList.Armies.AndroidAssaultArmySequentialName);
             innerContent += BuildNameArray(psionicArmyNames, "psionic_army", 2, nameList.Armies.PsionicArmySequentialName);
-            innerContent += BuildNameArray(nameList.Armies.XenomorphArmy, "xenomorph_army", 2, nameList.Armies.XenomorphArmySequentialName);
+            innerContent += BuildNameArray(xenomorphArmies, "xenomorph_army", 2, nameList.Armies.XenomorphArmySequentialName);
             innerContent += BuildNameArray(nameList.Armies.SuperSoldierArmy, "gene_warrior_army", 2, nameList.Armies.SuperSoldierArmySequentialName);
 
             if (string.IsNullOrWhiteSpace(innerContent))
@@ -343,6 +363,7 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> genericNames = nameList.Planets.Generic
                 .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
@@ -387,7 +408,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.ColdDeities);
             IEnumerable<NameGroup> tombNames = nameList.Planets.Tomb
                 .Concat(nameList.Warfare.BattleLocations)
-                .Concat(nameList.GreatPeople.WarDeities);
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.DeathDeities);
             IEnumerable<NameGroup> alpineNames = nameList.Planets.Alpine
                 .Concat(nameList.Places.Mountains)
                 .Concat(nameList.GreatPeople.ColdDeities);
