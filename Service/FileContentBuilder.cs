@@ -121,6 +121,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.OtherDeities);
+            IEnumerable<NameGroup> colossusNames = nameList.Ships.Colossus
+                .Concat(nameList.GreatPeople.DeathDeities);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
@@ -250,7 +252,7 @@ namespace StellarisNameListGenerator.Service
             content += BuildNameArray(cruiserNames, "cruiser", 2);
             content += BuildNameArray(battleshipNames, "battleship", 2);
             content += BuildNameArray(titanNames, "titan", 2);
-            content += BuildNameArray(nameList.Ships.Colossus, "colossus", 2);
+            content += BuildNameArray(colossusNames, "colossus", 2);
             content += BuildNameArray(nameList.Ships.Juggernaut, "juggernaut", 2);
             content += BuildNameArray(constructorNames, "constructor", 2);
             content += BuildNameArray(scienceNames, "science", 2);
