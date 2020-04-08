@@ -25,6 +25,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> DeathDeities { get; set; }
         public List<NameGroup> HatredDeities { get; set; }
         public List<NameGroup> FearDeities { get; set; }
+        public List<NameGroup> SorrowDeities { get; set; }
         public List<NameGroup> BeastsDeities { get; set; }
         public List<NameGroup> TimeDeities { get; set; }
         public List<NameGroup> ProphecyDeities { get; set; }
@@ -71,6 +72,7 @@ namespace StellarisNameListGenerator.Models
             DeathDeities = new List<NameGroup>();
             HatredDeities = new List<NameGroup>();
             FearDeities = new List<NameGroup>();
+            SorrowDeities = new List<NameGroup>();
             BeastsDeities = new List<NameGroup>();
             TimeDeities = new List<NameGroup>();
             ProphecyDeities = new List<NameGroup>();
