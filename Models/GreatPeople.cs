@@ -20,7 +20,6 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> GeneralsTier2 { get; set; }
         public List<NameGroup> GeneralsTier3 { get; set; }
 
-        public List<NameGroup> Deities { get; set; }
         public List<NameGroup> WarDeities { get; set; }
         public List<NameGroup> DeathDeities { get; set; }
         public List<NameGroup> FearDeities { get; set; }
@@ -37,6 +36,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> AirDeities { get; set; }
         public List<NameGroup> ColdDeities { get; set; }
         public List<NameGroup> WaterDeities { get; set; }
+        public List<NameGroup> OtherDeities { get; set; }
 
         public GreatPeople()
         {
@@ -56,7 +56,6 @@ namespace StellarisNameListGenerator.Models
             GeneralsTier2 = new List<NameGroup>();
             GeneralsTier3 = new List<NameGroup>();
 
-            Deities = new List<NameGroup>();
             WarDeities = new List<NameGroup>();
             DeathDeities = new List<NameGroup>();
             FearDeities = new List<NameGroup>();
@@ -73,6 +72,7 @@ namespace StellarisNameListGenerator.Models
             AirDeities = new List<NameGroup>();
             ColdDeities = new List<NameGroup>();
             WaterDeities = new List<NameGroup>();
+            OtherDeities = new List<NameGroup>();
         }
     }
 }

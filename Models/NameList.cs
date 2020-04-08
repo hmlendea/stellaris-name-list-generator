@@ -87,7 +87,6 @@ namespace StellarisNameListGenerator.Models
             GreatPeople.GeneralsTier2.AddRange(other.GreatPeople.GeneralsTier2);
             GreatPeople.GeneralsTier3.AddRange(other.GreatPeople.GeneralsTier3);
 
-            GreatPeople.Deities.AddRange(other.GreatPeople.Deities);
             GreatPeople.WarDeities.AddRange(other.GreatPeople.WarDeities);
             GreatPeople.DeathDeities.AddRange(other.GreatPeople.DeathDeities);
             GreatPeople.FearDeities.AddRange(other.GreatPeople.FearDeities);
@@ -104,6 +103,7 @@ namespace StellarisNameListGenerator.Models
             GreatPeople.AirDeities.AddRange(other.GreatPeople.AirDeities);
             GreatPeople.ColdDeities.AddRange(other.GreatPeople.ColdDeities);
             GreatPeople.WaterDeities.AddRange(other.GreatPeople.WaterDeities);
+            GreatPeople.OtherDeities.AddRange(other.GreatPeople.OtherDeities);
 
             Companies.AutomotiveManufacturers.AddRange(other.Companies.AutomotiveManufacturers);
             Companies.AircraftManufacturers.AddRange(other.Companies.AircraftManufacturers);
