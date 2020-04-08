@@ -74,6 +74,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> destroyerNames = nameList.Ships.Destroyer
@@ -84,6 +85,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> cruiserNames = nameList.Ships.Cruiser
@@ -98,6 +100,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> battleshipNames = nameList.Ships.Battleship
@@ -112,6 +115,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> titanNames = nameList.Ships.Titan
@@ -121,6 +125,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
@@ -171,6 +176,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WealthDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Outposts.Concat(genericStarbases);
@@ -392,7 +398,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Forests)
                 .Concat(nameList.GreatPeople.NatureDeities);
             IEnumerable<NameGroup> continentalNames = nameList.Planets.Continental
-                .Concat(nameList.GreatPeople.SkyDeities);
+                .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities);
             IEnumerable<NameGroup> gaiaNames = nameList.Planets.Gaia
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
