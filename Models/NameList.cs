@@ -96,6 +96,7 @@ namespace StellarisNameListGenerator.Models
             GreatPeople.FeastDeities.AddRange(other.GreatPeople.FeastDeities);
             GreatPeople.WealthDeities.AddRange(other.GreatPeople.WealthDeities);
             GreatPeople.SunDeities.AddRange(other.GreatPeople.SunDeities);
+            GreatPeople.SkyDeities.AddRange(other.GreatPeople.SkyDeities);
             GreatPeople.ColdDeities.AddRange(other.GreatPeople.ColdDeities);
             GreatPeople.WaterDeities.AddRange(other.GreatPeople.WaterDeities);
 
