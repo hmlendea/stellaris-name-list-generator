@@ -65,13 +65,13 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> commonFighterNames = nameList.Warfare.MilitaryUnitTypes
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.BiosphereNames.MythologicalCreatures)
-                .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
                 .Concat(nameList.GreatPeople.AirDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
-                .Concat(nameList.GreatPeople.WaterDeities);
+                .Concat(nameList.GreatPeople.WaterDeities)
+                .Concat(nameList.GreatPeople.OtherDeities);
 
             IEnumerable<NameGroup> corvetteNames = nameList.Ships.Corvette
                 .Concat(nameList.Warfare.Weapons.All)
@@ -92,7 +92,6 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LeadersTier2)
                 .Concat(nameList.GreatPeople.Admirals)
                 .Concat(nameList.GreatPeople.GeneralsTier2)
-                .Concat(nameList.GreatPeople.Deities)
                 .Concat(commonFighterNames);
             IEnumerable<NameGroup> battleshipNames = nameList.Ships.Battleship
                 .Concat(nameList.Places.Countries)
@@ -100,16 +99,15 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.Admirals)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(commonFighterNames);
             IEnumerable<NameGroup> titanNames = nameList.Ships.Titan
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
-                .Concat(nameList.GreatPeople.FearDeities);
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.OtherDeities);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
@@ -156,8 +154,6 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.KnowledgeDeities);
             IEnumerable<NameGroup> genericStarbases = nameList.Stations.Starbases.Generic
                 .Concat(nameList.GreatPeople.Explorers)
-                .Concat(nameList.GreatPeople.Deities)
-                .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
@@ -173,7 +169,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.SkyDeities)
                 .Concat(nameList.GreatPeople.AirDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
-                .Concat(nameList.GreatPeople.WaterDeities);
+                .Concat(nameList.GreatPeople.WaterDeities)
+                .Concat(nameList.GreatPeople.OtherDeities);
             IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Outposts.Concat(genericStarbases);
             IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Starports.Concat(genericStarbases);
             IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Starholds.Concat(genericStarbases);
@@ -204,8 +201,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.Weapons.All)
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.Deities)
-                .Concat(nameList.GreatPeople.WarDeities);
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.OtherDeities);
             IEnumerable<NameGroup> ionCannonNames = nameList.Ships.IonCannon
                 .Concat(nameList.Warfare.Weapons.Ranged);
             
