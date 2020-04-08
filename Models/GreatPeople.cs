@@ -28,6 +28,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> LabourDeities { get; set; }
         public List<NameGroup> NatureDeities { get; set; }
         public List<NameGroup> HealthDeities { get; set; }
+        public List<NameGroup> KnowledgeDeities { get; set; }
         public List<NameGroup> ArtDeities { get; set; }
         public List<NameGroup> FeastDeities { get; set; }
         public List<NameGroup> WealthDeities { get; set; }
@@ -63,6 +64,7 @@ namespace StellarisNameListGenerator.Models
             LabourDeities = new List<NameGroup>();
             NatureDeities = new List<NameGroup>();
             HealthDeities = new List<NameGroup>();
+            KnowledgeDeities = new List<NameGroup>();
             ArtDeities = new List<NameGroup>();
             FeastDeities = new List<NameGroup>();
             WealthDeities = new List<NameGroup>();
