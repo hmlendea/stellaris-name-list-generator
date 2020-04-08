@@ -117,7 +117,8 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> scienceNames = nameList.Ships.Science
                 .Concat(nameList.GreatPeople.Explorers)
                 .Concat(nameList.GreatPeople.Pioneers)
-                .Concat(nameList.GreatPeople.Scientists);
+                .Concat(nameList.GreatPeople.Scientists)
+                .Concat(nameList.GreatPeople.NatureDeities);
             IEnumerable<NameGroup> coloniserNames = nameList.Ships.Coloniser
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
@@ -138,7 +139,8 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> genericStarbases = nameList.Stations.Starbases.Generic
                 .Concat(nameList.GreatPeople.Explorers)
                 .Concat(nameList.GreatPeople.Deities)
-                .Concat(nameList.GreatPeople.LabourDeities);
+                .Concat(nameList.GreatPeople.LabourDeities)
+                .Concat(nameList.GreatPeople.NatureDeities);
             IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Outposts.Concat(genericStarbases);
             IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Starports.Concat(genericStarbases);
             IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Starholds.Concat(genericStarbases);
@@ -330,6 +332,9 @@ namespace StellarisNameListGenerator.Service
 
             IEnumerable<NameGroup> genericNames = nameList.Planets.Generic
                 .Concat(nameList.GreatPeople.Deities)
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.LabourDeities)
+                .Concat(nameList.GreatPeople.NatureDeities)
                 .Select(x => new NameGroup
                 {
                     Name = x.Name,
@@ -355,7 +360,8 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> aridNames = nameList.Planets.Arid
                 .Concat(nameList.Places.Deserts);
             IEnumerable<NameGroup> tropicalNames = nameList.Planets.Tropical
-                .Concat(nameList.Places.Forests);
+                .Concat(nameList.Places.Forests)
+                .Concat(nameList.GreatPeople.NatureDeities);
             IEnumerable<NameGroup> oceanNames = nameList.Planets.Ocean
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
