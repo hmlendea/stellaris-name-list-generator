@@ -28,6 +28,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> BeastsDeities { get; set; }
         public List<NameGroup> TimeDeities { get; set; }
         public List<NameGroup> JusticeDeities { get; set; }
+        public List<NameGroup> TrustDeities { get; set; }
         public List<NameGroup> LabourDeities { get; set; }
         public List<NameGroup> NatureDeities { get; set; }
         public List<NameGroup> HealthDeities { get; set; }
@@ -71,6 +72,7 @@ namespace StellarisNameListGenerator.Models
             BeastsDeities = new List<NameGroup>();
             TimeDeities = new List<NameGroup>();
             JusticeDeities = new List<NameGroup>();
+            TrustDeities = new List<NameGroup>();
             LabourDeities = new List<NameGroup>();
             NatureDeities = new List<NameGroup>();
             HealthDeities = new List<NameGroup>();
