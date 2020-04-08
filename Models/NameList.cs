@@ -89,10 +89,12 @@ namespace StellarisNameListGenerator.Models
 
             GreatPeople.Deities.AddRange(other.GreatPeople.Deities);
             GreatPeople.WarDeities.AddRange(other.GreatPeople.WarDeities);
+            GreatPeople.DeathDeities.AddRange(other.GreatPeople.DeathDeities);
             GreatPeople.LabourDeities.AddRange(other.GreatPeople.LabourDeities);
             GreatPeople.NatureDeities.AddRange(other.GreatPeople.NatureDeities);
             GreatPeople.HealthDeities.AddRange(other.GreatPeople.HealthDeities);
             GreatPeople.ColdDeities.AddRange(other.GreatPeople.ColdDeities);
+            GreatPeople.WaterDeities.AddRange(other.GreatPeople.WaterDeities);
 
             Companies.AutomotiveManufacturers.AddRange(other.Companies.AutomotiveManufacturers);
             Companies.AircraftManufacturers.AddRange(other.Companies.AircraftManufacturers);
