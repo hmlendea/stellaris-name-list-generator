@@ -145,7 +145,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas)
-                .Concat(nameList.GreatPeople.HealthDeities);
+                .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.FeastDeities);
             IEnumerable<NameGroup> transportNames = nameList.Ships.Transport
                 .Concat(nameList.Warfare.Weapons.All)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
@@ -160,6 +161,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.FeastDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
@@ -383,7 +385,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.NatureDeities);
             IEnumerable<NameGroup> gaiaNames = nameList.Planets.Gaia
                 .Concat(nameList.GreatPeople.NatureDeities)
-                .Concat(nameList.GreatPeople.HealthDeities);
+                .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.FeastDeities);
             IEnumerable<NameGroup> oceanNames = nameList.Planets.Ocean
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
