@@ -21,6 +21,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> GeneralsTier3 { get; set; }
 
         public List<NameGroup> PowerDeities { get; set; }
+        public List<NameGroup> PeaceDeities { get; set; }
         public List<NameGroup> WarDeities { get; set; }
         public List<NameGroup> DeathDeities { get; set; }
         public List<NameGroup> HatredDeities { get; set; }
@@ -68,6 +69,7 @@ namespace StellarisNameListGenerator.Models
             GeneralsTier3 = new List<NameGroup>();
 
             PowerDeities = new List<NameGroup>();
+            PeaceDeities = new List<NameGroup>();
             WarDeities = new List<NameGroup>();
             DeathDeities = new List<NameGroup>();
             HatredDeities = new List<NameGroup>();
