@@ -154,6 +154,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas)
+                .Concat(nameList.GreatPeople.PeaceDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
                 .Concat(nameList.GreatPeople.LoveDeities)
                 .Concat(nameList.GreatPeople.FeastDeities)
@@ -180,6 +181,7 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> genericStarbases = nameList.Stations.Starbases.Generic
                 .Concat(nameList.GreatPeople.Explorers)
                 .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.PeaceDeities)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.HatredDeities)
@@ -235,6 +237,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.GeneralsTier2)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
                 .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.PeaceDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.HatredDeities);
@@ -453,8 +456,10 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> tropicalNames = nameList.Planets.Tropical
                 .Concat(nameList.Places.Forests)
                 .Concat(nameList.GreatPeople.NatureDeities);
-            IEnumerable<NameGroup> continentalNames = nameList.Planets.Continental;
+            IEnumerable<NameGroup> continentalNames = nameList.Planets.Continental
+                .Concat(nameList.GreatPeople.PeaceDeities);
             IEnumerable<NameGroup> gaiaNames = nameList.Planets.Gaia
+                .Concat(nameList.GreatPeople.PeaceDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
                 .Concat(nameList.GreatPeople.LoveDeities)
