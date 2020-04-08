@@ -67,6 +67,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
                 .Concat(nameList.GreatPeople.AirDeities)
@@ -109,6 +110,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.OtherDeities);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
@@ -150,7 +152,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
-                .Concat(nameList.GreatPeople.BeastsDeities);
+                .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities);
             IEnumerable<NameGroup> researchStations = nameList.Stations.ResearchStations
                 .Concat(nameList.Companies.ResearchCompanies)
                 .Concat(scienceNames);
@@ -171,6 +174,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.ArtDeities)
                 .Concat(nameList.GreatPeople.FeastDeities)
                 .Concat(nameList.GreatPeople.WealthDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
                 .Concat(nameList.GreatPeople.AirDeities)
@@ -339,6 +343,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DeathDeities
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities)
                     .SelectMany(x => new List<NameGroup>
                     {
                         new NameGroup { Name = $"Abomination Flocks - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Flock").ToList() },
@@ -424,7 +429,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
-                .Concat(nameList.GreatPeople.BeastsDeities);
+                .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities);
             IEnumerable<NameGroup> savannahNames = nameList.Planets.Savannah
                 .Concat(nameList.GreatPeople.SunDeities);
             IEnumerable<NameGroup> alpineNames = nameList.Planets.Alpine
@@ -435,9 +441,11 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities);
             IEnumerable<NameGroup> barrenNames = nameList.Planets.Barren
                 .Concat(nameList.GreatPeople.DeathDeities)
-                .Concat(nameList.GreatPeople.FearDeities);
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities);
             IEnumerable<NameGroup> asteroidNames = nameList.Planets.Asteroid
-                .Concat(nameList.GreatPeople.FearDeities);
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities);
             
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
             content += BuildPlanetNameArray(genericNames, "generic");
