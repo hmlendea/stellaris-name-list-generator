@@ -72,6 +72,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.BiosphereNames.Animals)
                 .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities)
+                .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> destroyerNames = nameList.Ships.Destroyer
@@ -80,6 +81,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities)
+                .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> cruiserNames = nameList.Ships.Cruiser
@@ -92,6 +94,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.GeneralsTier2)
                 .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities)
+                .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> battleshipNames = nameList.Ships.Battleship
@@ -104,6 +107,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> titanNames = nameList.Ships.Titan
@@ -111,6 +115,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.GeneralsTier3)
                 .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
@@ -155,6 +160,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.ColdDeities)
                 .Concat(nameList.GreatPeople.WaterDeities);
             IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Outposts.Concat(genericStarbases);
@@ -366,39 +372,12 @@ namespace StellarisNameListGenerator.Service
         {
             string content = string.Empty;
 
-            IEnumerable<NameGroup> genericNames = nameList.Planets.Generic
-                .Concat(nameList.GreatPeople.Deities)
-                .Concat(nameList.GreatPeople.WarDeities)
-                .Concat(nameList.GreatPeople.DeathDeities)
-                .Concat(nameList.GreatPeople.LabourDeities)
-                .Concat(nameList.GreatPeople.NatureDeities)
-                .Concat(nameList.GreatPeople.HealthDeities)
-                .Concat(nameList.GreatPeople.ColdDeities)
-                .Concat(nameList.GreatPeople.WaterDeities)
-                .Select(x => new NameGroup
-                {
-                    Name = x.Name,
-                    ExplicitValues = x.Values
-                        .Except(nameList.Planets.Desert.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Arid.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Tropical.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Continental.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Gaia.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Ocean.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Tundra.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Arctic.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Tomb.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Savannah.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Alpine.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Molten.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Barren.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Asteroid.SelectMany(y => y.Values))
-                        .ToList()
-                });
             IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
-                .Concat(nameList.Places.Deserts);
+                .Concat(nameList.Places.Deserts)
+                .Concat(nameList.GreatPeople.SunDeities);
             IEnumerable<NameGroup> aridNames = nameList.Planets.Arid
-                .Concat(nameList.Places.Deserts);
+                .Concat(nameList.Places.Deserts)
+                .Concat(nameList.GreatPeople.SunDeities);
             IEnumerable<NameGroup> tropicalNames = nameList.Planets.Tropical
                 .Concat(nameList.Places.Forests)
                 .Concat(nameList.GreatPeople.NatureDeities);
@@ -418,6 +397,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities);
+            IEnumerable<NameGroup> savannahNames = nameList.Planets.Savannah
+                .Concat(nameList.GreatPeople.SunDeities);
             IEnumerable<NameGroup> alpineNames = nameList.Planets.Alpine
                 .Concat(nameList.Places.Mountains)
                 .Concat(nameList.GreatPeople.ColdDeities);
@@ -436,7 +417,7 @@ namespace StellarisNameListGenerator.Service
             content += BuildPlanetNameArray(tundraNames, "pc_tundra");
             content += BuildPlanetNameArray(arcticNames, "pc_arctic");
             content += BuildPlanetNameArray(tombNames, "pc_nuked");
-            content += BuildPlanetNameArray(nameList.Planets.Savannah, "pc_savannah");
+            content += BuildPlanetNameArray(savannahNames, "pc_savannah");
             content += BuildPlanetNameArray(alpineNames, "pc_alpine");
             content += BuildPlanetNameArray(moltenNames, "pc_molten");
             content += BuildPlanetNameArray(nameList.Planets.Barren, "pc_barren");
