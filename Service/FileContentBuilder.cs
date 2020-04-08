@@ -149,6 +149,11 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.Heroes)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.FearDeities);
+            IEnumerable<NameGroup> researchStations = nameList.Stations.ResearchStations
+                .Concat(nameList.Companies.ResearchCompanies)
+                .Concat(scienceNames);
+            IEnumerable<NameGroup> observationStations = nameList.Stations.ObservationStations
+                .Concat(nameList.GreatPeople.KnowledgeDeities);
             IEnumerable<NameGroup> genericStarbases = nameList.Stations.Starbases.Generic
                 .Concat(nameList.GreatPeople.Explorers)
                 .Concat(nameList.GreatPeople.Deities)
@@ -218,8 +223,8 @@ namespace StellarisNameListGenerator.Service
             content += BuildNameArray(coloniserNames, "sponsored_colonizer", 2);
             content += BuildNameArray(transportNames, "transport", 2);
             content += BuildNameArray(nameList.Stations.MiningStations, "mining_station", 2);
-            content += BuildNameArray(nameList.Stations.ResearchStations, "research_station", 2);
-            content += BuildNameArray(nameList.Stations.ObservationStations, "observation_station", 2);
+            content += BuildNameArray(researchStations, "research_station", 2);
+            content += BuildNameArray(observationStations, "observation_station", 2);
             content += BuildNameArray(outpostNames, "starbase_outpost", 2, "%O% Starbase");
             content += BuildNameArray(starportNames, "starbase_starport", 2, "%O% Starbase");
             content += BuildNameArray(starholdNames, "starbase_starhold", 2, "%O% Starbase");
