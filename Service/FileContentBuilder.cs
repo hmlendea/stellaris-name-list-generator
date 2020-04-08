@@ -66,6 +66,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities)
+                .Concat(nameList.GreatPeople.JusticeDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
                 .Concat(nameList.GreatPeople.AirDeities)
@@ -154,6 +155,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.JusticeDeities)
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
@@ -375,6 +377,7 @@ namespace StellarisNameListGenerator.Service
             string content = string.Empty;
 
             IEnumerable<NameGroup> genericNames = nameList.Planets.Generic
+                .Concat(nameList.GreatPeople.JusticeDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
                 .Concat(nameList.GreatPeople.AirDeities);
             IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
