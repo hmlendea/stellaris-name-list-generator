@@ -148,7 +148,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.HealthDeities)
                 .Concat(nameList.GreatPeople.LoveDeities)
                 .Concat(nameList.GreatPeople.FeastDeities)
-                .Concat(nameList.GreatPeople.WealthDeities);
+                .Concat(nameList.GreatPeople.FortuneDeities);
             IEnumerable<NameGroup> transportNames = nameList.Ships.Transport
                 .Concat(nameList.Warfare.Weapons.All)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
@@ -184,7 +184,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.KnowledgeDeities)
                 .Concat(nameList.GreatPeople.ArtDeities)
                 .Concat(nameList.GreatPeople.FeastDeities)
-                .Concat(nameList.GreatPeople.WealthDeities)
+                .Concat(nameList.GreatPeople.FortuneDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
@@ -437,7 +437,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LoveDeities)
                 .Concat(nameList.GreatPeople.ArtDeities)
                 .Concat(nameList.GreatPeople.FeastDeities)
-                .Concat(nameList.GreatPeople.WealthDeities);
+                .Concat(nameList.GreatPeople.FortuneDeities);
             IEnumerable<NameGroup> oceanNames = nameList.Planets.Ocean
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
