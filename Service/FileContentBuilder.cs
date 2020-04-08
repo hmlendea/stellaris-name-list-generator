@@ -65,6 +65,7 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> commonFighterNames = nameList.Warfare.MilitaryUnitTypes
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.BiosphereNames.MythologicalCreatures)
+                .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
@@ -108,6 +109,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.GeneralsTier3)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
@@ -151,6 +153,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.Heroes)
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
@@ -163,6 +166,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.Explorers)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.TimeDeities)
@@ -341,6 +345,7 @@ namespace StellarisNameListGenerator.Service
                     }));
             IEnumerable<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy
                 .Concat(nameList.GreatPeople.DeathDeities
+                .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
@@ -428,6 +433,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
@@ -441,9 +447,11 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities);
             IEnumerable<NameGroup> barrenNames = nameList.Planets.Barren
                 .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
             IEnumerable<NameGroup> asteroidNames = nameList.Planets.Asteroid
+                .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
             
