@@ -68,6 +68,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.TrustDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
@@ -178,6 +179,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.TrustDeities)
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
@@ -419,6 +421,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.PowerDeities)
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.TrustDeities)
                 .Concat(nameList.GreatPeople.KnowledgeDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
                 .Concat(nameList.GreatPeople.AirDeities
