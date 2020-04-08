@@ -24,6 +24,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> WarDeities { get; set; }
         public List<NameGroup> LabourDeities { get; set; }
         public List<NameGroup> NatureDeities { get; set; }
+        public List<NameGroup> HealthDeities { get; set; }
 
         public GreatPeople()
         {
@@ -47,6 +48,7 @@ namespace StellarisNameListGenerator.Models
             WarDeities = new List<NameGroup>();
             LabourDeities = new List<NameGroup>();
             NatureDeities = new List<NameGroup>();
+            HealthDeities = new List<NameGroup>();
         }
     }
 }
