@@ -126,7 +126,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.Pioneers)
                 .Concat(nameList.GreatPeople.Scientists)
                 .Concat(nameList.GreatPeople.NatureDeities)
-                .Concat(nameList.GreatPeople.HealthDeities);
+                .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.KnowledgeDeities);
             IEnumerable<NameGroup> coloniserNames = nameList.Ships.Coloniser
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
@@ -159,6 +160,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.KnowledgeDeities)
                 .Concat(nameList.GreatPeople.ArtDeities)
                 .Concat(nameList.GreatPeople.FeastDeities)
                 .Concat(nameList.GreatPeople.WealthDeities)
@@ -379,6 +381,7 @@ namespace StellarisNameListGenerator.Service
 
             IEnumerable<NameGroup> genericNames = nameList.Planets.Generic
                 .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.KnowledgeDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
                 .Concat(nameList.GreatPeople.AirDeities);
             IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
