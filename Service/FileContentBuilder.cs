@@ -109,6 +109,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.GeneralsTier3)
                 .Concat(nameList.GreatPeople.PowerDeities)
                 .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(commonFighterNames);
             IEnumerable<NameGroup> titanNames = nameList.Ships.Titan
                 .Concat(nameList.GreatPeople.LeadersTier3)
@@ -118,6 +120,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.OtherDeities);
@@ -222,6 +225,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.GeneralsTier2)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.HatredDeities);
             IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Medium
                 .Concat(genericMilitaryStations)
@@ -232,6 +236,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.GeneralsTier3)
                 .Concat(nameList.GreatPeople.PowerDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.HatredDeities);
             IEnumerable<NameGroup> largeMilitaryStations = nameList.Stations.MilitaryStations.Large
                 .Concat(genericMilitaryStations)
@@ -242,6 +247,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.HatredDeities);
             IEnumerable<NameGroup> ionCannonNames = nameList.Ships.IonCannon
                 .Concat(nameList.Warfare.Weapons.Ranged);
@@ -373,6 +379,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DeathDeities
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
                     .SelectMany(x => new List<NameGroup>
@@ -469,6 +476,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
             IEnumerable<NameGroup> savannahNames = nameList.Planets.Savannah
@@ -485,10 +493,12 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
             IEnumerable<NameGroup> asteroidNames = nameList.Planets.Asteroid
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
             
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
