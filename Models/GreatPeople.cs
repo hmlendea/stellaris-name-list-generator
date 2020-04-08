@@ -41,6 +41,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> SkyDeities { get; set; }
         public List<NameGroup> AirDeities { get; set; }
         public List<NameGroup> ColdDeities { get; set; }
+        public List<NameGroup> WarmthDeities { get; set; }
         public List<NameGroup> WaterDeities { get; set; }
         public List<NameGroup> OtherDeities { get; set; }
 
@@ -84,6 +85,7 @@ namespace StellarisNameListGenerator.Models
             SkyDeities = new List<NameGroup>();
             AirDeities = new List<NameGroup>();
             ColdDeities = new List<NameGroup>();
+            WarmthDeities = new List<NameGroup>();
             WaterDeities = new List<NameGroup>();
             OtherDeities = new List<NameGroup>();
         }
