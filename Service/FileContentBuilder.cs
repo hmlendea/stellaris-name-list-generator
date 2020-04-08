@@ -107,6 +107,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.OtherDeities);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
@@ -146,7 +147,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.GreatPeople.Heroes)
                 .Concat(nameList.GreatPeople.WarDeities)
-                .Concat(nameList.GreatPeople.FearDeities);
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities);
             IEnumerable<NameGroup> researchStations = nameList.Stations.ResearchStations
                 .Concat(nameList.Companies.ResearchCompanies)
                 .Concat(scienceNames);
@@ -157,6 +159,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
@@ -332,6 +335,7 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy
                 .Concat(nameList.GreatPeople.DeathDeities
                 .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities)
                     .SelectMany(x => new List<NameGroup>
                     {
                         new NameGroup { Name = $"Abomination Flocks - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Flock").ToList() },
@@ -415,7 +419,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
-                .Concat(nameList.GreatPeople.FearDeities);
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities);
             IEnumerable<NameGroup> savannahNames = nameList.Planets.Savannah
                 .Concat(nameList.GreatPeople.SunDeities);
             IEnumerable<NameGroup> alpineNames = nameList.Planets.Alpine
