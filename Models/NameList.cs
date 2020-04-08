@@ -88,6 +88,7 @@ namespace StellarisNameListGenerator.Models
             GreatPeople.GeneralsTier3.AddRange(other.GreatPeople.GeneralsTier3);
 
             GreatPeople.Deities.AddRange(other.GreatPeople.Deities);
+            GreatPeople.WarDeities.AddRange(other.GreatPeople.WarDeities);
             GreatPeople.LabourDeities.AddRange(other.GreatPeople.LabourDeities);
 
             Companies.AutomotiveManufacturers.AddRange(other.Companies.AutomotiveManufacturers);

@@ -21,6 +21,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> GeneralsTier3 { get; set; }
 
         public List<NameGroup> Deities { get; set; }
+        public List<NameGroup> WarDeities { get; set; }
         public List<NameGroup> LabourDeities { get; set; }
 
         public GreatPeople()
@@ -42,6 +43,7 @@ namespace StellarisNameListGenerator.Models
             GeneralsTier3 = new List<NameGroup>();
 
             Deities = new List<NameGroup>();
+            WarDeities = new List<NameGroup>();
             LabourDeities = new List<NameGroup>();
         }
     }

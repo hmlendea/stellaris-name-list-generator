@@ -355,11 +355,13 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Lakes)
                 .Concat(nameList.Places.Seas);
             IEnumerable<NameGroup> tombNames = nameList.Planets.Tomb
-                .Concat(nameList.Warfare.BattleLocations);
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.GreatPeople.WarDeities);
             IEnumerable<NameGroup> alpineNames = nameList.Planets.Alpine
                 .Concat(nameList.Places.Mountains);
             IEnumerable<NameGroup> moltenNames = nameList.Planets.Molten
-                .Concat(nameList.GreatPeople.LabourDeities);
+                .Concat(nameList.GreatPeople.LabourDeities)
+                .Concat(nameList.GreatPeople.WarDeities);
             
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
             content += BuildPlanetNameArray(nameList.Planets.Generic, "generic");
