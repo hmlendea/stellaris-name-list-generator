@@ -351,21 +351,21 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DarknessDeities)
                     .SelectMany(x => new List<NameGroup>
                     {
-                        new NameGroup { Name = $"Abomination Flocks - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Flock").ToList() },
-                        new NameGroup { Name = $"Abomination Packs - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Pack").ToList() },
-                        new NameGroup { Name = $"Beast Legions - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Legion").ToList() },
-                        new NameGroup { Name = $"Beast Warbands - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Warband").ToList() },
-                        new NameGroup { Name = $"Death Flocks - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Death Flock").ToList() },
-                        new NameGroup { Name = $"Hybrid Packs - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Hybrid Pack").ToList() },
-                        new NameGroup { Name = $"Morphling Marauderss - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Morphling Marauders").ToList() },
-                        new NameGroup { Name = $"Mutant Flocks - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Flock").ToList() },
-                        new NameGroup { Name = $"Mutant Lurkers - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Lurkers").ToList() },
-                        new NameGroup { Name = $"Mutant Swarms - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Swarm").ToList() },
-                        new NameGroup { Name = $"Xenomorph Broods - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Brood").ToList() },
-                        new NameGroup { Name = $"Xenomorph Hordes - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Horde").ToList() },
-                        new NameGroup { Name = $"Xenomorph Packs - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Pack").ToList() },
-                        new NameGroup { Name = $"Xenomorph Swarms - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Swarm").ToList() },
-                        new NameGroup { Name = $"Xenomorph Troopers - Death Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Troopers").ToList() },
+                        new NameGroup { Name = $"Abomination Flocks - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Flock").ToList() },
+                        new NameGroup { Name = $"Abomination Packs - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Pack").ToList() },
+                        new NameGroup { Name = $"Beast Legions - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Legion").ToList() },
+                        new NameGroup { Name = $"Beast Warbands - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Warband").ToList() },
+                        new NameGroup { Name = $"Death Flocks - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Death Flock").ToList() },
+                        new NameGroup { Name = $"Hybrid Packs - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Hybrid Pack").ToList() },
+                        new NameGroup { Name = $"Morphling Marauderss - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Morphling Marauders").ToList() },
+                        new NameGroup { Name = $"Mutant Flocks - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Flock").ToList() },
+                        new NameGroup { Name = $"Mutant Lurkers - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Lurkers").ToList() },
+                        new NameGroup { Name = $"Mutant Swarms - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Swarm").ToList() },
+                        new NameGroup { Name = $"Xenomorph Broods - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Brood").ToList() },
+                        new NameGroup { Name = $"Xenomorph Hordes - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Horde").ToList() },
+                        new NameGroup { Name = $"Xenomorph Packs - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Pack").ToList() },
+                        new NameGroup { Name = $"Xenomorph Swarms - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Swarm").ToList() },
+                        new NameGroup { Name = $"Xenomorph Troopers - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Troopers").ToList() },
                     }));
 
             string innerContent = string.Empty;
