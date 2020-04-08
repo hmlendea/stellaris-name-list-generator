@@ -62,72 +62,52 @@ namespace StellarisNameListGenerator.Service
             content += $"{GetIndentation(1)}ship_names = {{{Environment.NewLine}";
 
             IEnumerable<NameGroup> genericNames = nameList.Ships.Generic.Concat(nameList.Denonyms);
+            IEnumerable<NameGroup> commonFighterNames = nameList.Warfare.MilitaryUnitTypes
+                .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.BiosphereNames.MythologicalCreatures)
+                .Concat(nameList.GreatPeople.Deities)
+                .Concat(nameList.GreatPeople.SunDeities)
+                .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities)
+                .Concat(nameList.GreatPeople.ColdDeities)
+                .Concat(nameList.GreatPeople.WaterDeities);
+
             IEnumerable<NameGroup> corvetteNames = nameList.Ships.Corvette
                 .Concat(nameList.Warfare.Weapons.All)
-                .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.GreatPeople.LeadersTier1)
                 .Concat(nameList.GreatPeople.FlyingAces)
                 .Concat(nameList.GreatPeople.Heroes)
                 .Concat(nameList.GreatPeople.GeneralsTier1)
                 .Concat(nameList.BiosphereNames.Animals)
-                .Concat(nameList.BiosphereNames.MythologicalCreatures)
-                .Concat(nameList.GreatPeople.Deities)
-                .Concat(nameList.GreatPeople.SunDeities)
-                .Concat(nameList.GreatPeople.SkyDeities)
-                .Concat(nameList.GreatPeople.AirDeities)
-                .Concat(nameList.GreatPeople.ColdDeities)
-                .Concat(nameList.GreatPeople.WaterDeities);
+                .Concat(commonFighterNames);
             IEnumerable<NameGroup> destroyerNames = nameList.Ships.Destroyer
                 .Concat(nameList.Places.Cities)
-                .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.Forts)
-                .Concat(nameList.BiosphereNames.MythologicalCreatures)
-                .Concat(nameList.GreatPeople.Deities)
-                .Concat(nameList.GreatPeople.SunDeities)
-                .Concat(nameList.GreatPeople.SkyDeities)
-                .Concat(nameList.GreatPeople.AirDeities)
-                .Concat(nameList.GreatPeople.ColdDeities)
-                .Concat(nameList.GreatPeople.WaterDeities);
+                .Concat(commonFighterNames);
             IEnumerable<NameGroup> cruiserNames = nameList.Ships.Cruiser
                 .Concat(nameList.Places.Regions)
-                .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.GreatPeople.LeadersTier2)
                 .Concat(nameList.GreatPeople.Admirals)
                 .Concat(nameList.GreatPeople.GeneralsTier2)
-                .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities)
-                .Concat(nameList.GreatPeople.SunDeities)
-                .Concat(nameList.GreatPeople.SkyDeities)
-                .Concat(nameList.GreatPeople.AirDeities)
-                .Concat(nameList.GreatPeople.ColdDeities)
-                .Concat(nameList.GreatPeople.WaterDeities);
+                .Concat(commonFighterNames);
             IEnumerable<NameGroup> battleshipNames = nameList.Ships.Battleship
                 .Concat(nameList.Places.Countries)
-                .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.Admirals)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.WarDeities)
-                .Concat(nameList.GreatPeople.SunDeities)
-                .Concat(nameList.GreatPeople.SkyDeities)
-                .Concat(nameList.GreatPeople.AirDeities)
-                .Concat(nameList.GreatPeople.ColdDeities)
-                .Concat(nameList.GreatPeople.WaterDeities);
+                .Concat(commonFighterNames);
             IEnumerable<NameGroup> titanNames = nameList.Ships.Titan
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
                 .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.WarDeities)
-                .Concat(nameList.GreatPeople.SunDeities)
-                .Concat(nameList.GreatPeople.SkyDeities)
-                .Concat(nameList.GreatPeople.AirDeities)
-                .Concat(nameList.GreatPeople.ColdDeities)
-                .Concat(nameList.GreatPeople.WaterDeities);
+                .Concat(nameList.GreatPeople.DeathDeities);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
@@ -168,7 +148,9 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> genericStarbases = nameList.Stations.Starbases.Generic
                 .Concat(nameList.GreatPeople.Explorers)
                 .Concat(nameList.GreatPeople.Deities)
+                .Concat(nameList.GreatPeople.Deities)
                 .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
@@ -388,6 +370,9 @@ namespace StellarisNameListGenerator.Service
         {
             string content = string.Empty;
 
+            IEnumerable<NameGroup> genericNames = nameList.Planets.Generic
+                .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities);
             IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
                 .Concat(nameList.Places.Deserts)
                 .Concat(nameList.GreatPeople.SunDeities);
@@ -397,9 +382,7 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> tropicalNames = nameList.Planets.Tropical
                 .Concat(nameList.Places.Forests)
                 .Concat(nameList.GreatPeople.NatureDeities);
-            IEnumerable<NameGroup> continentalNames = nameList.Planets.Continental
-                .Concat(nameList.GreatPeople.SkyDeities)
-                .Concat(nameList.GreatPeople.AirDeities);
+            IEnumerable<NameGroup> continentalNames = nameList.Planets.Continental;
             IEnumerable<NameGroup> gaiaNames = nameList.Planets.Gaia
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
@@ -428,11 +411,11 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.WarDeities);
             
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
-            content += BuildPlanetNameArray(nameList.Planets.Generic, "generic");
+            content += BuildPlanetNameArray(genericNames, "generic");
             content += BuildPlanetNameArray(desertNames, "pc_desert");
             content += BuildPlanetNameArray(aridNames, "pc_arid");
             content += BuildPlanetNameArray(tropicalNames, "pc_tropical");
-            content += BuildPlanetNameArray(nameList.Planets.Continental, "pc_continental");
+            content += BuildPlanetNameArray(continentalNames, "pc_continental");
             content += BuildPlanetNameArray(gaiaNames, "pc_gaia");
             content += BuildPlanetNameArray(oceanNames, "pc_ocean");
             content += BuildPlanetNameArray(tundraNames, "pc_tundra");
