@@ -127,7 +127,9 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.OtherDeities);
             IEnumerable<NameGroup> colossusNames = nameList.Ships.Colossus
-                .Concat(nameList.GreatPeople.DeathDeities);
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.SunDeities);
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
