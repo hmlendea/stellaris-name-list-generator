@@ -42,6 +42,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> ArtDeities { get; set; }
         public List<NameGroup> FeastDeities { get; set; }
         public List<NameGroup> FortuneDeities { get; set; }
+        public List<NameGroup> SleepDeities { get; set; }
         public List<NameGroup> DarknessDeities { get; set; }
         public List<NameGroup> LightDeities { get; set; }
         public List<NameGroup> SunDeities { get; set; }
@@ -92,6 +93,7 @@ namespace StellarisNameListGenerator.Models
             ArtDeities = new List<NameGroup>();
             FeastDeities = new List<NameGroup>();
             FortuneDeities = new List<NameGroup>();
+            SleepDeities = new List<NameGroup>();
             DarknessDeities = new List<NameGroup>();
             LightDeities = new List<NameGroup>();
             SunDeities = new List<NameGroup>();

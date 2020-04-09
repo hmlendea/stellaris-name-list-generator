@@ -72,6 +72,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.ProtectionDeities)
                 .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.TrustDeities)
+                .Concat(nameList.GreatPeople.SleepDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.LightDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
@@ -162,7 +163,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.HealthDeities)
                 .Concat(nameList.GreatPeople.LoveDeities)
                 .Concat(nameList.GreatPeople.FeastDeities)
-                .Concat(nameList.GreatPeople.FortuneDeities);
+                .Concat(nameList.GreatPeople.FortuneDeities)
+                .Concat(nameList.GreatPeople.SleepDeities);
             IEnumerable<NameGroup> transportNames = nameList.Ships.Transport
                 .Concat(nameList.Warfare.Weapons.All)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
@@ -205,6 +207,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.ArtDeities)
                 .Concat(nameList.GreatPeople.FeastDeities)
                 .Concat(nameList.GreatPeople.FortuneDeities)
+                .Concat(nameList.GreatPeople.SleepDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.LightDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
@@ -448,6 +451,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.ProtectionDeities)
                 .Concat(nameList.GreatPeople.TrustDeities)
                 .Concat(nameList.GreatPeople.KnowledgeDeities)
+                .Concat(nameList.GreatPeople.SleepDeities)
                 .Concat(nameList.GreatPeople.LightDeities)
                 .Concat(nameList.GreatPeople.SkyDeities)
                 .Concat(nameList.GreatPeople.AirDeities
