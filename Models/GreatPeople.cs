@@ -22,6 +22,7 @@ namespace StellarisNameListGenerator.Models
 
         public List<NameGroup> PowerDeities { get; set; }
         public List<NameGroup> CreationDeities { get; set; }
+        public List<NameGroup> DestructionDeities { get; set; }
         public List<NameGroup> PeaceDeities { get; set; }
         public List<NameGroup> WarDeities { get; set; }
         public List<NameGroup> VictoryDeities { get; set; }
@@ -75,6 +76,7 @@ namespace StellarisNameListGenerator.Models
 
             PowerDeities = new List<NameGroup>();
             CreationDeities = new List<NameGroup>();
+            DestructionDeities = new List<NameGroup>();
             PeaceDeities = new List<NameGroup>();
             WarDeities = new List<NameGroup>();
             VictoryDeities = new List<NameGroup>();
