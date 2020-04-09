@@ -98,6 +98,8 @@ namespace StellarisNameListGenerator.Models
             GreatPeople.TimeDeities.AddRange(other.GreatPeople.TimeDeities);
             GreatPeople.ProphecyDeities.AddRange(other.GreatPeople.ProphecyDeities);
             GreatPeople.JusticeDeities.AddRange(other.GreatPeople.JusticeDeities);
+            GreatPeople.ProtectionDeities.AddRange(other.GreatPeople.ProtectionDeities);
+            GreatPeople.PunishmentDeities.AddRange(other.GreatPeople.PunishmentDeities);
             GreatPeople.TrustDeities.AddRange(other.GreatPeople.TrustDeities);
             GreatPeople.LabourDeities.AddRange(other.GreatPeople.LabourDeities);
             GreatPeople.NatureDeities.AddRange(other.GreatPeople.NatureDeities);
