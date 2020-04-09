@@ -69,6 +69,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.ProphecyDeities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.TrustDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities)
                 .Concat(nameList.GreatPeople.LightDeities)
@@ -190,6 +192,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.ProphecyDeities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.TrustDeities)
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
@@ -439,6 +443,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.TimeDeities)
                 .Concat(nameList.GreatPeople.ProphecyDeities)
                 .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities)
                 .Concat(nameList.GreatPeople.TrustDeities)
                 .Concat(nameList.GreatPeople.KnowledgeDeities)
                 .Concat(nameList.GreatPeople.LightDeities)
@@ -447,6 +452,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.OtherDeities));
             IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
                 .Concat(nameList.Places.Deserts)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.WarmthDeities);
             IEnumerable<NameGroup> aridNames = nameList.Planets.Arid
@@ -457,9 +463,11 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Forests)
                 .Concat(nameList.GreatPeople.NatureDeities);
             IEnumerable<NameGroup> continentalNames = nameList.Planets.Continental
-                .Concat(nameList.GreatPeople.PeaceDeities);
+                .Concat(nameList.GreatPeople.PeaceDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities);
             IEnumerable<NameGroup> gaiaNames = nameList.Planets.Gaia
                 .Concat(nameList.GreatPeople.PeaceDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities)
                 .Concat(nameList.GreatPeople.NatureDeities)
                 .Concat(nameList.GreatPeople.HealthDeities)
                 .Concat(nameList.GreatPeople.LoveDeities)
@@ -474,7 +482,8 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> tundraNames = nameList.Planets.Tundra
                 .Concat(nameList.GreatPeople.ColdDeities);
             IEnumerable<NameGroup> arcticNames = nameList.Planets.Arctic
-                .Concat(nameList.GreatPeople.ColdDeities);
+                .Concat(nameList.GreatPeople.ColdDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities);
             IEnumerable<NameGroup> tombNames = nameList.Planets.Tomb
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.GreatPeople.WarDeities)
@@ -483,14 +492,17 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
             IEnumerable<NameGroup> savannahNames = nameList.Planets.Savannah
                 .Concat(nameList.GreatPeople.SunDeities)
                 .Concat(nameList.GreatPeople.WarmthDeities);
             IEnumerable<NameGroup> alpineNames = nameList.Planets.Alpine
                 .Concat(nameList.Places.Mountains)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.ColdDeities);
             IEnumerable<NameGroup> moltenNames = nameList.Planets.Molten
+                .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.LabourDeities)
                 .Concat(nameList.GreatPeople.WarDeities)
                 .Concat(nameList.GreatPeople.WarmthDeities);
@@ -499,11 +511,13 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
             IEnumerable<NameGroup> asteroidNames = nameList.Planets.Asteroid
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
             
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
