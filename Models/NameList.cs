@@ -88,6 +88,7 @@ namespace StellarisNameListGenerator.Models
             GreatPeople.GeneralsTier3.AddRange(other.GreatPeople.GeneralsTier3);
 
             GreatPeople.PowerDeities.AddRange(other.GreatPeople.PowerDeities);
+            GreatPeople.CreationDeities.AddRange(other.GreatPeople.CreationDeities);
             GreatPeople.PeaceDeities.AddRange(other.GreatPeople.PeaceDeities);
             GreatPeople.WarDeities.AddRange(other.GreatPeople.WarDeities);
             GreatPeople.VictoryDeities.AddRange(other.GreatPeople.VictoryDeities);
