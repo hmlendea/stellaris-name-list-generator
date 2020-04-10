@@ -36,7 +36,8 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> JusticeDeities { get; set; }
         public List<NameGroup> ProtectionDeities { get; set; }
         public List<NameGroup> PunishmentDeities { get; set; }
-        public List<NameGroup> TrustDeities { get; set; }
+        public List<NameGroup> LoyaltyDeities { get; set; }
+        public List<NameGroup> DisloyaltyDeities { get; set; }
         public List<NameGroup> LabourDeities { get; set; }
         public List<NameGroup> NatureDeities { get; set; }
         public List<NameGroup> HealthDeities { get; set; }
@@ -88,9 +89,10 @@ namespace StellarisNameListGenerator.Models
             TimeDeities = new List<NameGroup>();
             ProphecyDeities = new List<NameGroup>();
             JusticeDeities = new List<NameGroup>();
+            ProtectionDeities = new List<NameGroup>();
             PunishmentDeities = new List<NameGroup>();
-            JusticeDeities = new List<NameGroup>();
-            TrustDeities = new List<NameGroup>();
+            LoyaltyDeities = new List<NameGroup>();
+            DisloyaltyDeities = new List<NameGroup>();
             LabourDeities = new List<NameGroup>();
             NatureDeities = new List<NameGroup>();
             HealthDeities = new List<NameGroup>();
