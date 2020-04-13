@@ -137,6 +137,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.VictoryDeities)
                 .Concat(nameList.GreatPeople.DeathDeities)
                 .Concat(nameList.GreatPeople.SunDeities);
+            IEnumerable<NameGroup> juggernautNames = nameList.Ships.Juggernaut;
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
@@ -188,6 +189,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
+            IEnumerable<NameGroup> miningStations = nameList.Stations.MiningStations;
             IEnumerable<NameGroup> researchStations = nameList.Stations.ResearchStations
                 .Concat(nameList.Companies.ResearchCompanies)
                 .Concat(scienceNames);
@@ -279,6 +281,22 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.HatredDeities);
             IEnumerable<NameGroup> ionCannonNames = nameList.Ships.IonCannon
                 .Concat(nameList.Warfare.Weapons.Ranged);
+
+            foreach (NameGroup genericNameGroup in genericNames)
+            {
+                genericNameGroup.Values.RemoveAll(x => 
+                    corvetteNames.SelectMany(y => y.Values).Contains(x) ||
+                    destroyerNames.SelectMany(y => y.Values).Contains(x) ||
+                    cruiserNames.SelectMany(y => y.Values).Contains(x) ||
+                    battleshipNames.SelectMany(y => y.Values).Contains(x) ||
+                    titanNames.SelectMany(y => y.Values).Contains(x) ||
+                    colossusNames.SelectMany(y => y.Values).Contains(x) ||
+                    juggernautNames.SelectMany(y => y.Values).Contains(x) ||
+                    constructorNames.SelectMany(y => y.Values).Contains(x) ||
+                    scienceNames.SelectMany(y => y.Values).Contains(x) ||
+                    coloniserNames.SelectMany(y => y.Values).Contains(x) ||
+                    transportNames.SelectMany(y => y.Values).Contains(x));
+            }
             
             content += BuildNameArray(genericNames, "generic", 2);
             content += BuildNameArray(corvetteNames, "corvette", 2);
@@ -287,13 +305,13 @@ namespace StellarisNameListGenerator.Service
             content += BuildNameArray(battleshipNames, "battleship", 2);
             content += BuildNameArray(titanNames, "titan", 2);
             content += BuildNameArray(colossusNames, "colossus", 2);
-            content += BuildNameArray(nameList.Ships.Juggernaut, "juggernaut", 2);
+            content += BuildNameArray(juggernautNames, "juggernaut", 2);
             content += BuildNameArray(constructorNames, "constructor", 2);
             content += BuildNameArray(scienceNames, "science", 2);
             content += BuildNameArray(coloniserNames, "colonizer", 2);
             content += BuildNameArray(coloniserNames, "sponsored_colonizer", 2);
             content += BuildNameArray(transportNames, "transport", 2);
-            content += BuildNameArray(nameList.Stations.MiningStations, "mining_station", 2);
+            content += BuildNameArray(miningStations, "mining_station", 2);
             content += BuildNameArray(researchStations, "research_station", 2);
             content += BuildNameArray(observationStations, "observation_station", 2);
             content += BuildNameArray(outpostNames, "starbase_outpost", 2, "%O% Starbase");
@@ -552,6 +570,25 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.PunishmentDeities)
                 .Concat(nameList.GreatPeople.DisloyaltyDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
+
+            foreach (NameGroup genericNameGroup in genericNames)
+            {
+                genericNameGroup.Values.RemoveAll(x => 
+                    desertNames.SelectMany(y => y.Values).Contains(x) ||
+                    aridNames.SelectMany(y => y.Values).Contains(x) ||
+                    tropicalNames.SelectMany(y => y.Values).Contains(x) ||
+                    continentalNames.SelectMany(y => y.Values).Contains(x) ||
+                    gaiaNames.SelectMany(y => y.Values).Contains(x) ||
+                    oceanNames.SelectMany(y => y.Values).Contains(x) ||
+                    tundraNames.SelectMany(y => y.Values).Contains(x) ||
+                    arcticNames.SelectMany(y => y.Values).Contains(x) ||
+                    tombNames.SelectMany(y => y.Values).Contains(x) ||
+                    savannahNames.SelectMany(y => y.Values).Contains(x) ||
+                    alpineNames.SelectMany(y => y.Values).Contains(x) ||
+                    moltenNames.SelectMany(y => y.Values).Contains(x) ||
+                    barrenNames.SelectMany(y => y.Values).Contains(x) ||
+                    barrenNames.SelectMany(y => y.Values).Contains(x));
+            }
             
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
             content += BuildPlanetNameArray(genericNames, "generic");
@@ -568,7 +605,7 @@ namespace StellarisNameListGenerator.Service
             content += BuildPlanetNameArray(alpineNames, "pc_alpine");
             content += BuildPlanetNameArray(moltenNames, "pc_molten");
             content += BuildPlanetNameArray(barrenNames, "pc_barren");
-            content += BuildPlanetNameArray(asteroidNames, "pc_asteroid");
+            content += BuildPlanetNameArray(barrenNames, "pc_asteroid");
             content += $"{GetIndentation(1)}}}{Environment.NewLine}";
 
             return content;
