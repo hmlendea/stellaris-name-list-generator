@@ -285,18 +285,18 @@ namespace StellarisNameListGenerator.Service
 
             foreach (NameGroup genericNameGroup in genericNames)
             {
-                genericNameGroup.Values.RemoveAll(x => 
-                    corvetteNames.SelectMany(y => y.Values).Contains(x) ||
-                    destroyerNames.SelectMany(y => y.Values).Contains(x) ||
-                    cruiserNames.SelectMany(y => y.Values).Contains(x) ||
-                    battleshipNames.SelectMany(y => y.Values).Contains(x) ||
-                    titanNames.SelectMany(y => y.Values).Contains(x) ||
-                    colossusNames.SelectMany(y => y.Values).Contains(x) ||
-                    juggernautNames.SelectMany(y => y.Values).Contains(x) ||
-                    constructorNames.SelectMany(y => y.Values).Contains(x) ||
-                    scienceNames.SelectMany(y => y.Values).Contains(x) ||
-                    coloniserNames.SelectMany(y => y.Values).Contains(x) ||
-                    transportNames.SelectMany(y => y.Values).Contains(x));
+                genericNameGroup.ExplicitValues.RemoveAll(x => 
+                    corvetteNames.Any(y => y.Values.Contains(x)) ||
+                    destroyerNames.Any(y => y.Values.Contains(x)) ||
+                    cruiserNames.Any(y => y.Values.Contains(x)) ||
+                    battleshipNames.Any(y => y.Values.Contains(x)) ||
+                    titanNames.Any(y => y.Values.Contains(x)) ||
+                    colossusNames.Any(y => y.Values.Contains(x)) ||
+                    juggernautNames.Any(y => y.Values.Contains(x)) ||
+                    constructorNames.Any(y => y.Values.Contains(x)) ||
+                    scienceNames.Any(y => y.Values.Contains(x)) ||
+                    coloniserNames.Any(y => y.Values.Contains(x)) ||
+                    transportNames.Any(y => y.Values.Contains(x)));
             }
             
             content += BuildNameArray(genericNames, "generic", 2);
@@ -574,21 +574,26 @@ namespace StellarisNameListGenerator.Service
 
             foreach (NameGroup genericNameGroup in genericNames)
             {
-                genericNameGroup.Values.RemoveAll(x => 
-                    desertNames.SelectMany(y => y.Values).Contains(x) ||
-                    aridNames.SelectMany(y => y.Values).Contains(x) ||
-                    tropicalNames.SelectMany(y => y.Values).Contains(x) ||
-                    continentalNames.SelectMany(y => y.Values).Contains(x) ||
-                    gaiaNames.SelectMany(y => y.Values).Contains(x) ||
-                    oceanNames.SelectMany(y => y.Values).Contains(x) ||
-                    tundraNames.SelectMany(y => y.Values).Contains(x) ||
-                    arcticNames.SelectMany(y => y.Values).Contains(x) ||
-                    tombNames.SelectMany(y => y.Values).Contains(x) ||
-                    savannahNames.SelectMany(y => y.Values).Contains(x) ||
-                    alpineNames.SelectMany(y => y.Values).Contains(x) ||
-                    moltenNames.SelectMany(y => y.Values).Contains(x) ||
-                    barrenNames.SelectMany(y => y.Values).Contains(x) ||
-                    barrenNames.SelectMany(y => y.Values).Contains(x));
+                genericNameGroup.ExplicitValues.RemoveAll(x => 
+                    desertNames.Any(y => y.Values.Contains(x)) ||
+                    aridNames.Any(y => y.Values.Contains(x)) ||
+                    tropicalNames.Any(y => y.Values.Contains(x)) ||
+                    continentalNames.Any(y => y.Values.Contains(x)) ||
+                    gaiaNames.Any(y => y.Values.Contains(x)) ||
+                    oceanNames.Any(y => y.Values.Contains(x)) ||
+                    tundraNames.Any(y => y.Values.Contains(x)) ||
+                    arcticNames.Any(y => y.Values.Contains(x)) ||
+                    tombNames.Any(y => y.Values.Contains(x)) ||
+                    savannahNames.Any(y => y.Values.Contains(x)) ||
+                    alpineNames.Any(y => y.Values.Contains(x)) ||
+                    moltenNames.Any(y => y.Values.Contains(x)) ||
+                    barrenNames.Any(y => y.Values.Contains(x)) ||
+                    barrenNames.Any(y => y.Values.Contains(x)));
+            }
+
+            if (gaiaNames.Any(g => g.Values.Contains("Elysium")))
+            {
+                Console.WriteLine("SA");
             }
             
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
