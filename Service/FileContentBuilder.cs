@@ -189,7 +189,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
-            IEnumerable<NameGroup> miningStations = nameList.Stations.MiningStations;
+            IEnumerable<NameGroup> miningStations = nameList.Stations.MiningStations
+                .Concat(nameList.GreatPeople.LabourDeities);
             IEnumerable<NameGroup> researchStations = nameList.Stations.ResearchStations
                 .Concat(nameList.Companies.ResearchCompanies)
                 .Concat(scienceNames);
