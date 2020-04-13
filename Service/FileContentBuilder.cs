@@ -62,45 +62,82 @@ namespace StellarisNameListGenerator.Service
             content += $"{GetIndentation(1)}ship_names = {{{Environment.NewLine}";
 
             IEnumerable<NameGroup> genericNames = nameList.Ships.Generic.Concat(nameList.Denonyms);
+            IEnumerable<NameGroup> commonFighterNames = nameList.Warfare.MilitaryUnitTypes
+                .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.BiosphereNames.MythologicalCreatures)
+                .Concat(nameList.GreatPeople.HatredDeities)
+                .Concat(nameList.GreatPeople.TimeDeities)
+                .Concat(nameList.GreatPeople.ProphecyDeities)
+                .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
+                .Concat(nameList.GreatPeople.LoyaltyDeities)
+                .Concat(nameList.GreatPeople.DisloyaltyDeities)
+                .Concat(nameList.GreatPeople.SleepDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities)
+                .Concat(nameList.GreatPeople.LightDeities)
+                .Concat(nameList.GreatPeople.SunDeities)
+                .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities)
+                .Concat(nameList.GreatPeople.ColdDeities)
+                .Concat(nameList.GreatPeople.WarmthDeities)
+                .Concat(nameList.GreatPeople.WaterDeities)
+                .Concat(nameList.GreatPeople.OtherDeities);
+
             IEnumerable<NameGroup> corvetteNames = nameList.Ships.Corvette
                 .Concat(nameList.Warfare.Weapons.All)
-                .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.GreatPeople.LeadersTier1)
                 .Concat(nameList.GreatPeople.FlyingAces)
                 .Concat(nameList.GreatPeople.Heroes)
                 .Concat(nameList.GreatPeople.GeneralsTier1)
                 .Concat(nameList.BiosphereNames.Animals)
-                .Concat(nameList.BiosphereNames.MythologicalCreatures)
-                .Concat(nameList.GreatPeople.Deities);
+                .Concat(commonFighterNames);
             IEnumerable<NameGroup> destroyerNames = nameList.Ships.Destroyer
                 .Concat(nameList.Places.Cities)
-                .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.Forts)
-                .Concat(nameList.BiosphereNames.MythologicalCreatures)
-                .Concat(nameList.GreatPeople.Deities);
+                .Concat(commonFighterNames);
             IEnumerable<NameGroup> cruiserNames = nameList.Ships.Cruiser
                 .Concat(nameList.Places.Regions)
-                .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.GreatPeople.LeadersTier2)
                 .Concat(nameList.GreatPeople.Admirals)
                 .Concat(nameList.GreatPeople.GeneralsTier2)
-                .Concat(nameList.BiosphereNames.MythologicalCreatures)
-                .Concat(nameList.GreatPeople.Deities);
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(commonFighterNames);
             IEnumerable<NameGroup> battleshipNames = nameList.Ships.Battleship
                 .Concat(nameList.Places.Countries)
-                .Concat(nameList.Warfare.MilitaryUnitTypes)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.Admirals)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.BiosphereNames.MythologicalCreatures)
-                .Concat(nameList.GreatPeople.Deities);
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(commonFighterNames);
             IEnumerable<NameGroup> titanNames = nameList.Ships.Titan
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.Deities);
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.CreationDeities)
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.VictoryDeities)
+                .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities)
+                .Concat(nameList.GreatPeople.OtherDeities);
+            IEnumerable<NameGroup> colossusNames = nameList.Ships.Colossus
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.CreationDeities)
+                .Concat(nameList.GreatPeople.DestructionDeities)
+                .Concat(nameList.GreatPeople.VictoryDeities)
+                .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.SunDeities);
+            IEnumerable<NameGroup> juggernautNames = nameList.Ships.Juggernaut;
             IEnumerable<NameGroup> constructorNames = nameList.Ships.Constructor
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
@@ -115,7 +152,10 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> scienceNames = nameList.Ships.Science
                 .Concat(nameList.GreatPeople.Explorers)
                 .Concat(nameList.GreatPeople.Pioneers)
-                .Concat(nameList.GreatPeople.Scientists);
+                .Concat(nameList.GreatPeople.Scientists)
+                .Concat(nameList.GreatPeople.NatureDeities)
+                .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.KnowledgeDeities);
             IEnumerable<NameGroup> coloniserNames = nameList.Ships.Coloniser
                 .Concat(nameList.Places.Countries)
                 .Concat(nameList.Places.Regions)
@@ -125,15 +165,74 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.Places.Deserts)
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
-                .Concat(nameList.Places.Seas);
+                .Concat(nameList.Places.Seas)
+                .Concat(nameList.GreatPeople.PeaceDeities)
+                .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.LoveDeities)
+                .Concat(nameList.GreatPeople.FeastDeities)
+                .Concat(nameList.GreatPeople.FortuneDeities)
+                .Concat(nameList.GreatPeople.SleepDeities);
             IEnumerable<NameGroup> transportNames = nameList.Ships.Transport
                 .Concat(nameList.Warfare.Weapons.All)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
-                .Concat(nameList.Warfare.BattleLocations);
+                .Concat(nameList.Warfare.Forts)
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.GreatPeople.Heroes)
+                .Concat(nameList.GreatPeople.TimeDeities)
+                .Concat(nameList.GreatPeople.ProphecyDeities)
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.CreationDeities)
+                .Concat(nameList.GreatPeople.DestructionDeities)
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.VictoryDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities);
+            IEnumerable<NameGroup> miningStations = nameList.Stations.MiningStations
+                .Concat(nameList.GreatPeople.LabourDeities);
+            IEnumerable<NameGroup> researchStations = nameList.Stations.ResearchStations
+                .Concat(nameList.Companies.ResearchCompanies)
+                .Concat(scienceNames);
+            IEnumerable<NameGroup> observationStations = nameList.Stations.ObservationStations
+                .Concat(nameList.GreatPeople.KnowledgeDeities);
             IEnumerable<NameGroup> genericStarbases = nameList.Stations.Starbases.Generic
                 .Concat(nameList.GreatPeople.Explorers)
-                .Concat(nameList.GreatPeople.Deities)
-                .Concat(nameList.GreatPeople.LabourDeities);
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.CreationDeities)
+                .Concat(nameList.GreatPeople.DestructionDeities)
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.PeaceDeities)
+                .Concat(nameList.GreatPeople.VictoryDeities)
+                .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.TimeDeities)
+                .Concat(nameList.GreatPeople.ProphecyDeities)
+                .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
+                .Concat(nameList.GreatPeople.LoyaltyDeities)
+                .Concat(nameList.GreatPeople.DisloyaltyDeities)
+                .Concat(nameList.GreatPeople.LabourDeities)
+                .Concat(nameList.GreatPeople.NatureDeities)
+                .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.LoveDeities)
+                .Concat(nameList.GreatPeople.KnowledgeDeities)
+                .Concat(nameList.GreatPeople.ArtDeities)
+                .Concat(nameList.GreatPeople.FeastDeities)
+                .Concat(nameList.GreatPeople.FortuneDeities)
+                .Concat(nameList.GreatPeople.SleepDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities)
+                .Concat(nameList.GreatPeople.LightDeities)
+                .Concat(nameList.GreatPeople.SunDeities)
+                .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities)
+                .Concat(nameList.GreatPeople.ColdDeities)
+                .Concat(nameList.GreatPeople.WarmthDeities)
+                .Concat(nameList.GreatPeople.WaterDeities)
+                .Concat(nameList.GreatPeople.OtherDeities);
             IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Outposts.Concat(genericStarbases);
             IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Starports.Concat(genericStarbases);
             IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Starholds.Concat(genericStarbases);
@@ -151,22 +250,54 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier1)
                 .Concat(nameList.GreatPeople.GeneralsTier2)
-                .Concat(nameList.GreatPeople.GeneralsTier3);
+                .Concat(nameList.GreatPeople.GeneralsTier3)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.HatredDeities);
             IEnumerable<NameGroup> mediumMilitaryStations = nameList.Stations.MilitaryStations.Medium
                 .Concat(genericMilitaryStations)
                 .Concat(nameList.Warfare.Weapons.All)
                 .Concat(nameList.GreatPeople.LeadersTier2)
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier2)
-                .Concat(nameList.GreatPeople.GeneralsTier3);
+                .Concat(nameList.GreatPeople.GeneralsTier3)
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.PeaceDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.HatredDeities);
             IEnumerable<NameGroup> largeMilitaryStations = nameList.Stations.MilitaryStations.Large
                 .Concat(genericMilitaryStations)
                 .Concat(nameList.Warfare.Weapons.All)
                 .Concat(nameList.GreatPeople.LeadersTier3)
                 .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.Deities);
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.CreationDeities)
+                .Concat(nameList.GreatPeople.DestructionDeities)
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.VictoryDeities)
+                .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.HatredDeities);
             IEnumerable<NameGroup> ionCannonNames = nameList.Ships.IonCannon
                 .Concat(nameList.Warfare.Weapons.Ranged);
+
+            foreach (NameGroup genericNameGroup in genericNames)
+            {
+                genericNameGroup.ExplicitValues.RemoveAll(x => 
+                    corvetteNames.Any(y => y.Values.Contains(x)) ||
+                    destroyerNames.Any(y => y.Values.Contains(x)) ||
+                    cruiserNames.Any(y => y.Values.Contains(x)) ||
+                    battleshipNames.Any(y => y.Values.Contains(x)) ||
+                    titanNames.Any(y => y.Values.Contains(x)) ||
+                    colossusNames.Any(y => y.Values.Contains(x)) ||
+                    juggernautNames.Any(y => y.Values.Contains(x)) ||
+                    constructorNames.Any(y => y.Values.Contains(x)) ||
+                    scienceNames.Any(y => y.Values.Contains(x)) ||
+                    coloniserNames.Any(y => y.Values.Contains(x)) ||
+                    transportNames.Any(y => y.Values.Contains(x)));
+            }
             
             content += BuildNameArray(genericNames, "generic", 2);
             content += BuildNameArray(corvetteNames, "corvette", 2);
@@ -174,16 +305,16 @@ namespace StellarisNameListGenerator.Service
             content += BuildNameArray(cruiserNames, "cruiser", 2);
             content += BuildNameArray(battleshipNames, "battleship", 2);
             content += BuildNameArray(titanNames, "titan", 2);
-            content += BuildNameArray(nameList.Ships.Colossus, "colossus", 2);
-            content += BuildNameArray(nameList.Ships.Juggernaut, "juggernaut", 2);
+            content += BuildNameArray(colossusNames, "colossus", 2);
+            content += BuildNameArray(juggernautNames, "juggernaut", 2);
             content += BuildNameArray(constructorNames, "constructor", 2);
             content += BuildNameArray(scienceNames, "science", 2);
             content += BuildNameArray(coloniserNames, "colonizer", 2);
             content += BuildNameArray(coloniserNames, "sponsored_colonizer", 2);
             content += BuildNameArray(transportNames, "transport", 2);
-            content += BuildNameArray(nameList.Stations.MiningStations, "mining_station", 2);
-            content += BuildNameArray(nameList.Stations.ResearchStations, "research_station", 2);
-            content += BuildNameArray(nameList.Stations.ObservationStations, "observation_station", 2);
+            content += BuildNameArray(miningStations, "mining_station", 2);
+            content += BuildNameArray(researchStations, "research_station", 2);
+            content += BuildNameArray(observationStations, "observation_station", 2);
             content += BuildNameArray(outpostNames, "starbase_outpost", 2, "%O% Starbase");
             content += BuildNameArray(starportNames, "starbase_starport", 2, "%O% Starbase");
             content += BuildNameArray(starholdNames, "starbase_starhold", 2, "%O% Starbase");
@@ -291,6 +422,31 @@ namespace StellarisNameListGenerator.Service
                         new NameGroup { Name = $"Legions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Legion").ToList() },
                         new NameGroup { Name = $"Squadrons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
                     }));
+            IEnumerable<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy
+                .Concat(nameList.GreatPeople.DeathDeities
+                .Concat(nameList.GreatPeople.HatredDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities)
+                    .SelectMany(x => new List<NameGroup>
+                    {
+                        new NameGroup { Name = $"Abomination Flocks - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Flock").ToList() },
+                        new NameGroup { Name = $"Abomination Packs - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Pack").ToList() },
+                        new NameGroup { Name = $"Beast Legions - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Legion").ToList() },
+                        new NameGroup { Name = $"Beast Warbands - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Warband").ToList() },
+                        new NameGroup { Name = $"Death Flocks - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Death Flock").ToList() },
+                        new NameGroup { Name = $"Hybrid Packs - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Hybrid Pack").ToList() },
+                        new NameGroup { Name = $"Morphling Marauderss - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Morphling Marauders").ToList() },
+                        new NameGroup { Name = $"Mutant Flocks - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Flock").ToList() },
+                        new NameGroup { Name = $"Mutant Lurkers - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Lurkers").ToList() },
+                        new NameGroup { Name = $"Mutant Swarms - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Swarm").ToList() },
+                        new NameGroup { Name = $"Xenomorph Broods - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Brood").ToList() },
+                        new NameGroup { Name = $"Xenomorph Hordes - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Horde").ToList() },
+                        new NameGroup { Name = $"Xenomorph Packs - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Pack").ToList() },
+                        new NameGroup { Name = $"Xenomorph Swarms - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Swarm").ToList() },
+                        new NameGroup { Name = $"Xenomorph Troopers - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Troopers").ToList() },
+                    }));
 
             string innerContent = string.Empty;
             innerContent += BuildNameArray(nameList.Armies.DefenceArmy, "defense_army", 2, nameList.Armies.DefenceArmySequentialName);
@@ -304,7 +460,7 @@ namespace StellarisNameListGenerator.Service
             innerContent += BuildNameArray(nameList.Armies.AndroidDefenceArmy, "android_defense_army", 2, nameList.Armies.AndroidDefenceArmySequentialName);
             innerContent += BuildNameArray(nameList.Armies.AndroidAssaultArmy, "android_army", 2, nameList.Armies.AndroidAssaultArmySequentialName);
             innerContent += BuildNameArray(psionicArmyNames, "psionic_army", 2, nameList.Armies.PsionicArmySequentialName);
-            innerContent += BuildNameArray(nameList.Armies.XenomorphArmy, "xenomorph_army", 2, nameList.Armies.XenomorphArmySequentialName);
+            innerContent += BuildNameArray(xenomorphArmies, "xenomorph_army", 2, nameList.Armies.XenomorphArmySequentialName);
             innerContent += BuildNameArray(nameList.Armies.SuperSoldierArmy, "gene_warrior_army", 2, nameList.Armies.SuperSoldierArmySequentialName);
 
             if (string.IsNullOrWhiteSpace(innerContent))
@@ -323,60 +479,139 @@ namespace StellarisNameListGenerator.Service
             string content = string.Empty;
 
             IEnumerable<NameGroup> genericNames = nameList.Planets.Generic
-                .Concat(nameList.GreatPeople.Deities)
-                .Select(x => new NameGroup
-                {
-                    Name = x.Name,
-                    ExplicitValues = x.Values
-                        .Except(nameList.Planets.Desert.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Arid.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Tropical.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Continental.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Gaia.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Ocean.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Tundra.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Arctic.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Tomb.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Savannah.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Alpine.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Molten.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Barren.SelectMany(y => y.Values))
-                        .Except(nameList.Planets.Asteroid.SelectMany(y => y.Values))
-                        .ToList()
-                });
+                .Concat(nameList.GreatPeople.PowerDeities)
+                .Concat(nameList.GreatPeople.TimeDeities)
+                .Concat(nameList.GreatPeople.ProphecyDeities)
+                .Concat(nameList.GreatPeople.JusticeDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities)
+                .Concat(nameList.GreatPeople.LoyaltyDeities)
+                .Concat(nameList.GreatPeople.KnowledgeDeities)
+                .Concat(nameList.GreatPeople.SleepDeities)
+                .Concat(nameList.GreatPeople.LightDeities)
+                .Concat(nameList.GreatPeople.SkyDeities)
+                .Concat(nameList.GreatPeople.AirDeities
+                .Concat(nameList.GreatPeople.OtherDeities));
             IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
-                .Concat(nameList.Places.Deserts);
+                .Concat(nameList.Places.Deserts)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
+                .Concat(nameList.GreatPeople.DisloyaltyDeities)
+                .Concat(nameList.GreatPeople.SunDeities)
+                .Concat(nameList.GreatPeople.WarmthDeities);
             IEnumerable<NameGroup> aridNames = nameList.Planets.Arid
-                .Concat(nameList.Places.Deserts);
+                .Concat(nameList.Places.Deserts)
+                .Concat(nameList.GreatPeople.SunDeities)
+                .Concat(nameList.GreatPeople.WarmthDeities);
             IEnumerable<NameGroup> tropicalNames = nameList.Planets.Tropical
-                .Concat(nameList.Places.Forests);
+                .Concat(nameList.Places.Forests)
+                .Concat(nameList.GreatPeople.NatureDeities);
+            IEnumerable<NameGroup> continentalNames = nameList.Planets.Continental
+                .Concat(nameList.GreatPeople.PeaceDeities)
+                .Concat(nameList.GreatPeople.VictoryDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities);
+            IEnumerable<NameGroup> gaiaNames = nameList.Planets.Gaia
+                .Concat(nameList.GreatPeople.CreationDeities)
+                .Concat(nameList.GreatPeople.PeaceDeities)
+                .Concat(nameList.GreatPeople.VictoryDeities)
+                .Concat(nameList.GreatPeople.ProtectionDeities)
+                .Concat(nameList.GreatPeople.NatureDeities)
+                .Concat(nameList.GreatPeople.HealthDeities)
+                .Concat(nameList.GreatPeople.LoveDeities)
+                .Concat(nameList.GreatPeople.ArtDeities)
+                .Concat(nameList.GreatPeople.FeastDeities)
+                .Concat(nameList.GreatPeople.FortuneDeities);
             IEnumerable<NameGroup> oceanNames = nameList.Planets.Ocean
                 .Concat(nameList.Places.Rivers)
                 .Concat(nameList.Places.Lakes)
-                .Concat(nameList.Places.Seas);
+                .Concat(nameList.Places.Seas)
+                .Concat(nameList.GreatPeople.WaterDeities);
+            IEnumerable<NameGroup> tundraNames = nameList.Planets.Tundra
+                .Concat(nameList.GreatPeople.ColdDeities);
+            IEnumerable<NameGroup> arcticNames = nameList.Planets.Arctic
+                .Concat(nameList.GreatPeople.ColdDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
+                .Concat(nameList.GreatPeople.DisloyaltyDeities);
             IEnumerable<NameGroup> tombNames = nameList.Planets.Tomb
-                .Concat(nameList.Warfare.BattleLocations);
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.GreatPeople.DestructionDeities)
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.BeastsDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
+                .Concat(nameList.GreatPeople.DisloyaltyDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities);
+            IEnumerable<NameGroup> savannahNames = nameList.Planets.Savannah
+                .Concat(nameList.GreatPeople.SunDeities)
+                .Concat(nameList.GreatPeople.WarmthDeities);
             IEnumerable<NameGroup> alpineNames = nameList.Planets.Alpine
-                .Concat(nameList.Places.Mountains);
+                .Concat(nameList.Places.Mountains)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
+                .Concat(nameList.GreatPeople.ColdDeities);
             IEnumerable<NameGroup> moltenNames = nameList.Planets.Molten
-                .Concat(nameList.GreatPeople.LabourDeities);
+                .Concat(nameList.GreatPeople.DestructionDeities)
+                .Concat(nameList.GreatPeople.WarDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
+                .Concat(nameList.GreatPeople.DisloyaltyDeities)
+                .Concat(nameList.GreatPeople.LabourDeities)
+                .Concat(nameList.GreatPeople.WarmthDeities);
+            IEnumerable<NameGroup> barrenNames = nameList.Planets.Barren
+                .Concat(nameList.GreatPeople.DeathDeities)
+                .Concat(nameList.GreatPeople.HatredDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
+                .Concat(nameList.GreatPeople.DisloyaltyDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities);
+            IEnumerable<NameGroup> asteroidNames = nameList.Planets.Asteroid
+                .Concat(nameList.GreatPeople.HatredDeities)
+                .Concat(nameList.GreatPeople.FearDeities)
+                .Concat(nameList.GreatPeople.SorrowDeities)
+                .Concat(nameList.GreatPeople.PunishmentDeities)
+                .Concat(nameList.GreatPeople.DisloyaltyDeities)
+                .Concat(nameList.GreatPeople.DarknessDeities);
+
+            foreach (NameGroup genericNameGroup in genericNames)
+            {
+                genericNameGroup.ExplicitValues.RemoveAll(x => 
+                    desertNames.Any(y => y.Values.Contains(x)) ||
+                    aridNames.Any(y => y.Values.Contains(x)) ||
+                    tropicalNames.Any(y => y.Values.Contains(x)) ||
+                    continentalNames.Any(y => y.Values.Contains(x)) ||
+                    gaiaNames.Any(y => y.Values.Contains(x)) ||
+                    oceanNames.Any(y => y.Values.Contains(x)) ||
+                    tundraNames.Any(y => y.Values.Contains(x)) ||
+                    arcticNames.Any(y => y.Values.Contains(x)) ||
+                    tombNames.Any(y => y.Values.Contains(x)) ||
+                    savannahNames.Any(y => y.Values.Contains(x)) ||
+                    alpineNames.Any(y => y.Values.Contains(x)) ||
+                    moltenNames.Any(y => y.Values.Contains(x)) ||
+                    barrenNames.Any(y => y.Values.Contains(x)) ||
+                    barrenNames.Any(y => y.Values.Contains(x)));
+            }
+
+            if (gaiaNames.Any(g => g.Values.Contains("Elysium")))
+            {
+                Console.WriteLine("SA");
+            }
             
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
-            content += BuildPlanetNameArray(nameList.Planets.Generic, "generic");
+            content += BuildPlanetNameArray(genericNames, "generic");
             content += BuildPlanetNameArray(desertNames, "pc_desert");
             content += BuildPlanetNameArray(aridNames, "pc_arid");
             content += BuildPlanetNameArray(tropicalNames, "pc_tropical");
-            content += BuildPlanetNameArray(nameList.Planets.Continental, "pc_continental");
-            content += BuildPlanetNameArray(nameList.Planets.Gaia, "pc_gaia");
+            content += BuildPlanetNameArray(continentalNames, "pc_continental");
+            content += BuildPlanetNameArray(gaiaNames, "pc_gaia");
             content += BuildPlanetNameArray(oceanNames, "pc_ocean");
-            content += BuildPlanetNameArray(nameList.Planets.Tundra, "pc_tundra");
-            content += BuildPlanetNameArray(nameList.Planets.Arctic, "pc_arctic");
+            content += BuildPlanetNameArray(tundraNames, "pc_tundra");
+            content += BuildPlanetNameArray(arcticNames, "pc_arctic");
             content += BuildPlanetNameArray(tombNames, "pc_nuked");
-            content += BuildPlanetNameArray(nameList.Planets.Savannah, "pc_savannah");
+            content += BuildPlanetNameArray(savannahNames, "pc_savannah");
             content += BuildPlanetNameArray(alpineNames, "pc_alpine");
-            content += BuildPlanetNameArray(nameList.Planets.Molten, "pc_molten");
-            content += BuildPlanetNameArray(nameList.Planets.Barren, "pc_barren");
-            content += BuildPlanetNameArray(nameList.Planets.Asteroid, "pc_asteroid");
+            content += BuildPlanetNameArray(moltenNames, "pc_molten");
+            content += BuildPlanetNameArray(barrenNames, "pc_barren");
+            content += BuildPlanetNameArray(barrenNames, "pc_asteroid");
             content += $"{GetIndentation(1)}}}{Environment.NewLine}";
 
             return content;
