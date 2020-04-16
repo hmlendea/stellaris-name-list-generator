@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using StellarisNameListGenerator.Models;
+using System.Threading.Tasks;
 
 using NuciExtensions;
+
+using StellarisNameListGenerator.Models;
 
 namespace StellarisNameListGenerator.Service
 {
@@ -244,9 +246,9 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> ionCannonNames = nameList.Ships.IonCannon
                 .Concat(nameList.Warfare.Weapons.Ranged);
 
-            foreach (NameGroup genericNameGroup in genericNames)
+            Parallel.ForEach(genericNames, group =>
             {
-                genericNameGroup.ExplicitValues.RemoveAll(x => 
+                group.ExplicitValues.RemoveAll(x => 
                     corvetteNames.Any(y => y.Values.Contains(x)) ||
                     destroyerNames.Any(y => y.Values.Contains(x)) ||
                     cruiserNames.Any(y => y.Values.Contains(x)) ||
@@ -258,7 +260,7 @@ namespace StellarisNameListGenerator.Service
                     scienceNames.Any(y => y.Values.Contains(x)) ||
                     coloniserNames.Any(y => y.Values.Contains(x)) ||
                     transportNames.Any(y => y.Values.Contains(x)));
-            }
+            });
             
             content += BuildNameArray(genericNames, "generic", 2);
             content += BuildNameArray(corvetteNames, "corvette", 2);
@@ -383,7 +385,7 @@ namespace StellarisNameListGenerator.Service
                         new NameGroup { Name = $"Legions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Legion").ToList() },
                         new NameGroup { Name = $"Squadrons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
                     }));
-                    
+
             IList<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy;
             IEnumerable<NameGroup> deitiesForXenomorph = nameList.GreatPeople.DeathDeities
                 .Concat(nameList.GreatPeople.HatredDeities)
@@ -521,9 +523,9 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DisloyaltyDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
 
-            foreach (NameGroup genericNameGroup in genericNames)
+            Parallel.ForEach(genericNames, group =>
             {
-                genericNameGroup.ExplicitValues.RemoveAll(x => 
+                group.ExplicitValues.RemoveAll(x => 
                     desertNames.Any(y => y.Values.Contains(x)) ||
                     aridNames.Any(y => y.Values.Contains(x)) ||
                     tropicalNames.Any(y => y.Values.Contains(x)) ||
@@ -538,13 +540,8 @@ namespace StellarisNameListGenerator.Service
                     moltenNames.Any(y => y.Values.Contains(x)) ||
                     barrenNames.Any(y => y.Values.Contains(x)) ||
                     barrenNames.Any(y => y.Values.Contains(x)));
-            }
+            });
 
-            if (gaiaNames.Any(g => g.Values.Contains("Elysium")))
-            {
-                Console.WriteLine("SA");
-            }
-            
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
             content += BuildPlanetNameArray(genericNames, "generic");
             content += BuildPlanetNameArray(desertNames, "pc_desert");
