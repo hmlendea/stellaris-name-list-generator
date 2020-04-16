@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-
 using StellarisNameListGenerator.Models;
 
 using NuciExtensions;
@@ -198,41 +197,7 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.KnowledgeDeities);
             IEnumerable<NameGroup> genericStarbases = nameList.Stations.Starbases.Generic
                 .Concat(nameList.GreatPeople.Explorers)
-                .Concat(nameList.GreatPeople.PowerDeities)
-                .Concat(nameList.GreatPeople.CreationDeities)
-                .Concat(nameList.GreatPeople.DestructionDeities)
-                .Concat(nameList.GreatPeople.WarDeities)
-                .Concat(nameList.GreatPeople.PeaceDeities)
-                .Concat(nameList.GreatPeople.VictoryDeities)
-                .Concat(nameList.GreatPeople.DeathDeities)
-                .Concat(nameList.GreatPeople.HatredDeities)
-                .Concat(nameList.GreatPeople.FearDeities)
-                .Concat(nameList.GreatPeople.BeastsDeities)
-                .Concat(nameList.GreatPeople.TimeDeities)
-                .Concat(nameList.GreatPeople.ProphecyDeities)
-                .Concat(nameList.GreatPeople.JusticeDeities)
-                .Concat(nameList.GreatPeople.ProtectionDeities)
-                .Concat(nameList.GreatPeople.PunishmentDeities)
-                .Concat(nameList.GreatPeople.LoyaltyDeities)
-                .Concat(nameList.GreatPeople.DisloyaltyDeities)
-                .Concat(nameList.GreatPeople.LabourDeities)
-                .Concat(nameList.GreatPeople.NatureDeities)
-                .Concat(nameList.GreatPeople.HealthDeities)
-                .Concat(nameList.GreatPeople.LoveDeities)
-                .Concat(nameList.GreatPeople.KnowledgeDeities)
-                .Concat(nameList.GreatPeople.ArtDeities)
-                .Concat(nameList.GreatPeople.FeastDeities)
-                .Concat(nameList.GreatPeople.FortuneDeities)
-                .Concat(nameList.GreatPeople.SleepDeities)
-                .Concat(nameList.GreatPeople.DarknessDeities)
-                .Concat(nameList.GreatPeople.LightDeities)
-                .Concat(nameList.GreatPeople.SunDeities)
-                .Concat(nameList.GreatPeople.SkyDeities)
-                .Concat(nameList.GreatPeople.AirDeities)
-                .Concat(nameList.GreatPeople.ColdDeities)
-                .Concat(nameList.GreatPeople.WarmthDeities)
-                .Concat(nameList.GreatPeople.WaterDeities)
-                .Concat(nameList.GreatPeople.OtherDeities);
+                .Concat(nameList.GreatPeople.AllDeities);
             IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Outposts.Concat(genericStarbases);
             IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Starports.Concat(genericStarbases);
             IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Starholds.Concat(genericStarbases);
@@ -245,12 +210,8 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> smallMilitaryStations = nameList.Stations.MilitaryStations.Small
                 .Concat(genericMilitaryStations)
                 .Concat(nameList.Warfare.Weapons.All)
-                .Concat(nameList.GreatPeople.LeadersTier1)
-                .Concat(nameList.GreatPeople.LeadersTier2)
-                .Concat(nameList.GreatPeople.LeadersTier3)
-                .Concat(nameList.GreatPeople.GeneralsTier1)
-                .Concat(nameList.GreatPeople.GeneralsTier2)
-                .Concat(nameList.GreatPeople.GeneralsTier3)
+                .Concat(nameList.GreatPeople.AllLeaders)
+                .Concat(nameList.GreatPeople.AllGenerals)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.HatredDeities);
@@ -479,18 +440,7 @@ namespace StellarisNameListGenerator.Service
             string content = string.Empty;
 
             IEnumerable<NameGroup> genericNames = nameList.Planets.Generic
-                .Concat(nameList.GreatPeople.PowerDeities)
-                .Concat(nameList.GreatPeople.TimeDeities)
-                .Concat(nameList.GreatPeople.ProphecyDeities)
-                .Concat(nameList.GreatPeople.JusticeDeities)
-                .Concat(nameList.GreatPeople.ProtectionDeities)
-                .Concat(nameList.GreatPeople.LoyaltyDeities)
-                .Concat(nameList.GreatPeople.KnowledgeDeities)
-                .Concat(nameList.GreatPeople.SleepDeities)
-                .Concat(nameList.GreatPeople.LightDeities)
-                .Concat(nameList.GreatPeople.SkyDeities)
-                .Concat(nameList.GreatPeople.AirDeities
-                .Concat(nameList.GreatPeople.OtherDeities));
+                .Concat(nameList.GreatPeople.AllDeities);
             IEnumerable<NameGroup> desertNames = nameList.Planets.Desert
                 .Concat(nameList.Places.Deserts)
                 .Concat(nameList.GreatPeople.PunishmentDeities)
@@ -977,12 +927,8 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.FlyingAces)
                 .Concat(nameList.GreatPeople.Heroes)
                 .Concat(nameList.GreatPeople.Admirals)
-                .Concat(nameList.GreatPeople.GeneralsTier1)
-                .Concat(nameList.GreatPeople.GeneralsTier2)
-                .Concat(nameList.GreatPeople.GeneralsTier3)
-                .Concat(nameList.GreatPeople.LeadersTier1)
-                .Concat(nameList.GreatPeople.LeadersTier2)
-                .Concat(nameList.GreatPeople.LeadersTier3)
+                .Concat(nameList.GreatPeople.AllLeaders)
+                .Concat(nameList.GreatPeople.AllGenerals)
                 .Concat(nameList.BiosphereNames.MythologicalCreatures)
                 .Concat(nameList.Places.Cities)
                 .Concat(nameList.Places.Countries)

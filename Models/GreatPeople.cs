@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StellarisNameListGenerator.Models
 {
@@ -11,6 +12,9 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> LeadersTier1 { get; set; }
         public List<NameGroup> LeadersTier2 { get; set; }
         public List<NameGroup> LeadersTier3 { get; set; }
+        public IEnumerable<NameGroup> AllLeaders => LeadersTier1
+            .Concat(LeadersTier2)
+            .Concat(LeadersTier3);
 
         public List<NameGroup> FlyingAces { get; set; }
         public List<NameGroup> Heroes { get; set; }
@@ -19,6 +23,9 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> GeneralsTier1 { get; set; }
         public List<NameGroup> GeneralsTier2 { get; set; }
         public List<NameGroup> GeneralsTier3 { get; set; }
+        public IEnumerable<NameGroup> AllGenerals => GeneralsTier1
+            .Concat(GeneralsTier2)
+            .Concat(GeneralsTier3);
 
         public List<NameGroup> PowerDeities { get; set; }
         public List<NameGroup> CreationDeities { get; set; }
@@ -56,6 +63,44 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> WarmthDeities { get; set; }
         public List<NameGroup> WaterDeities { get; set; }
         public List<NameGroup> OtherDeities { get; set; }
+
+        public IEnumerable<NameGroup> AllDeities => OtherDeities
+            .Concat(PowerDeities)
+            .Concat(CreationDeities)
+            .Concat(DestructionDeities)
+            .Concat(PeaceDeities)
+            .Concat(WarDeities)
+            .Concat(VictoryDeities)
+            .Concat(DeathDeities)
+            .Concat(HatredDeities)
+            .Concat(FearDeities)
+            .Concat(SorrowDeities)
+            .Concat(BeastsDeities)
+            .Concat(TimeDeities)
+            .Concat(ProphecyDeities)
+            .Concat(JusticeDeities)
+            .Concat(ProtectionDeities)
+            .Concat(PunishmentDeities)
+            .Concat(LoyaltyDeities)
+            .Concat(DisloyaltyDeities)
+            .Concat(LabourDeities)
+            .Concat(NatureDeities)
+            .Concat(HealthDeities)
+            .Concat(LoveDeities)
+            .Concat(KnowledgeDeities)
+            .Concat(ArtDeities)
+            .Concat(FeastDeities)
+            .Concat(FortuneDeities)
+            .Concat(SleepDeities)
+            .Concat(DarknessDeities)
+            .Concat(LightDeities)
+            .Concat(SunDeities)
+            .Concat(SkyDeities)
+            .Concat(AirDeities)
+            .Concat(ColdDeities)
+            .Concat(WarmthDeities)
+            .Concat(WaterDeities)
+            .Concat(OtherDeities);
 
         public GreatPeople()
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StellarisNameListGenerator.Models
 {
@@ -15,6 +16,14 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> Rivers { get; set; }
         public List<NameGroup> Lakes { get; set; }
         public List<NameGroup> Seas { get; set; }
+        public IEnumerable<NameGroup> WaterBodies => Rivers
+            .Concat(Lakes)
+            .Concat(Seas);
+
+        public IEnumerable<NameGroup> GeographicalPlaces => Mountains
+            .Concat(Forests)
+            .Concat(Deserts)
+            .Concat(WaterBodies);
 
         public PlaceNames()
         {
