@@ -825,7 +825,7 @@ namespace StellarisNameListGenerator.Service
         NameGroup GenerateUnifiedNameGroup(IEnumerable<NameGroup> nameGroups, string category, string groupName, string nameFormat)
         {
             NameGroup group = new NameGroup();
-            group.Name = $"{category} - ${groupName}";
+            group.Name = $"{category} - {groupName}";
             group.ExplicitValues = nameGroups
                 .SelectMany(x => x.Values)
                 .Distinct()
