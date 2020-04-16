@@ -25,8 +25,9 @@ namespace StellarisNameListGenerator
             bool isLocked = CliArgumentsReader.HasOption(args, IsLockedOptions);
 
             INamesBuilder shipNamesBuilder = new ShipNamesBuilder();
+            INamesBuilder shipClassNamesBuilder = new ShipClassNamesBuilder();
             INamesBuilder planetNamesBuilder = new PlanetNamesBuilder();
-            IFileContentBuilder fileContentBuilder = new FileContentBuilder(shipNamesBuilder, planetNamesBuilder);
+            IFileContentBuilder fileContentBuilder = new FileContentBuilder(shipNamesBuilder, shipClassNamesBuilder, planetNamesBuilder);
             IRepository<NameList> nameListRepository = new XmlRepository<NameList>(inputFilePath);
             INameListGenerator nameListGenerator = new NameListGenerator(fileContentBuilder, nameListRepository);
 

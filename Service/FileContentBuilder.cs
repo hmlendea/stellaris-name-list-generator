@@ -18,11 +18,13 @@ namespace StellarisNameListGenerator.Service
         readonly Random random = new Random(873);
 
         readonly INamesBuilder shipNamesBuilder;
+        readonly INamesBuilder shipClassNamesBuilder;
         readonly INamesBuilder planetNamesBuilder;
 
-        public FileContentBuilder(INamesBuilder shipNamesBuilder, INamesBuilder planetNamesBuilder)
+        public FileContentBuilder(INamesBuilder shipNamesBuilder, INamesBuilder shipClassNamesBuilder, INamesBuilder planetNamesBuilder)
         {
             this.shipNamesBuilder = shipNamesBuilder;
+            this.shipClassNamesBuilder = shipClassNamesBuilder;
             this.planetNamesBuilder = planetNamesBuilder;
         }
 
@@ -74,7 +76,7 @@ namespace StellarisNameListGenerator.Service
                         break;
 
                     case "ShipClassNames":
-                        sections[section.Key] = BuildShipClassNames(nameList);
+                        sections[section.Key] = shipClassNamesBuilder.Build(nameList);
                         break;
 
                     case "FleetNames":
@@ -112,73 +114,6 @@ namespace StellarisNameListGenerator.Service
             }
 
             return $"{randomisableLine}{Environment.NewLine}";
-        }
-
-        string BuildShipClassNames(NameList nameList)
-        {
-            string content = string.Empty;
-            
-            content += $"{GetIndentation(1)}ship_class_names = {{{Environment.NewLine}";
-
-            IEnumerable<NameGroup> genericShipClasses = nameList.ShipClasses.Generic
-                .Concat(nameList.Denonyms)
-                .Concat(nameList.Companies.AircraftManufacturers)
-                .Concat(nameList.Companies.SpacecraftManufacturers)
-                .Concat(nameList.Companies.RocketDesigners)
-                .Concat(nameList.Warfare.ShipTypes);
-
-            IEnumerable<NameGroup> constructorClasses = nameList.ShipClasses.Constructor.Concat(nameList.Companies.AutomotiveManufacturers);
-            IEnumerable<NameGroup> scienceClasses = nameList.ShipClasses.Science.Concat(nameList.Companies.ResearchCompanies);
-            IEnumerable<NameGroup> coloniserClasses = nameList.ShipClasses.Coloniser.Concat(nameList.Companies.AutomotiveManufacturers);
-            IEnumerable<NameGroup> sponsoredColoniserClasses = coloniserClasses.Concat(nameList.Companies.InvestmentCompanies);
-
-            IEnumerable<NameGroup> outpostClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Outposts);
-            IEnumerable<NameGroup> starportClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Starports);
-            IEnumerable<NameGroup> starholdClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Starholds);
-            IEnumerable<NameGroup> starfortressClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Starfortresses);
-            IEnumerable<NameGroup> citadelClasses = nameList.StationClasses.Starbases.Generic.Concat(nameList.StationClasses.Starbases.Citadels);
-            IEnumerable<NameGroup> smallMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Small);
-            IEnumerable<NameGroup> mediumMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Medium);
-            IEnumerable<NameGroup> largeMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Large);
-            IEnumerable<NameGroup> ionCannonClasses = nameList.ShipClasses.IonCannon
-                .Concat(nameList.Warfare.Weapons.Artillery);
-
-            string innerContent = string.Empty;
-            innerContent += BuildNameArray(genericShipClasses, "generic", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Corvette, "corvette", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Destroyer, "destroyer", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Cruiser, "cruiser", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Battleship, "battleship", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Titan, "titan", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Colossus, "colossus", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Juggernaut, "juggernaut", 2);
-            innerContent += BuildNameArray(constructorClasses, "constructor", 2);
-            innerContent += BuildNameArray(scienceClasses, "science", 2);
-            innerContent += BuildNameArray(coloniserClasses, "coloniser", 2);
-            innerContent += BuildNameArray(sponsoredColoniserClasses, "sponsored_coloniser", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Transport, "transport", 2);
-            innerContent += BuildNameArray(nameList.StationClasses.MiningStations, "mining_station", 2);
-            innerContent += BuildNameArray(nameList.StationClasses.ResearchStations, "research_station", 2);
-            innerContent += BuildNameArray(nameList.StationClasses.ObservationStations, "observation_station", 2);
-            innerContent += BuildNameArray(outpostClasses, "starbase_outpost", 2);
-            innerContent += BuildNameArray(starportClasses, "starbase_starport", 2);
-            innerContent += BuildNameArray(starholdClasses, "starbase_starhold", 2);
-            innerContent += BuildNameArray(starfortressClasses, "starbase_starfortress", 2);
-            innerContent += BuildNameArray(citadelClasses, "starbase_citadel", 2);
-            innerContent += BuildNameArray(smallMilitaryStationClasses, "military_station_small", 2);
-            innerContent += BuildNameArray(mediumMilitaryStationClasses, "military_station_medium", 2);
-            innerContent += BuildNameArray(largeMilitaryStationClasses, "military_station_large", 2);
-            innerContent += BuildNameArray(ionCannonClasses, "ion_cannon", 2);
-
-            if (string.IsNullOrWhiteSpace(innerContent))
-            {
-                return string.Empty;
-            }
-
-            content += innerContent;
-            content += $"{GetIndentation(1)}}}{Environment.NewLine}";
-
-            return content;
         }
 
         string BuildFleetNames(NameList nameList)
