@@ -383,31 +383,30 @@ namespace StellarisNameListGenerator.Service
                         new NameGroup { Name = $"Legions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Legion").ToList() },
                         new NameGroup { Name = $"Squadrons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
                     }));
-            IEnumerable<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy
-                .Concat(nameList.GreatPeople.DeathDeities
+                    
+            IList<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy;
+            IEnumerable<NameGroup> deitiesForXenomorph = nameList.GreatPeople.DeathDeities
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.SorrowDeities)
                 .Concat(nameList.GreatPeople.BeastsDeities)
-                .Concat(nameList.GreatPeople.DarknessDeities)
-                    .SelectMany(x => new List<NameGroup>
-                    {
-                        new NameGroup { Name = $"Abomination Flocks - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Flock").ToList() },
-                        new NameGroup { Name = $"Abomination Packs - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Abomination Pack").ToList() },
-                        new NameGroup { Name = $"Beast Legions - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Legion").ToList() },
-                        new NameGroup { Name = $"Beast Warbands - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Beast Warband").ToList() },
-                        new NameGroup { Name = $"Death Flocks - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Death Flock").ToList() },
-                        new NameGroup { Name = $"Hybrid Packs - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Hybrid Pack").ToList() },
-                        new NameGroup { Name = $"Morphling Marauderss - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Morphling Marauders").ToList() },
-                        new NameGroup { Name = $"Mutant Flocks - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Flock").ToList() },
-                        new NameGroup { Name = $"Mutant Lurkers - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Lurkers").ToList() },
-                        new NameGroup { Name = $"Mutant Swarms - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Mutant Swarm").ToList() },
-                        new NameGroup { Name = $"Xenomorph Broods - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Brood").ToList() },
-                        new NameGroup { Name = $"Xenomorph Hordes - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Horde").ToList() },
-                        new NameGroup { Name = $"Xenomorph Packs - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Pack").ToList() },
-                        new NameGroup { Name = $"Xenomorph Swarms - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Swarm").ToList() },
-                        new NameGroup { Name = $"Xenomorph Troopers - Deities", ExplicitValues = x.Values.Select(y => $"{y}'s Xenomorph Troopers").ToList() },
-                    }));
+                .Concat(nameList.GreatPeople.DarknessDeities);
+
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Abomination Flocks", "Deities", "{0}'s Abomination Flock"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Abomination Packs", "Deities", "{0}'s Abomination Pack"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Beast Legions", "Deities", "{0}'s Beast Legion"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Beast Warbands", "Deities", "{0}'s Beast Warband"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Death Flocks", "Deities", "{0}'s Death Flock"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Hybrid Packs", "Deities", "{0}'s Hybrid Pack"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Morphling Marauders", "Deities", "{0}'s Morphling Marauders"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Mutant Flocks", "Deities", "{0}'s Mutant Flock"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Mutant Lurkers", "Deities", "{0}'s Mutant Lurkers"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Mutant Swarms", "Deities", "{0}'s Mutant Swarm"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Xenomorph Broods", "Deities", "{0}'s Xenomorph Brood"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Xenomorph Hordes", "Deities", "{0}'s Xenomorph Horde"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Xenomorph Packs", "Deities", "{0}'s Xenomorph Pack"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Xenomorph Swarms", "Deities", "{0}'s Xenomorph Swarm"));
+            xenomorphArmies.Add(GenerateUnifiedNameGroup(deitiesForXenomorph, "Xenomorph Troopers", "Deities", "{0}'s Xenomorph Troopers"));
 
             string innerContent = string.Empty;
             innerContent += BuildNameArray(nameList.Armies.DefenceArmy, "defense_army", 2, nameList.Armies.DefenceArmySequentialName);
@@ -800,67 +799,45 @@ namespace StellarisNameListGenerator.Service
         IEnumerable<NameGroup> GenerateFleetNames(NameList nameList)
         {
             return nameList.Armies.Fleet
-                .Concat(nameList.Warfare.Weapons.All
-                    .SelectMany(x => new List<NameGroup>
-                    {
-                        new NameGroup { Name = $"Armadas - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Battle Groups - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Battle Group").ToList() },
-                        new NameGroup { Name = $"Corps - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Corps").ToList() },
-                        new NameGroup { Name = $"Expeditionary Fleets - Weapons", ExplicitValues = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
-                        new NameGroup { Name = $"Fleets - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Flotillas - Weapons", ExplicitValues = x.Values.Select(y => $"The {y} Flotilla").ToList() },
-                        new NameGroup { Name = $"Squadrons - Weapons", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Starfleets - Weapons", ExplicitValues = x.Values.Select(y => $"{y} Starfleet").ToList() },
-                        new NameGroup { Name = $"Strike Forces - Weapons", ExplicitValues = x.Values.Select(y => $"Strike Force {y}").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Weapons", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
-                        new NameGroup { Name = $"Task Forces - Weapons", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
-                    }))
-                .Concat(nameList.Warfare.MilitaryUnitTypes
-                    .SelectMany(x => new List<NameGroup>
-                    {
-                        new NameGroup { Name = $"Armadas - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Battle Groups - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Battle Group").ToList() },
-                        new NameGroup { Name = $"Corps - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Corps").ToList() },
-                        new NameGroup { Name = $"Expeditionary Fleets - Military Unit Types", ExplicitValues = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
-                        new NameGroup { Name = $"Fleets - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Flotillas - Military Unit Types", ExplicitValues = x.Values.Select(y => $"The {y} Flotilla").ToList() },
-                        new NameGroup { Name = $"Squadrons - Military Unit Types", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Starfleets - Military Unit Types", ExplicitValues = x.Values.Select(y => $"{y} Starfleet").ToList() },
-                        new NameGroup { Name = $"Strike Forces - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Strike Force {y}").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
-                        new NameGroup { Name = $"Task Forces - Military Unit Types", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
-                    }))
-                .Concat(nameList.Warfare.ShipTypes
-                    .SelectMany(x => new List<NameGroup>
-                    {
-                        new NameGroup { Name = $"Armadas - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Battle Groups - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Battle Group").ToList() },
-                        new NameGroup { Name = $"Corps - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Corps").ToList() },
-                        new NameGroup { Name = $"Expeditionary Fleets - Ship Types", ExplicitValues = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
-                        new NameGroup { Name = $"Fleets - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Flotillas - Ship Types", ExplicitValues = x.Values.Select(y => $"The {y} Flotilla").ToList() },
-                        new NameGroup { Name = $"Squadrons - Ship Types", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Starfleets - Ship Types", ExplicitValues = x.Values.Select(y => $"{y} Starfleet").ToList() },
-                        new NameGroup { Name = $"Strike Forces - Ship Types", ExplicitValues = x.Values.Select(y => $"Strike Force {y}").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Ship Types", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
-                        new NameGroup { Name = $"Task Forces - Ship Types", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
-                    }))
-                .Concat(nameList.BiosphereNames.MythologicalCreatures
-                    .SelectMany(x => new List<NameGroup>
-                    {
-                        new NameGroup { Name = $"Armadas - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Armada").ToList() },
-                        new NameGroup { Name = $"Battle Groups - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Battle Group").ToList() },
-                        new NameGroup { Name = $"Corps - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Corps").ToList() },
-                        new NameGroup { Name = $"Expeditionary Fleets - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"{y} Expeditionary Fleet").ToList() },
-                        new NameGroup { Name = $"Fleets - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Fleet").ToList() },
-                        new NameGroup { Name = $"Flotillas - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"The {y} Flotilla").ToList() },
-                        new NameGroup { Name = $"Squadrons - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
-                        new NameGroup { Name = $"Starfleets - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"{y} Starfleet").ToList() },
-                        new NameGroup { Name = $"Strike Forces - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"Strike Force {y}").ToList() },
-                        new NameGroup { Name = $"Strike Teams - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"Strike Team {y}").ToList() },
-                        new NameGroup { Name = $"Task Forces - Mythological Creatures", ExplicitValues = x.Values.Select(y => $"Task Force {y}").ToList() }
-                    }));
+                .Concat(GenerateFleetNamesCategory(nameList, "Armadas", "The {0} Armada"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Battle Groups", "The {0} Battle Group"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Corps", "The {0} Corps"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Expeditionary Fleets", "The {0} Expeditionary Fleet"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Fleets", "The {0} Fleet"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Flotillas", "The {0} Flotilla"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Squadrons", "{0} Squadron"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Starfleets", "{0} Starfleet"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Strike Forces", "Strike Force {0}"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Strike Teams", "Strike Teams {0}"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Task Forces", "Task Force {0}"))
+                .ToList();
         }
+
+        IEnumerable<NameGroup> GenerateFleetNamesCategory(NameList nameList, string category, string nameFormat)
+        {
+            IList<NameGroup> fleetNames = new List<NameGroup>();
+            
+            fleetNames.Add(GenerateUnifiedNameGroup(nameList.Warfare.Weapons.All, category, "Weapons", nameFormat));
+            fleetNames.Add(GenerateUnifiedNameGroup(nameList.Warfare.MilitaryUnitTypes, category, "Military Unit Types", nameFormat));
+            fleetNames.Add(GenerateUnifiedNameGroup(nameList.Warfare.ShipTypes, category, "Ship Types", nameFormat));
+            fleetNames.Add(GenerateUnifiedNameGroup(nameList.BiosphereNames.MythologicalCreatures, category, "Mythological Creatures", nameFormat));
+
+            return fleetNames;
+        }
+
+        NameGroup GenerateUnifiedNameGroup(IEnumerable<NameGroup> nameGroups, string category, string groupName, string nameFormat)
+        {
+            NameGroup group = new NameGroup();
+            group.Name = $"{category} - ${groupName}";
+            group.ExplicitValues = nameGroups
+                .SelectMany(x => x.Values)
+                .Distinct()
+                .Select(y => string.Format(nameFormat, y))
+                .ToList();
+            
+            return group;
+        }
+
 
         string GetRandomLeaderName(NameList nameList)
         {
