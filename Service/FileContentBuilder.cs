@@ -19,6 +19,8 @@ namespace StellarisNameListGenerator.Service
 
         public string BuildContent(NameList nameList)
         {
+            Dictionary<string, string> sections = GenerateNameListSections(nameList);
+            
             string content = $"### {nameList.Id}{Environment.NewLine}";
             content += $"### {nameList.Name}{Environment.NewLine}";
             content += $"### Leaders: {GetRandomLeaderName(nameList)}, {GetRandomLeaderName(nameList)}{Environment.NewLine}";
@@ -29,15 +31,62 @@ namespace StellarisNameListGenerator.Service
 
             content += $"{nameList.Id} = {{{Environment.NewLine}";
             content += BuildRandomisableOption(nameList.IsLocked);
-            content += BuildShipNames(nameList);
-            content += BuildShipClassNames(nameList);
-            content += BuildFleetNames(nameList);
-            content += BuildArmyNames(nameList);
-            content += BuildPlanetNames(nameList);
-            content += BuildCharacterNames(nameList);
+
+            content += sections["ShipNames"];
+            content += sections["ShipClassNames"];
+            content += sections["FleetNames"];
+            content += sections["ArmyNames"];
+            content += sections["PlanetNames"];
+            content += sections["CharacterNames"];
+
             content += $"}}{Environment.NewLine}";
 
             return content;
+        }
+
+        Dictionary<string, string> GenerateNameListSections(NameList nameList)
+        {
+            Dictionary<string, string> sections = new Dictionary<string, string>()
+            {
+                { "ShipNames", string.Empty },
+                { "ShipClassNames", string.Empty },
+                { "FleetNames", string.Empty },
+                { "ArmyNames", string.Empty },
+                { "PlanetNames", string.Empty },
+                { "CharacterNames", string.Empty }
+            };
+
+            Parallel.ForEach(sections, section =>
+            {
+                switch (section.Key)
+                {
+                    case "ShipNames":
+                        sections[section.Key] = BuildShipNames(nameList);
+                        break;
+
+                    case "ShipClassNames":
+                        sections[section.Key] = BuildShipClassNames(nameList);
+                        break;
+
+                    case "FleetNames":
+                        sections[section.Key] = BuildFleetNames(nameList);
+                        break;
+
+                    case "ArmyNames":
+                        sections[section.Key] = BuildArmyNames(nameList);
+                        break;
+
+                    case "PlanetNames":
+                        sections[section.Key] = BuildPlanetNames(nameList);
+                        break;
+
+                    case "CharacterNames":
+                        sections[section.Key] = BuildCharacterNames(nameList);
+                        break;
+                }
+            });
+
+            return sections;
         }
 
         string BuildRandomisableOption(bool isLocked)
