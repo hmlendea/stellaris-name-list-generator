@@ -112,7 +112,7 @@ namespace StellarisNameListGenerator.Service
                     alpineNames.Any(y => y.Values.Contains(x)) ||
                     moltenNames.Any(y => y.Values.Contains(x)) ||
                     barrenNames.Any(y => y.Values.Contains(x)) ||
-                    barrenNames.Any(y => y.Values.Contains(x)));
+                    asteroidNames.Any(y => y.Values.Contains(x)));
             });
 
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
