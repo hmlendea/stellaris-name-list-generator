@@ -123,6 +123,19 @@ namespace StellarisNameListGenerator.Service
             return string.Join('\n', values);
         }
 
+        protected NameGroup GenerateUnifiedNameGroup(IEnumerable<NameGroup> nameGroups, string category, string groupName, string nameFormat)
+        {
+            NameGroup group = new NameGroup();
+            group.Name = $"{category} - {groupName}";
+            group.ExplicitValues = nameGroups
+                .SelectMany(x => x.Values)
+                .Distinct()
+                .Select(y => string.Format(nameFormat, y))
+                .ToList();
+            
+            return group;
+        }
+
         protected string GetIndentation(int levels)
         {
             return string.Empty.PadRight(levels * IndentationSize, ' ');

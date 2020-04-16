@@ -26,8 +26,9 @@ namespace StellarisNameListGenerator
 
             INamesBuilder shipNamesBuilder = new ShipNamesBuilder();
             INamesBuilder shipClassNamesBuilder = new ShipClassNamesBuilder();
+            IFleetNamesBuilder fleetnamesBuilder = new FleetNamesBuilder();
             INamesBuilder planetNamesBuilder = new PlanetNamesBuilder();
-            IFileContentBuilder fileContentBuilder = new FileContentBuilder(shipNamesBuilder, shipClassNamesBuilder, planetNamesBuilder);
+            IFileContentBuilder fileContentBuilder = new FileContentBuilder(shipNamesBuilder, shipClassNamesBuilder, fleetnamesBuilder, planetNamesBuilder);
             IRepository<NameList> nameListRepository = new XmlRepository<NameList>(inputFilePath);
             INameListGenerator nameListGenerator = new NameListGenerator(fileContentBuilder, nameListRepository);
 
