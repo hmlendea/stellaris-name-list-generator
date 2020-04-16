@@ -7,7 +7,7 @@ using StellarisNameListGenerator.Models;
 
 namespace StellarisNameListGenerator.Service
 {
-    public sealed class PlanetNamesBuilder : NamesBuilder, IPlanetNamesBuilder
+    public sealed class PlanetNamesBuilder : NamesBuilder, INamesBuilder
     {
         public string Build(NameList nameList)
         {
