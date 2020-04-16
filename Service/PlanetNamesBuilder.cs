@@ -130,7 +130,7 @@ namespace StellarisNameListGenerator.Service
             content += BuildPlanetNameArray(alpineNames, "pc_alpine");
             content += BuildPlanetNameArray(moltenNames, "pc_molten");
             content += BuildPlanetNameArray(barrenNames, "pc_barren");
-            content += BuildPlanetNameArray(barrenNames, "pc_asteroid");
+            content += BuildPlanetNameArray(asteroidNames, "pc_asteroid");
             content += $"{GetIndentation(1)}}}{Environment.NewLine}";
 
             return content;
