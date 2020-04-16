@@ -13,7 +13,7 @@ namespace StellarisNameListGenerator.Models
             .Concat(Guns)
             .Concat(Crossbows)
             .Concat(Bows)
-            .Concat(Javelins)
+            .Concat(Throwables)
             .ToList();
 
         public List<NameGroup> Melee => Swords
@@ -28,7 +28,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> Guns { get; set; }
         public List<NameGroup> Crossbows { get; set; }
         public List<NameGroup> Bows { get; set; }
-        public List<NameGroup> Javelins { get; set; }
+        public List<NameGroup> Throwables { get; set; }
 
         public List<NameGroup> Swords { get; set; }
         public List<NameGroup> Daggers { get; set; }
@@ -43,7 +43,7 @@ namespace StellarisNameListGenerator.Models
             Guns = new List<NameGroup>();
             Crossbows = new List<NameGroup>();
             Bows = new List<NameGroup>();
-            Javelins = new List<NameGroup>();
+            Throwables = new List<NameGroup>();
 
             Swords = new List<NameGroup>();
             Daggers = new List<NameGroup>();

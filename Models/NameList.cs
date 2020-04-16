@@ -136,7 +136,7 @@ namespace StellarisNameListGenerator.Models
             Warfare.Weapons.Guns.AddRange(other.Warfare.Weapons.Guns);
             Warfare.Weapons.Crossbows.AddRange(other.Warfare.Weapons.Crossbows);
             Warfare.Weapons.Bows.AddRange(other.Warfare.Weapons.Bows);
-            Warfare.Weapons.Javelins.AddRange(other.Warfare.Weapons.Javelins);
+            Warfare.Weapons.Throwables.AddRange(other.Warfare.Weapons.Throwables);
             Warfare.Weapons.Swords.AddRange(other.Warfare.Weapons.Swords);
             Warfare.Weapons.Daggers.AddRange(other.Warfare.Weapons.Daggers);
             Warfare.Weapons.Polearms.AddRange(other.Warfare.Weapons.Polearms);
