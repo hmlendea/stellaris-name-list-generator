@@ -96,24 +96,22 @@ namespace StellarisNameListGenerator.Service
                 .Concat(nameList.GreatPeople.DisloyaltyDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
 
-            Parallel.ForEach(genericNames, group =>
-            {
-                group.ExplicitValues.RemoveAll(x => 
-                    desertNames.Any(y => y.Values.Contains(x)) ||
-                    aridNames.Any(y => y.Values.Contains(x)) ||
-                    tropicalNames.Any(y => y.Values.Contains(x)) ||
-                    continentalNames.Any(y => y.Values.Contains(x)) ||
-                    gaiaNames.Any(y => y.Values.Contains(x)) ||
-                    oceanNames.Any(y => y.Values.Contains(x)) ||
-                    tundraNames.Any(y => y.Values.Contains(x)) ||
-                    arcticNames.Any(y => y.Values.Contains(x)) ||
-                    tombNames.Any(y => y.Values.Contains(x)) ||
-                    savannahNames.Any(y => y.Values.Contains(x)) ||
-                    alpineNames.Any(y => y.Values.Contains(x)) ||
-                    moltenNames.Any(y => y.Values.Contains(x)) ||
-                    barrenNames.Any(y => y.Values.Contains(x)) ||
-                    asteroidNames.Any(y => y.Values.Contains(x)));
-            });
+            genericNames = CleanGenericNames(
+                genericNames,
+                desertNames,
+                aridNames,
+                tropicalNames,
+                continentalNames,
+                gaiaNames,
+                oceanNames,
+                tundraNames,
+                arcticNames,
+                tombNames,
+                savannahNames,
+                alpineNames,
+                moltenNames,
+                barrenNames,
+                asteroidNames);
 
             content += $"{GetIndentation(1)}planet_names = {{{Environment.NewLine}";
             content += BuildPlanetNameArray(genericNames, "generic");

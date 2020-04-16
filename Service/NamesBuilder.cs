@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using NuciExtensions;
 
@@ -121,6 +123,24 @@ namespace StellarisNameListGenerator.Service
             }
 
             return string.Join('\n', values);
+        }
+        
+        protected List<NameGroup> CleanGenericNames(IEnumerable<NameGroup> genericNameGroups, params IEnumerable<NameGroup>[] specificNameGroupLists)
+        {
+            ConcurrentBag<NameGroup> cleanGenericNameGroups = new ConcurrentBag<NameGroup>();
+
+            Parallel.ForEach(genericNameGroups, genericNameGroup =>
+            {
+                NameGroup cleanGenericNameGroup = new NameGroup();
+                cleanGenericNameGroup.Name = genericNameGroup.Name;
+                cleanGenericNameGroup.ExplicitValues = genericNameGroup.Values.Where(genericName =>
+                    specificNameGroupLists.All(specificNameGroups => specificNameGroups.All(specificNameGroup =>
+                        specificNameGroup.Values.All(specificName => !DoNamesMatch(specificName, genericName))))).ToList();
+                
+                cleanGenericNameGroups.Add(cleanGenericNameGroup);
+            });
+
+            return cleanGenericNameGroups.ToList();
         }
 
         protected NameGroup GenerateUnifiedNameGroup(IEnumerable<NameGroup> nameGroups, string category, string groupName, string nameFormat)
