@@ -30,7 +30,6 @@ namespace StellarisNameListGenerator.Models
             Continental = new List<NameGroup>();
             Gaia = new List<NameGroup>();
             Ocean = new List<NameGroup>();
-            Ocean = new List<NameGroup>();
             Tundra = new List<NameGroup>();
             Arctic = new List<NameGroup>();
             Tomb = new List<NameGroup>();
