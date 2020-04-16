@@ -4,11 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Xml.Serialization;
 
+using StellarisNameListGenerator.Service;
+
 namespace StellarisNameListGenerator.Models
 {
     public sealed class NameGroup
     {
-        static WebClient client = new WebClient();
+        // TODO: Move this from here
+        // TODO: Use dependency injection
+        static IFileDownloader fileDownloader = new FileDownloader(new CacheManager());
 
         public string Name { get; set; }
 
@@ -60,7 +64,8 @@ namespace StellarisNameListGenerator.Models
             {
                 try
                 {
-                    string namesString = client.DownloadString(url);
+                    // TODO: Use async
+                    string namesString = fileDownloader.TryDownloadStringAsync(url).Result;
                     return namesString.Replace("\r" , "").Split('\n').ToList();
                 }
                 catch
