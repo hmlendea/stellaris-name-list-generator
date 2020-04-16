@@ -199,21 +199,19 @@ namespace StellarisNameListGenerator.Service
             IEnumerable<NameGroup> ionCannonNames = nameList.Ships.IonCannon
                 .Concat(nameList.Warfare.Weapons.Ranged);
 
-            Parallel.ForEach(genericNames, group =>
-            {
-                group.ExplicitValues.RemoveAll(x => 
-                    corvetteNames.Any(y => y.Values.Contains(x)) ||
-                    destroyerNames.Any(y => y.Values.Contains(x)) ||
-                    cruiserNames.Any(y => y.Values.Contains(x)) ||
-                    battleshipNames.Any(y => y.Values.Contains(x)) ||
-                    titanNames.Any(y => y.Values.Contains(x)) ||
-                    colossusNames.Any(y => y.Values.Contains(x)) ||
-                    juggernautNames.Any(y => y.Values.Contains(x)) ||
-                    constructorNames.Any(y => y.Values.Contains(x)) ||
-                    scienceNames.Any(y => y.Values.Contains(x)) ||
-                    coloniserNames.Any(y => y.Values.Contains(x)) ||
-                    transportNames.Any(y => y.Values.Contains(x)));
-            });
+            genericNames = CleanGenericNames(
+                genericNames,
+                corvetteNames,
+                destroyerNames,
+                cruiserNames,
+                battleshipNames,
+                titanNames,
+                colossusNames,
+                juggernautNames,
+                constructorNames,
+                scienceNames,
+                coloniserNames,
+                transportNames);
             
             content += BuildNameArray(genericNames, "generic", 2);
             content += BuildNameArray(corvetteNames, "corvette", 2);
