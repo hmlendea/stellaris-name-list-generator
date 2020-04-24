@@ -166,14 +166,15 @@ namespace StellarisNameListGenerator.Service
             string processedName = name;
 
             processedName = Regex.Replace(processedName, "[ĂĀ]", "Ã");
-            processedName = Regex.Replace(processedName, "[ĐƊḌ]", "D");
-            processedName = Regex.Replace(processedName, "[ĒĘ]", "E");
+            processedName = Regex.Replace(processedName, "[ČĆ]", "C");
+            processedName = Regex.Replace(processedName, "[ƊḌ]", "D");
+            processedName = Regex.Replace(processedName, "[Ē]", "Ë");
+            processedName = Regex.Replace(processedName, "[Ę]", "E");
             processedName = Regex.Replace(processedName, "[Ğ]", "G");
             processedName = Regex.Replace(processedName, "[İĪ]", "I");
             processedName = Regex.Replace(processedName, "[Ƙ]", "K");
             processedName = Regex.Replace(processedName, "[Ł]", "L");
             processedName = Regex.Replace(processedName, "[Ń]", "N");
-            processedName = Regex.Replace(processedName, "[Ó]", "O'");
             processedName = Regex.Replace(processedName, "[Ō]", "Ö");
             processedName = Regex.Replace(processedName, "[ȘŞṢŚ]", "S");
             processedName = Regex.Replace(processedName, "[Ț]", "T");
@@ -181,8 +182,10 @@ namespace StellarisNameListGenerator.Service
             processedName = Regex.Replace(processedName, "[Ư]", "U'");
             processedName = Regex.Replace(processedName, "[ŹŻ]", "Z");
             processedName = Regex.Replace(processedName, "[ăā]", "ã");
+            processedName = Regex.Replace(processedName, "[ćč]", "c");
             processedName = Regex.Replace(processedName, "[đɗḍ]", "d");
-            processedName = Regex.Replace(processedName, "[ēę]", "e");
+            processedName = Regex.Replace(processedName, "[ē]", "ë");
+            processedName = Regex.Replace(processedName, "[ę]", "e");
             processedName = Regex.Replace(processedName, "[ğ]", "g");
             processedName = Regex.Replace(processedName, "[īı]", "i");
             processedName = Regex.Replace(processedName, "[ƙ]", "k");

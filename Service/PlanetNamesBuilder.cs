@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
+using NuciExtensions;
 
 using StellarisNameListGenerator.Models;
 
 namespace StellarisNameListGenerator.Service
 {
-    public sealed class PlanetNamesBuilder : NamesBuilder, INamesBuilder
+    public sealed class PlanetNamesBuilder : NamesBuilder, IPlanetNamesBuilder
     {
         public string Build(NameList nameList)
         {
@@ -132,6 +133,33 @@ namespace StellarisNameListGenerator.Service
             content += $"{GetIndentation(1)}}}{Environment.NewLine}";
 
             return content;
+        }
+
+        public string GetRandomName(NameList nameList)
+        {
+            IEnumerable<NameGroup> planetNames = nameList.Planets.Generic
+                .Concat(nameList.Places.Deserts)
+                .Concat(nameList.Places.Forests)
+                .Concat(nameList.Places.Lakes)
+                .Concat(nameList.Places.Mountains)
+                .Concat(nameList.Places.Rivers)
+                .Concat(nameList.Places.Seas)
+                .Concat(nameList.Planets.Alpine)
+                .Concat(nameList.Planets.Arctic)
+                .Concat(nameList.Planets.Arid)
+                .Concat(nameList.Planets.Asteroid)
+                .Concat(nameList.Planets.Barren)
+                .Concat(nameList.Planets.Continental)
+                .Concat(nameList.Planets.Desert)
+                .Concat(nameList.Planets.Gaia)
+                .Concat(nameList.Planets.Molten)
+                .Concat(nameList.Planets.Ocean)
+                .Concat(nameList.Planets.Savannah)
+                .Concat(nameList.Planets.Tomb)
+                .Concat(nameList.Planets.Tropical)
+                .Concat(nameList.Planets.Tundra);
+
+            return planetNames.SelectMany(x => x.Values).GetRandomElement();
         }
 
         string BuildPlanetNameArray(IEnumerable<NameGroup> nameGroups, string planetClass)
