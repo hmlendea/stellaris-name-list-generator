@@ -166,8 +166,9 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             string processedName = name;
 
             processedName = Regex.Replace(processedName, "[ĂĀ]", "Ã");
+            processedName = Regex.Replace(processedName, "[ḂḄ]", "B");
             processedName = Regex.Replace(processedName, "[ČĆ]", "C");
-            processedName = Regex.Replace(processedName, "[ƊḌ]", "D");
+            processedName = Regex.Replace(processedName, "[ĐƊḌ]", "D");
             processedName = Regex.Replace(processedName, "[Ē]", "Ë");
             processedName = Regex.Replace(processedName, "[Ę]", "E");
             processedName = Regex.Replace(processedName, "[Ğ]", "G");
@@ -176,12 +177,13 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             processedName = Regex.Replace(processedName, "[Ł]", "L");
             processedName = Regex.Replace(processedName, "[Ń]", "N");
             processedName = Regex.Replace(processedName, "[Ō]", "Ö");
-            processedName = Regex.Replace(processedName, "[ȘŞṢŚ]", "S");
+            processedName = Regex.Replace(processedName, "[ȘŞṢŚŠ]", "S");
             processedName = Regex.Replace(processedName, "[Ț]", "T");
             processedName = Regex.Replace(processedName, "[Ū]", "Ü");
             processedName = Regex.Replace(processedName, "[Ư]", "U'");
-            processedName = Regex.Replace(processedName, "[ŹŻ]", "Z");
+            processedName = Regex.Replace(processedName, "[ŹŻŽ]", "Z");
             processedName = Regex.Replace(processedName, "[ăā]", "ã");
+            processedName = Regex.Replace(processedName, "[ḃḅ]", "b");
             processedName = Regex.Replace(processedName, "[ćč]", "c");
             processedName = Regex.Replace(processedName, "[đɗḍ]", "d");
             processedName = Regex.Replace(processedName, "[ē]", "ë");
@@ -192,10 +194,10 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             processedName = Regex.Replace(processedName, "[ł]", "l");
             processedName = Regex.Replace(processedName, "[ń]", "n");
             processedName = Regex.Replace(processedName, "[ō]", "ö");
-            processedName = Regex.Replace(processedName, "[șşṣś]", "s");
+            processedName = Regex.Replace(processedName, "[șşṣśš]", "s");
             processedName = Regex.Replace(processedName, "[ț]", "t");
             processedName = Regex.Replace(processedName, "[ū]", "ü");
-            processedName = Regex.Replace(processedName, "[źż]", "z");
+            processedName = Regex.Replace(processedName, "[źżž]", "z");
 
             processedName = Regex.Replace(processedName, "[ʻ]", "'");
 
