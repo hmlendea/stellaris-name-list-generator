@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using NuciExtensions;
 
 using StellarisNameListGenerator.Models;
+using StellarisNameListGenerator.Service.NamesBuilders;
 
 namespace StellarisNameListGenerator.Service
 {
@@ -17,17 +17,17 @@ namespace StellarisNameListGenerator.Service
         readonly Random random = new Random(873);
 
         readonly IShipNamesBuilder shipNamesBuilder;
-        readonly INamesBuilder shipClassNamesBuilder;
+        readonly IShipClassNamesBuilder shipClassNamesBuilder;
         readonly IFleetNamesBuilder fleetNamesBuilder;
-        readonly INamesBuilder armyNamesBuilder;
+        readonly IArmyNamesBuilder armyNamesBuilder;
         readonly IPlanetNamesBuilder planetNamesBuilder;
         readonly ICharacterNamesBuilder characterNamesBuilder;
 
         public FileContentBuilder(
             IShipNamesBuilder shipNamesBuilder,
-            INamesBuilder shipClassNamesBuilder,
+            IShipClassNamesBuilder shipClassNamesBuilder,
             IFleetNamesBuilder fleetNamesBuilder,
-            INamesBuilder armyNamesBuilder,
+            IArmyNamesBuilder armyNamesBuilder,
             IPlanetNamesBuilder planetNamesBuilder,
             ICharacterNamesBuilder characterNamesBuilder)
         {

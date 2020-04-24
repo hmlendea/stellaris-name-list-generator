@@ -5,7 +5,7 @@ using NuciExtensions;
 
 using StellarisNameListGenerator.Models;
 
-namespace StellarisNameListGenerator.Service
+namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public sealed class FleetNamesBuilder : NamesBuilder, IFleetNamesBuilder
     {

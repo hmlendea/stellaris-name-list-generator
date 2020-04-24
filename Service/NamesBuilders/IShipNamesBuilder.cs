@@ -1,8 +1,8 @@
 using StellarisNameListGenerator.Models;
 
-namespace StellarisNameListGenerator.Service
+namespace StellarisNameListGenerator.Service.NamesBuilders
 {
-    public interface IFleetNamesBuilder
+    public interface IShipNamesBuilder
     {
         string Build(NameList nameList);
 

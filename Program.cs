@@ -1,8 +1,9 @@
-﻿using StellarisNameListGenerator.Models;
-using StellarisNameListGenerator.Service;
-
-using NuciCLI;
+﻿using NuciCLI;
 using NuciDAL.Repositories;
+
+using StellarisNameListGenerator.Models;
+using StellarisNameListGenerator.Service;
+using StellarisNameListGenerator.Service.NamesBuilders;
 
 namespace StellarisNameListGenerator
 {
@@ -25,9 +26,9 @@ namespace StellarisNameListGenerator
             bool isLocked = CliArgumentsReader.HasOption(args, IsLockedOptions);
 
             IShipNamesBuilder shipNamesBuilder = new ShipNamesBuilder();
-            INamesBuilder shipClassNamesBuilder = new ShipClassNamesBuilder();
+            IShipClassNamesBuilder shipClassNamesBuilder = new ShipClassNamesBuilder();
             IFleetNamesBuilder fleetnamesBuilder = new FleetNamesBuilder();
-            INamesBuilder armyNamesBuilder = new ArmyNamesBuilder();
+            IArmyNamesBuilder armyNamesBuilder = new ArmyNamesBuilder();
             IPlanetNamesBuilder planetNamesBuilder = new PlanetNamesBuilder();
             ICharacterNamesBuilder characterNamesBuilder = new CharacterNamesBuilder();
 

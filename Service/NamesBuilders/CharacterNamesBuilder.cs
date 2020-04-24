@@ -6,7 +6,7 @@ using NuciExtensions;
 
 using StellarisNameListGenerator.Models;
 
-namespace StellarisNameListGenerator.Service
+namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public sealed class CharacterNamesBuilder : NamesBuilder, ICharacterNamesBuilder
     {

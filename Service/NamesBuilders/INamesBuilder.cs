@@ -1,6 +1,6 @@
 using StellarisNameListGenerator.Models;
 
-namespace StellarisNameListGenerator.Service
+namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public interface INamesBuilder
     {
