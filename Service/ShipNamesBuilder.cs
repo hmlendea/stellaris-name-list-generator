@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
+using NuciExtensions;
 
 using StellarisNameListGenerator.Models;
 
 namespace StellarisNameListGenerator.Service
 {
-    public sealed class ShipNamesBuilder : NamesBuilder, INamesBuilder
+    public sealed class ShipNamesBuilder : NamesBuilder, IShipNamesBuilder
     {
         public string Build(NameList nameList)
         {
@@ -242,6 +243,56 @@ namespace StellarisNameListGenerator.Service
             content += $"{GetIndentation(1)}}}{Environment.NewLine}";
 
             return content;
+        }
+
+        public string GetRandomName(NameList nameList)
+        {
+            IEnumerable<NameGroup> shipNames = nameList.Ships.Generic
+                .Concat(nameList.Denonyms)
+                .Concat(nameList.GreatPeople.Explorers)
+                .Concat(nameList.GreatPeople.Pioneers)
+                .Concat(nameList.GreatPeople.Scientists)
+                .Concat(nameList.GreatPeople.FlyingAces)
+                .Concat(nameList.GreatPeople.Heroes)
+                .Concat(nameList.GreatPeople.Admirals)
+                .Concat(nameList.GreatPeople.AllLeaders)
+                .Concat(nameList.GreatPeople.AllGenerals)
+                .Concat(nameList.BiosphereNames.MythologicalCreatures)
+                .Concat(nameList.Places.Cities)
+                .Concat(nameList.Places.Countries)
+                .Concat(nameList.Places.Deserts)
+                .Concat(nameList.Places.Forests)
+                .Concat(nameList.Places.Lakes)
+                .Concat(nameList.Places.Mountains)
+                .Concat(nameList.Places.Regions)
+                .Concat(nameList.Places.Rivers)
+                .Concat(nameList.Places.Seas)
+                .Concat(nameList.Ships.Battleship)
+                .Concat(nameList.Ships.Coloniser)
+                .Concat(nameList.Ships.Constructor)
+                .Concat(nameList.Ships.Corvette)
+                .Concat(nameList.Ships.Cruiser)
+                .Concat(nameList.Ships.Destroyer)
+                .Concat(nameList.Ships.Science)
+                .Concat(nameList.Ships.Titan)
+                .Concat(nameList.Ships.Transport)
+                .Concat(nameList.Stations.MilitaryStations.Generic)
+                .Concat(nameList.Stations.MilitaryStations.Large)
+                .Concat(nameList.Stations.MilitaryStations.Medium)
+                .Concat(nameList.Stations.MilitaryStations.Small)
+                .Concat(nameList.Stations.Starbases.Citadels)
+                .Concat(nameList.Stations.Starbases.Generic)
+                .Concat(nameList.Stations.Starbases.Outposts)
+                .Concat(nameList.Stations.Starbases.Starfortresses)
+                .Concat(nameList.Stations.Starbases.Starholds)
+                .Concat(nameList.Stations.Starbases.Starports)
+                .Concat(nameList.Warfare.BattleLocations)
+                .Concat(nameList.Warfare.Forts)
+                .Concat(nameList.Warfare.MilitaryUnitTypes)
+                .Concat(nameList.Warfare.ShipTypes)
+                .Concat(nameList.Warfare.Weapons.All);
+
+            return shipNames.SelectMany(x => x.Values).GetRandomElement();
         }
     }
 }

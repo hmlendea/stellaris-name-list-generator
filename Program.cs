@@ -24,18 +24,20 @@ namespace StellarisNameListGenerator
             string namelistName = CliArgumentsReader.GetOptionValue(args, NameOptions);
             bool isLocked = CliArgumentsReader.HasOption(args, IsLockedOptions);
 
-            INamesBuilder shipNamesBuilder = new ShipNamesBuilder();
+            IShipNamesBuilder shipNamesBuilder = new ShipNamesBuilder();
             INamesBuilder shipClassNamesBuilder = new ShipClassNamesBuilder();
             IFleetNamesBuilder fleetnamesBuilder = new FleetNamesBuilder();
             INamesBuilder armyNamesBuilder = new ArmyNamesBuilder();
-            INamesBuilder planetNamesBuilder = new PlanetNamesBuilder();
+            IPlanetNamesBuilder planetNamesBuilder = new PlanetNamesBuilder();
+            ICharacterNamesBuilder characterNamesBuilder = new CharacterNamesBuilder();
 
             IFileContentBuilder fileContentBuilder = new FileContentBuilder(
                 shipNamesBuilder,
                 shipClassNamesBuilder,
                 fleetnamesBuilder,
                 armyNamesBuilder,
-                planetNamesBuilder);
+                planetNamesBuilder,
+                characterNamesBuilder);
 
             IRepository<NameList> nameListRepository = new XmlRepository<NameList>(inputFilePath);
             INameListGenerator nameListGenerator = new NameListGenerator(fileContentBuilder, nameListRepository);
