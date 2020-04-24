@@ -9,7 +9,7 @@ using NuciExtensions;
 
 using StellarisNameListGenerator.Models;
 
-namespace StellarisNameListGenerator.Service
+namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public abstract class NamesBuilder
     {

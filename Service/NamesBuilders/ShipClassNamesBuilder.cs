@@ -4,9 +4,9 @@ using System.Linq;
 
 using StellarisNameListGenerator.Models;
 
-namespace StellarisNameListGenerator.Service
+namespace StellarisNameListGenerator.Service.NamesBuilders
 {
-    public sealed class ShipClassNamesBuilder : NamesBuilder, INamesBuilder
+    public sealed class ShipClassNamesBuilder : NamesBuilder, IShipClassNamesBuilder
     {
         public string Build(NameList nameList)
         {
