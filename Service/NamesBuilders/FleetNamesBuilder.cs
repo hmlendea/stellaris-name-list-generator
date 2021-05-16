@@ -52,7 +52,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(GenerateFleetNamesCategory(nameList, "Squadrons", "{0} Squadron"))
                 .Concat(GenerateFleetNamesCategory(nameList, "Starfleets", "{0} Starfleet"))
                 .Concat(GenerateFleetNamesCategory(nameList, "Strike Forces", "Strike Force {0}"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Strike Teams", "Strike Teams {0}"))
+                .Concat(GenerateFleetNamesCategory(nameList, "Strike Teams", "Strike Team {0}"))
                 .Concat(GenerateFleetNamesCategory(nameList, "Task Forces", "Task Force {0}"))
                 .ToList();
         }
