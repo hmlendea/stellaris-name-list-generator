@@ -87,9 +87,9 @@ namespace StellarisNameListGenerator.Models
 
             PrimitiveArmySequentialName = "Primitive Army %C%";
             PrimitiveArmy = new List<NameGroup>();
-            IndustrialArmySequentialName = "Primitive Army %C%";
+            IndustrialArmySequentialName = "Industrial Army %C%";
             IndustrialArmy = new List<NameGroup>();
-            PostAtomicArmySequentialName = "Primitive Army %C%";
+            PostAtomicArmySequentialName = "Post-Atomic Army %C%";
             PostAtomicArmy = new List<NameGroup>();
         }
     }
