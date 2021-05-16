@@ -18,6 +18,8 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> SlaveArmy { get; set; }
         public string CloneArmySequentialName { get; set; }
         public List<NameGroup> CloneArmy { get; set; }
+        public string UndeadArmySequentialName { get; set; }
+        public List<NameGroup> UndeadArmy { get; set; }
         
         public string RoboticDefenceArmySequentialName { get; set; }
         public List<NameGroup> RoboticDefenceArmy { get; set; }
