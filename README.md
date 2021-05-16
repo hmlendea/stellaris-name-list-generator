@@ -3,3 +3,11 @@
 # About
 
 A tool for generating Stellaris name lists, from XML files that are better organised and more versatile than the vanilla files.
+
+# Usage
+
+Example:
+
+```bash
+./StellarisNameListGenerator -i "name-list.xml" -o "output-name-list.txt" -n "Name List Name"
+```
