@@ -63,6 +63,8 @@ namespace StellarisNameListGenerator.Models
             SlaveArmy = new List<NameGroup>();
             CloneArmySequentialName = "%O% Clone Army";
             CloneArmy = new List<NameGroup>();
+            UndeadArmySequentialName = "%O% Undead Army";
+            UndeadArmy = new List<NameGroup>();
 
             RoboticDefenceArmySequentialName = "%O% Ground Defence Matrix";
             RoboticDefenceArmy = new List<NameGroup>();
@@ -85,9 +87,9 @@ namespace StellarisNameListGenerator.Models
 
             PrimitiveArmySequentialName = "Primitive Army %C%";
             PrimitiveArmy = new List<NameGroup>();
-            IndustrialArmySequentialName = "Primitive Army %C%";
+            IndustrialArmySequentialName = "Industrial Army %C%";
             IndustrialArmy = new List<NameGroup>();
-            PostAtomicArmySequentialName = "Primitive Army %C%";
+            PostAtomicArmySequentialName = "Post-Atomic Army %C%";
             PostAtomicArmy = new List<NameGroup>();
         }
     }
