@@ -63,6 +63,8 @@ namespace StellarisNameListGenerator.Models
             SlaveArmy = new List<NameGroup>();
             CloneArmySequentialName = "%O% Clone Army";
             CloneArmy = new List<NameGroup>();
+            UndeadArmySequentialName = "%O% Undead Army";
+            UndeadArmy = new List<NameGroup>();
 
             RoboticDefenceArmySequentialName = "%O% Ground Defence Matrix";
             RoboticDefenceArmy = new List<NameGroup>();
