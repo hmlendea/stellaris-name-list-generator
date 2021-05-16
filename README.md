@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/hmlendea/stellaris-name-list-generator/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/stellaris-name-list-generator/actions/workflows/dotnet.yml)
+
 # About
 
-This is a tool that extracts the landed title names from CK2 landed title files
+A tool for generating Stellaris name lists, from XML files that are better organised and more versatile than the vanilla files.
