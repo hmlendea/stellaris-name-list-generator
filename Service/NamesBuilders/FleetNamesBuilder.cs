@@ -9,6 +9,25 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public sealed class FleetNamesBuilder : NamesBuilder, IFleetNamesBuilder
     {
+        static readonly IList<string> fleetNameFormats = new List<string>
+        {
+            "{0} Extraorbital Corps",
+            "{0} Squadron",
+            "{0} Star Corps",
+            "{0} Star Order",
+            "{0} Starfleet",
+            "Strike Force {0}",
+            "Strike Team {0}",
+            "Task Force {0}",
+            "The {0} Armada",
+            "The {0} Battle Group",
+            "The {0} Corps",
+            "The {0} Expeditionary Fleet",
+            "The {0} Fleet",
+            "The {0} Flotilla",
+            "The {0} Navy",
+        };
+
         public string Build(NameList nameList)
         {
             string content = string.Empty;
@@ -42,19 +61,22 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
         IEnumerable<NameGroup> GenerateFleetNames(NameList nameList)
         {
-            return nameList.Armies.Fleet
-                .Concat(GenerateFleetNamesCategory(nameList, "Armadas", "The {0} Armada"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Battle Groups", "The {0} Battle Group"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Corps", "The {0} Corps"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Expeditionary Fleets", "The {0} Expeditionary Fleet"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Fleets", "The {0} Fleet"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Flotillas", "The {0} Flotilla"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Squadrons", "{0} Squadron"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Starfleets", "{0} Starfleet"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Strike Forces", "Strike Force {0}"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Strike Teams", "Strike Team {0}"))
-                .Concat(GenerateFleetNamesCategory(nameList, "Task Forces", "Task Force {0}"))
-                .ToList();
+            IEnumerable<NameGroup> fleetNames = nameList.Armies.Fleet.ToList();
+
+            foreach (string fleetNameFormat in fleetNameFormats)
+            {
+                string category = fleetNameFormat
+                    .Replace("{0}", "")
+                    .Replace("The ", "")
+                    .Trim();
+                category = $"{category}s".Replace("ss", "s");
+
+                IEnumerable<NameGroup> categoryNames = GenerateFleetNamesCategory(nameList, category, fleetNameFormat);
+
+                fleetNames = fleetNames.Concat(categoryNames);
+            }
+            
+            return fleetNames;
         }
 
         IEnumerable<NameGroup> GenerateFleetNamesCategory(NameList nameList, string category, string nameFormat)

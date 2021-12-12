@@ -71,6 +71,8 @@ namespace StellarisNameListGenerator.Models
             Places.Lakes.AddRange(other.Places.Lakes);
             Places.Seas.AddRange(other.Places.Seas);
 
+            Places.Airports.AddRange(other.Places.Airports);
+
             GreatPeople.Explorers.AddRange(other.GreatPeople.Explorers);
             GreatPeople.Pioneers.AddRange(other.GreatPeople.Pioneers);
             GreatPeople.Scientists.AddRange(other.GreatPeople.Scientists);
