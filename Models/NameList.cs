@@ -184,12 +184,6 @@ namespace StellarisNameListGenerator.Models
             Stations.MilitaryStations.Small.AddRange(other.Stations.MilitaryStations.Small);
             Stations.MilitaryStations.Medium.AddRange(other.Stations.MilitaryStations.Medium);
             Stations.MilitaryStations.Large.AddRange(other.Stations.MilitaryStations.Large);
-            Stations.Starbases.Generic.AddRange(other.Stations.Starbases.Generic);
-            Stations.Starbases.Outposts.AddRange(other.Stations.Starbases.Outposts);
-            Stations.Starbases.Starports.AddRange(other.Stations.Starbases.Starports);
-            Stations.Starbases.Starholds.AddRange(other.Stations.Starbases.Starholds);
-            Stations.Starbases.Starfortresses.AddRange(other.Stations.Starbases.Starfortresses);
-            Stations.Starbases.Citadels.AddRange(other.Stations.Starbases.Citadels);
             Stations.MiningStations.AddRange(other.Stations.MiningStations);
             Stations.ResearchStations.AddRange(other.Stations.ResearchStations);
             Stations.ObservationStations.AddRange(other.Stations.ObservationStations);

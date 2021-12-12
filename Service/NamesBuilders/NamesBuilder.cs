@@ -47,8 +47,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                     indentationLevels -= 1;
                 }
             }
-
-            if (!string.IsNullOrWhiteSpace(sequentialName))
+            else if (!string.IsNullOrWhiteSpace(sequentialName))
             {
                 content += $"{GetIndentation(indentationLevels + 1)}sequential_name = \"{sequentialName}\"{Environment.NewLine}";
             }

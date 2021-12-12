@@ -151,14 +151,6 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(scienceNames);
             IEnumerable<NameGroup> observationStations = nameList.Stations.ObservationStations
                 .Concat(nameList.GreatPeople.KnowledgeDeities);
-            IEnumerable<NameGroup> genericStarbases = nameList.Stations.Starbases.Generic
-                .Concat(nameList.GreatPeople.Explorers)
-                .Concat(nameList.GreatPeople.AllDeities);
-            IEnumerable<NameGroup> outpostNames = nameList.Stations.Starbases.Outposts.Concat(genericStarbases);
-            IEnumerable<NameGroup> starportNames = nameList.Stations.Starbases.Starports.Concat(genericStarbases);
-            IEnumerable<NameGroup> starholdNames = nameList.Stations.Starbases.Starholds.Concat(genericStarbases);
-            IEnumerable<NameGroup> starfortressNames = nameList.Stations.Starbases.Starfortresses.Concat(genericStarbases);
-            IEnumerable<NameGroup> citadelNames = nameList.Stations.Starbases.Citadels.Concat(genericStarbases);
             IEnumerable<NameGroup> genericMilitaryStations = nameList.Stations.MilitaryStations.Generic
                 .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.BattleLocations)
@@ -230,11 +222,6 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             content += BuildNameArray(miningStations, "mining_station", 2);
             content += BuildNameArray(researchStations, "research_station", 2);
             content += BuildNameArray(observationStations, "observation_station", 2);
-            content += BuildNameArray(outpostNames, "starbase_outpost", 2, "%O% Starbase");
-            content += BuildNameArray(starportNames, "starbase_starport", 2, "%O% Starbase");
-            content += BuildNameArray(starholdNames, "starbase_starhold", 2, "%O% Starbase");
-            content += BuildNameArray(starfortressNames, "starbase_starfortress", 2, "%O% Starbase");
-            content += BuildNameArray(citadelNames, "starbase_citadel", 2, "%O% Starbase");
             content += BuildNameArray(smallMilitaryStations, "military_station_small", 2);
             content += BuildNameArray(mediumMilitaryStations, "military_station_medium", 2);
             content += BuildNameArray(largeMilitaryStations, "military_station_large", 2);
@@ -280,12 +267,6 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(nameList.Stations.MilitaryStations.Large)
                 .Concat(nameList.Stations.MilitaryStations.Medium)
                 .Concat(nameList.Stations.MilitaryStations.Small)
-                .Concat(nameList.Stations.Starbases.Citadels)
-                .Concat(nameList.Stations.Starbases.Generic)
-                .Concat(nameList.Stations.Starbases.Outposts)
-                .Concat(nameList.Stations.Starbases.Starfortresses)
-                .Concat(nameList.Stations.Starbases.Starholds)
-                .Concat(nameList.Stations.Starbases.Starports)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
