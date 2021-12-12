@@ -26,7 +26,6 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             IEnumerable<NameGroup> coloniserClasses = nameList.ShipClasses.Coloniser.Concat(nameList.Companies.AutomotiveManufacturers);
             IEnumerable<NameGroup> sponsoredColoniserClasses = coloniserClasses.Concat(nameList.Companies.InvestmentCompanies);
 
-            IEnumerable<NameGroup> outpostClasses = nameList.StationClasses.Outposts;
             IEnumerable<NameGroup> smallMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Small);
             IEnumerable<NameGroup> mediumMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Medium);
             IEnumerable<NameGroup> largeMilitaryStationClasses = nameList.StationClasses.MilitaryStations.Generic.Concat(nameList.StationClasses.MilitaryStations.Large);
@@ -50,7 +49,6 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             innerContent += BuildNameArray(nameList.StationClasses.MiningStations, "mining_station", 2);
             innerContent += BuildNameArray(nameList.StationClasses.ResearchStations, "research_station", 2);
             innerContent += BuildNameArray(nameList.StationClasses.ObservationStations, "observation_station", 2);
-            innerContent += BuildNameArray(outpostClasses, "starbase_outpost", 2);
             innerContent += BuildNameArray(smallMilitaryStationClasses, "military_station_small", 2);
             innerContent += BuildNameArray(mediumMilitaryStationClasses, "military_station_medium", 2);
             innerContent += BuildNameArray(largeMilitaryStationClasses, "military_station_large", 2);

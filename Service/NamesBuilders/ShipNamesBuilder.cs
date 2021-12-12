@@ -151,9 +151,6 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(scienceNames);
             IEnumerable<NameGroup> observationStations = nameList.Stations.ObservationStations
                 .Concat(nameList.GreatPeople.KnowledgeDeities);
-            IEnumerable<NameGroup> outpostNames = nameList.Stations.Outposts
-                .Concat(nameList.GreatPeople.Explorers)
-                .Concat(nameList.GreatPeople.AllDeities);
             IEnumerable<NameGroup> genericMilitaryStations = nameList.Stations.MilitaryStations.Generic
                 .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.BattleLocations)
@@ -225,7 +222,6 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             content += BuildNameArray(miningStations, "mining_station", 2);
             content += BuildNameArray(researchStations, "research_station", 2);
             content += BuildNameArray(observationStations, "observation_station", 2);
-            content += BuildNameArray(outpostNames, "starbase_outpost", 2, "%O% Starbase");
             content += BuildNameArray(smallMilitaryStations, "military_station_small", 2);
             content += BuildNameArray(mediumMilitaryStations, "military_station_medium", 2);
             content += BuildNameArray(largeMilitaryStations, "military_station_large", 2);
@@ -271,7 +267,6 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(nameList.Stations.MilitaryStations.Large)
                 .Concat(nameList.Stations.MilitaryStations.Medium)
                 .Concat(nameList.Stations.MilitaryStations.Small)
-                .Concat(nameList.Stations.Outposts)
                 .Concat(nameList.Warfare.BattleLocations)
                 .Concat(nameList.Warfare.Forts)
                 .Concat(nameList.Warfare.MilitaryUnitTypes)
