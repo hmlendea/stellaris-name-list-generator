@@ -24,6 +24,8 @@ namespace StellarisNameListGenerator.Models
             .Concat(Forests)
             .Concat(Deserts)
             .Concat(WaterBodies);
+        
+        public List<NameGroup> Airports { get; set; }
 
         public PlaceNames()
         {
@@ -38,6 +40,8 @@ namespace StellarisNameListGenerator.Models
             Rivers = new List<NameGroup>();
             Lakes = new List<NameGroup>();
             Seas = new List<NameGroup>();
+
+            Airports = new List<NameGroup>();
         }
     }
 }
