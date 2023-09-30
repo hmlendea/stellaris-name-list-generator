@@ -15,9 +15,11 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             "Abomination",
             "Beast",
             "Death",
+            "Horror",
             "Hybrid",
             "Morphling",
             "Mutant",
+            "Rabid",
             "Xenomorph"
         };
 
@@ -93,6 +95,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                         new NameGroup { Name = $"Divisions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Division").ToList() },
                         new NameGroup { Name = $"Elite Corps - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Elite Corps").ToList() },
                         new NameGroup { Name = $"Legions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Legion").ToList() },
+                        new NameGroup { Name = $"Platoons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Platoon").ToList() },
                         new NameGroup { Name = $"Squadrons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
                     }));
 
