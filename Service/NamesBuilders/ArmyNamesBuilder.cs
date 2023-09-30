@@ -20,7 +20,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             "Mutant",
             "Xenomorph"
         };
-        
+
         static readonly IList<string> xenomorphArmySecondWords = new List<string>
         {
             "Brood",
@@ -38,12 +38,12 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
         public string Build(NameList nameList)
         {
             string content = $"{GetIndentation(1)}army_names = {{{Environment.NewLine}";
-            
+
             IEnumerable<NameGroup> psionicArmies = GeneratePsionicArmyNames(nameList);
             IEnumerable<NameGroup> xenomorphArmies = GenerateXenomorphArmyNames(nameList);
 
             string innerContent = string.Empty;
-            
+
             innerContent += BuildNameArray(EmptyNameList, "machine_defense", 2, nameList.Armies.DefenceArmySequentialName);
             innerContent += BuildNameArray(EmptyNameList, "machine_assault_1", 2, nameList.Armies.AssaultArmySequentialName);
             innerContent += BuildNameArray(EmptyNameList, "machine_assault_2", 2, nameList.Armies.AssaultArmySequentialName);
@@ -90,7 +90,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                     {
                         new NameGroup { Name = $"Commandos - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Commando").ToList() },
                         new NameGroup { Name = $"Covert Ops - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Covert Ops").ToList() },
-                        new NameGroup { Name = $"Divisions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Divison").ToList() },
+                        new NameGroup { Name = $"Divisions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Division").ToList() },
                         new NameGroup { Name = $"Elite Corps - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Elite Corps").ToList() },
                         new NameGroup { Name = $"Legions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Legion").ToList() },
                         new NameGroup { Name = $"Squadrons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
@@ -122,7 +122,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                         $"{{0}}'s {firstWord} {secondWord}"));
                 }
             }
-            
+
             return xenomorphArmies;
         }
     }
