@@ -21,6 +21,21 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(nameList.Companies.RocketDesigners)
                 .Concat(nameList.Warfare.ShipTypes);
 
+            IEnumerable<NameGroup> corvetteClasses = nameList.ShipClasses.Corvette
+                .Concat(nameList.Companies.WeaponManufacturers);
+            IEnumerable<NameGroup> destroyerClasses = nameList.ShipClasses.Destroyer
+                .Concat(nameList.Companies.WeaponManufacturers);
+            IEnumerable<NameGroup> cruisedClasses = nameList.ShipClasses.Cruiser
+                .Concat(nameList.Companies.WeaponManufacturers);
+            IEnumerable<NameGroup> battleshipClasses = nameList.ShipClasses.Battleship
+                .Concat(nameList.Companies.WeaponManufacturers);
+            IEnumerable<NameGroup> titanClasses = nameList.ShipClasses.Titan
+                .Concat(nameList.Companies.WeaponManufacturers);
+            IEnumerable<NameGroup> colossusClasses = nameList.ShipClasses.Colossus
+                .Concat(nameList.Companies.WeaponManufacturers);
+            IEnumerable<NameGroup> juggernautClasses = nameList.ShipClasses.Juggernaut
+                .Concat(nameList.Companies.WeaponManufacturers);
+
             IEnumerable<NameGroup> constructorClasses = nameList.ShipClasses.Constructor
                 .Concat(nameList.Companies.AircraftManufacturers)
                 .Concat(nameList.Companies.AutomotiveManufacturers);
@@ -43,13 +58,13 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
             string innerContent = string.Empty;
             innerContent += BuildNameArray(genericShipClasses, "generic", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Corvette, "corvette", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Destroyer, "destroyer", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Cruiser, "cruiser", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Battleship, "battleship", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Titan, "titan", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Colossus, "colossus", 2);
-            innerContent += BuildNameArray(nameList.ShipClasses.Juggernaut, "juggernaut", 2);
+            innerContent += BuildNameArray(corvetteClasses, "corvette", 2);
+            innerContent += BuildNameArray(destroyerClasses, "destroyer", 2);
+            innerContent += BuildNameArray(cruisedClasses, "cruiser", 2);
+            innerContent += BuildNameArray(battleshipClasses, "battleship", 2);
+            innerContent += BuildNameArray(titanClasses, "titan", 2);
+            innerContent += BuildNameArray(colossusClasses, "colossus", 2);
+            innerContent += BuildNameArray(juggernautClasses, "juggernaut", 2);
             innerContent += BuildNameArray(constructorClasses, "constructor", 2);
             innerContent += BuildNameArray(scienceClasses, "science", 2);
             innerContent += BuildNameArray(coloniserClasses, "coloniser", 2);
