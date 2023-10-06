@@ -40,7 +40,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 }
 
                 content += GetFormattedNameCollection(nameGroups, indentationLevels + 1);
-                
+
                 if (!string.IsNullOrWhiteSpace(sequentialName))
                 {
                     content += $"{GetIndentation(indentationLevels)}}}{Environment.NewLine}";
@@ -117,13 +117,13 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 {
                     value += $"{line.Substring(0, line.Length - 1)}{Environment.NewLine}";
                 }
-                
+
                 values.Add(value);
             }
 
             return string.Join('\n', values);
         }
-        
+
         protected List<NameGroup> CleanGenericNames(IEnumerable<NameGroup> genericNameGroups, params IEnumerable<NameGroup>[] specificNameGroupLists)
         {
             ConcurrentBag<NameGroup> cleanGenericNameGroups = new ConcurrentBag<NameGroup>();
@@ -135,7 +135,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 cleanGenericNameGroup.ExplicitValues = genericNameGroup.Values.Where(genericName =>
                     specificNameGroupLists.All(specificNameGroups => specificNameGroups.All(specificNameGroup =>
                         specificNameGroup.Values.All(specificName => !DoNamesMatch(specificName, genericName))))).ToList();
-                
+
                 cleanGenericNameGroups.Add(cleanGenericNameGroup);
             });
 
@@ -151,7 +151,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Distinct()
                 .Select(y => string.Format(nameFormat, y))
                 .ToList();
-            
+
             return group;
         }
 
@@ -168,7 +168,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             processedName = Regex.Replace(processedName, "[ḂḄ]", "B");
             processedName = Regex.Replace(processedName, "[ČĆ]", "C");
             processedName = Regex.Replace(processedName, "[ĐƊḌ]", "D");
-            processedName = Regex.Replace(processedName, "[Ē]", "Ë");
+            processedName = Regex.Replace(processedName, "[ĚĒ]", "Ë");
             processedName = Regex.Replace(processedName, "[Ę]", "E");
             processedName = Regex.Replace(processedName, "[Ğ]", "G");
             processedName = Regex.Replace(processedName, "[İĪ]", "I");
@@ -185,7 +185,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             processedName = Regex.Replace(processedName, "[ḃḅ]", "b");
             processedName = Regex.Replace(processedName, "[ćč]", "c");
             processedName = Regex.Replace(processedName, "[đɗḍ]", "d");
-            processedName = Regex.Replace(processedName, "[ē]", "ë");
+            processedName = Regex.Replace(processedName, "[ěē]", "ë");
             processedName = Regex.Replace(processedName, "[ę]", "e");
             processedName = Regex.Replace(processedName, "[ğ]", "g");
             processedName = Regex.Replace(processedName, "[īı]", "i");
@@ -202,7 +202,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
             return processedName;
         }
-        
+
         protected bool DoNamesMatch(string name1, string name2)
         {
             return name1.RemoveDiacritics() == name2.RemoveDiacritics();
