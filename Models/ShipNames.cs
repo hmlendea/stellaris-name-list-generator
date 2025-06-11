@@ -24,23 +24,23 @@ namespace StellarisNameListGenerator.Models
 
         public ShipNames()
         {
-            Generic = new List<NameGroup>();
+            Generic = [];
 
-            Corvette = new List<NameGroup>();
-            Destroyer = new List<NameGroup>();
-            Cruiser = new List<NameGroup>();
-            Battleship = new List<NameGroup>();
+            Corvette = [];
+            Destroyer = [];
+            Cruiser = [];
+            Battleship = [];
 
-            Titan = new List<NameGroup>();
-            Colossus = new List<NameGroup>();
-            Juggernaut = new List<NameGroup>();
+            Titan = [];
+            Colossus = [];
+            Juggernaut = [];
 
-            Constructor = new List<NameGroup>();
-            Science = new List<NameGroup>();
-            Coloniser = new List<NameGroup>();
-            Transport = new List<NameGroup>();
+            Constructor = [];
+            Science = [];
+            Coloniser = [];
+            Transport = [];
 
-            IonCannon = new List<NameGroup>();
+            IonCannon = [];
         }
     }
 }

@@ -9,15 +9,15 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> Small { get; set; }
 
         public List<NameGroup> Medium { get; set; }
-        
+
         public List<NameGroup> Large { get; set; }
 
         public MilitaryStationNames()
         {
-            Generic = new List<NameGroup>();
-            Small = new List<NameGroup>();
-            Medium = new List<NameGroup>();
-            Large = new List<NameGroup>();
+            Generic = [];
+            Small = [];
+            Medium = [];
+            Large = [];
         }
     }
 }

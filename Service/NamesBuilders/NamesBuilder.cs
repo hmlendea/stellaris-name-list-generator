@@ -23,7 +23,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
         {
             string content = string.Empty;
 
-            if (string.IsNullOrWhiteSpace(sequentialName) && nameGroups.All(x => x.Values.Count == 0))
+            if (string.IsNullOrWhiteSpace(sequentialName) && nameGroups.All(x => x.Values.Count.Equals(0)))
             {
                 return content;
             }
@@ -60,20 +60,20 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
         protected string GetFormattedNameCollection(IEnumerable<NameGroup> groups, int indentationLevels)
         {
             string indentation = GetIndentation(indentationLevels);
-            IList<string> usedNames = new List<string>();
-            IList<string> values = new List<string>();
+            IList<string> usedNames = [];
+            IList<string> values = [];
 
             groups = groups
                 .GroupBy(x => x.Name)
                 .Select(g => new NameGroup
                 {
                     Name = g.First().Name,
-                    ExplicitValues = g.SelectMany(x => x.Values).ToList()
+                    ExplicitValues = [.. g.SelectMany(x => x.Values)]
                 });
 
             foreach (NameGroup group in groups.OrderBy(x => x.Name))
             {
-                IList<string> lines = new List<string> { indentation };
+                IList<string> lines = [indentation];
                 bool hasNames = false;
 
                 IEnumerable<string> validNames = group.Values
@@ -88,7 +88,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
                     string formattedName = ProcessName(name);
 
-                    if (formattedName.Contains(" "))
+                    if (formattedName.Contains(' '))
                     {
                         formattedName = $"\"{formattedName}\"";
                     }
@@ -98,7 +98,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                         lines.Add(indentation);
                     }
 
-                    lines[lines.Count() - 1] += $"{formattedName} ";
+                    lines[lines.Count - 1] += $"{formattedName} ";
                 }
 
                 if (!hasNames)
@@ -115,7 +115,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
                 foreach (string line in lines)
                 {
-                    value += $"{line.Substring(0, line.Length - 1)}{Environment.NewLine}";
+                    value += $"{line[..^1]}{Environment.NewLine}";
                 }
 
                 values.Add(value);
@@ -126,41 +126,42 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
         protected List<NameGroup> CleanGenericNames(IEnumerable<NameGroup> genericNameGroups, params IEnumerable<NameGroup>[] specificNameGroupLists)
         {
-            ConcurrentBag<NameGroup> cleanGenericNameGroups = new ConcurrentBag<NameGroup>();
+            ConcurrentBag<NameGroup> cleanGenericNameGroups = [];
 
             Parallel.ForEach(genericNameGroups, genericNameGroup =>
             {
-                NameGroup cleanGenericNameGroup = new NameGroup();
-                cleanGenericNameGroup.Name = genericNameGroup.Name;
-                cleanGenericNameGroup.ExplicitValues = genericNameGroup.Values.Where(genericName =>
-                    specificNameGroupLists.All(specificNameGroups => specificNameGroups.All(specificNameGroup =>
-                        specificNameGroup.Values.All(specificName => !DoNamesMatch(specificName, genericName))))).ToList();
+                NameGroup cleanGenericNameGroup = new()
+                {
+                    Name = genericNameGroup.Name,
+                    ExplicitValues = [.. genericNameGroup.Values.Where(genericName =>
+                        specificNameGroupLists.All(specificNameGroups => specificNameGroups.All(specificNameGroup =>
+                            specificNameGroup.Values.All(specificName => !DoNamesMatch(specificName, genericName)))))]
+                };
 
                 cleanGenericNameGroups.Add(cleanGenericNameGroup);
             });
 
-            return cleanGenericNameGroups.ToList();
+            return [.. cleanGenericNameGroups];
         }
 
-        protected NameGroup GenerateUnifiedNameGroup(IEnumerable<NameGroup> nameGroups, string category, string groupName, string nameFormat)
+        protected static NameGroup GenerateUnifiedNameGroup(IEnumerable<NameGroup> nameGroups, string category, string groupName, string nameFormat)
         {
-            NameGroup group = new NameGroup();
-            group.Name = $"{category} - {groupName}";
-            group.ExplicitValues = nameGroups
-                .SelectMany(x => x.Values)
-                .Distinct()
-                .Select(y => string.Format(nameFormat, y))
-                .ToList();
+            NameGroup group = new()
+            {
+                Name = $"{category} - {groupName}",
+                ExplicitValues = [.. nameGroups
+                    .SelectMany(x => x.Values)
+                    .Distinct()
+                    .Select(y => string.Format(nameFormat, y))]
+            };
 
             return group;
         }
 
-        protected string GetIndentation(int levels)
-        {
-            return string.Empty.PadRight(levels * IndentationSize, ' ');
-        }
+        protected static string GetIndentation(int levels)
+            => string.Empty.PadRight(levels * IndentationSize, ' ');
 
-        protected string ProcessName(string name)
+        protected static string ProcessName(string name)
         {
             string processedName = name;
 
@@ -556,9 +557,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             return processedName;
         }
 
-        protected bool DoNamesMatch(string name1, string name2)
-        {
-            return name1.RemoveDiacritics() == name2.RemoveDiacritics();
-        }
+        protected static bool DoNamesMatch(string name1, string name2)
+            => name1.RemoveDiacritics().Equals(name2.RemoveDiacritics());
     }
 }

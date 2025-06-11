@@ -104,58 +104,58 @@ namespace StellarisNameListGenerator.Models
 
         public GreatPeople()
         {
-            Explorers = new List<NameGroup>();
-            Scientists = new List<NameGroup>();
-            Pioneers = new List<NameGroup>();
+            Explorers = [];
+            Scientists = [];
+            Pioneers = [];
 
-            LeadersTier1 = new List<NameGroup>();
-            LeadersTier2 = new List<NameGroup>();
-            LeadersTier3 = new List<NameGroup>();
+            LeadersTier1 = [];
+            LeadersTier2 = [];
+            LeadersTier3 = [];
 
-            FlyingAces = new List<NameGroup>();
-            Heroes = new List<NameGroup>();
-            Admirals = new List<NameGroup>();
+            FlyingAces = [];
+            Heroes = [];
+            Admirals = [];
 
-            GeneralsTier1 = new List<NameGroup>();
-            GeneralsTier2 = new List<NameGroup>();
-            GeneralsTier3 = new List<NameGroup>();
+            GeneralsTier1 = [];
+            GeneralsTier2 = [];
+            GeneralsTier3 = [];
 
-            PowerDeities = new List<NameGroup>();
-            CreationDeities = new List<NameGroup>();
-            DestructionDeities = new List<NameGroup>();
-            PeaceDeities = new List<NameGroup>();
-            WarDeities = new List<NameGroup>();
-            VictoryDeities = new List<NameGroup>();
-            DeathDeities = new List<NameGroup>();
-            HatredDeities = new List<NameGroup>();
-            FearDeities = new List<NameGroup>();
-            SorrowDeities = new List<NameGroup>();
-            BeastsDeities = new List<NameGroup>();
-            TimeDeities = new List<NameGroup>();
-            ProphecyDeities = new List<NameGroup>();
-            JusticeDeities = new List<NameGroup>();
-            ProtectionDeities = new List<NameGroup>();
-            PunishmentDeities = new List<NameGroup>();
-            LoyaltyDeities = new List<NameGroup>();
-            DisloyaltyDeities = new List<NameGroup>();
-            LabourDeities = new List<NameGroup>();
-            NatureDeities = new List<NameGroup>();
-            HealthDeities = new List<NameGroup>();
-            LoveDeities = new List<NameGroup>();
-            KnowledgeDeities = new List<NameGroup>();
-            ArtDeities = new List<NameGroup>();
-            FeastDeities = new List<NameGroup>();
-            FortuneDeities = new List<NameGroup>();
-            SleepDeities = new List<NameGroup>();
-            DarknessDeities = new List<NameGroup>();
-            LightDeities = new List<NameGroup>();
-            SunDeities = new List<NameGroup>();
-            SkyDeities = new List<NameGroup>();
-            AirDeities = new List<NameGroup>();
-            ColdDeities = new List<NameGroup>();
-            WarmthDeities = new List<NameGroup>();
-            WaterDeities = new List<NameGroup>();
-            OtherDeities = new List<NameGroup>();
+            PowerDeities = [];
+            CreationDeities = [];
+            DestructionDeities = [];
+            PeaceDeities = [];
+            WarDeities = [];
+            VictoryDeities = [];
+            DeathDeities = [];
+            HatredDeities = [];
+            FearDeities = [];
+            SorrowDeities = [];
+            BeastsDeities = [];
+            TimeDeities = [];
+            ProphecyDeities = [];
+            JusticeDeities = [];
+            ProtectionDeities = [];
+            PunishmentDeities = [];
+            LoyaltyDeities = [];
+            DisloyaltyDeities = [];
+            LabourDeities = [];
+            NatureDeities = [];
+            HealthDeities = [];
+            LoveDeities = [];
+            KnowledgeDeities = [];
+            ArtDeities = [];
+            FeastDeities = [];
+            FortuneDeities = [];
+            SleepDeities = [];
+            DarknessDeities = [];
+            LightDeities = [];
+            SunDeities = [];
+            SkyDeities = [];
+            AirDeities = [];
+            ColdDeities = [];
+            WarmthDeities = [];
+            WaterDeities = [];
+            OtherDeities = [];
         }
     }
 }

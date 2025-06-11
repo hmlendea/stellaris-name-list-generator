@@ -8,7 +8,7 @@ namespace StellarisNameListGenerator.Models
     {
         public string Name { get; set; }
         public bool IsLocked { get; set; }
-        
+
         public List<NameGroup> Denonyms { get; set; }
         public PlaceNames Places { get; set; }
         public GreatPeople GreatPeople { get; set; }
@@ -34,7 +34,7 @@ namespace StellarisNameListGenerator.Models
             Name = string.Empty;
             IsLocked = true;
 
-            Denonyms = new List<NameGroup>();
+            Denonyms = [];
             Places = new PlaceNames();
             GreatPeople = new GreatPeople();
 
@@ -52,7 +52,7 @@ namespace StellarisNameListGenerator.Models
 
             Planets = new PlanetNames();
 
-            Characters = new List<CharacterNames>();
+            Characters = [];
         }
 
         public void AddRange(NameList other)
@@ -133,7 +133,7 @@ namespace StellarisNameListGenerator.Models
 
             Companies.ResearchCompanies.AddRange(other.Companies.ResearchCompanies);
             Companies.InvestmentCompanies.AddRange(other.Companies.InvestmentCompanies);
-            
+
             Warfare.Weapons.Artillery.AddRange(other.Warfare.Weapons.Artillery);
             Warfare.Weapons.Guns.AddRange(other.Warfare.Weapons.Guns);
             Warfare.Weapons.Crossbows.AddRange(other.Warfare.Weapons.Crossbows);
@@ -150,10 +150,10 @@ namespace StellarisNameListGenerator.Models
 
             Warfare.Forts.AddRange(other.Warfare.Forts);
             Warfare.BattleLocations.AddRange(other.Warfare.BattleLocations);
-            
+
             BiosphereNames.Animals.AddRange(other.BiosphereNames.Animals);
             BiosphereNames.MythologicalCreatures.AddRange(other.BiosphereNames.MythologicalCreatures);
-            
+
             Ships.Generic.AddRange(other.Ships.Generic);
             Ships.Corvette.AddRange(other.Ships.Corvette);
             Ships.Destroyer.AddRange(other.Ships.Destroyer);

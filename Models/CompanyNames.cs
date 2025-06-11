@@ -17,16 +17,16 @@ namespace StellarisNameListGenerator.Models
 
         public CompanyNames()
         {
-            RobotManufacturers = new List<NameGroup>();
-            AutomotiveManufacturers = new List<NameGroup>();
-            AircraftManufacturers = new List<NameGroup>();
-            SpacecraftManufacturers = new List<NameGroup>();
-            WeaponManufacturers = new List<NameGroup>();
+            RobotManufacturers = [];
+            AutomotiveManufacturers = [];
+            AircraftManufacturers = [];
+            SpacecraftManufacturers = [];
+            WeaponManufacturers = [];
 
-            RocketDesigners = new List<NameGroup>();
+            RocketDesigners = [];
 
-            ResearchCompanies = new List<NameGroup>();
-            InvestmentCompanies = new List<NameGroup>();
+            ResearchCompanies = [];
+            InvestmentCompanies = [];
         }
     }
 }

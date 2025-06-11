@@ -20,7 +20,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> CloneArmy { get; set; }
         public string UndeadArmySequentialName { get; set; }
         public List<NameGroup> UndeadArmy { get; set; }
-        
+
         public string RoboticDefenceArmySequentialName { get; set; }
         public List<NameGroup> RoboticDefenceArmy { get; set; }
         public string RoboticAssaultArmySequentialName { get; set; }
@@ -50,47 +50,47 @@ namespace StellarisNameListGenerator.Models
         public ArmyNames()
         {
             FleetSequentialName = "%O% Fleet";
-            Fleet = new List<NameGroup>();
+            Fleet = [];
 
             DefenceArmySequentialName = "%O% Planetary Guard";
-            DefenceArmy = new List<NameGroup>();
+            DefenceArmy = [];
             AssaultArmySequentialName = "%O% Expeditionary Force";
-            AssaultArmy = new List<NameGroup>();
+            AssaultArmy = [];
             OccupationArmySequentialName = "%O% Garrison Force";
-            OccupationArmy = new List<NameGroup>();
+            OccupationArmy = [];
 
             SlaveArmySequentialName = "%O% Indentured Rifles";
-            SlaveArmy = new List<NameGroup>();
+            SlaveArmy = [];
             CloneArmySequentialName = "%O% Clone Army";
-            CloneArmy = new List<NameGroup>();
+            CloneArmy = [];
             UndeadArmySequentialName = "%O% Undead Army";
-            UndeadArmy = new List<NameGroup>();
+            UndeadArmy = [];
 
             RoboticDefenceArmySequentialName = "%O% Ground Defence Matrix";
-            RoboticDefenceArmy = new List<NameGroup>();
+            RoboticDefenceArmy = [];
             RoboticAssaultArmySequentialName = "%O% Hunter-Killer Group";
-            RoboticAssaultArmy = new List<NameGroup>();
+            RoboticAssaultArmy = [];
             RoboticOccupationArmySequentialName = "%O% Mechanised Garrison";
-            RoboticOccupationArmy = new List<NameGroup>();
+            RoboticOccupationArmy = [];
 
             AndroidDefenceArmySequentialName = "%O% Synthetic Sentinels";
-            AndroidDefenceArmy = new List<NameGroup>();
+            AndroidDefenceArmy = [];
             AndroidAssaultArmySequentialName = "%O% Synthetic Rangers";
-            AndroidAssaultArmy = new List<NameGroup>();
+            AndroidAssaultArmy = [];
 
             PsionicArmySequentialName = "%O% Psi Commando";
-            PsionicArmy = new List<NameGroup>();
+            PsionicArmy = [];
             XenomorphArmySequentialName = "%O% Bio-Warfare Division";
-            XenomorphArmy = new List<NameGroup>();
+            XenomorphArmy = [];
             SuperSoldierArmySequentialName = "%O% Bio-Engineered Squadron";
-            SuperSoldierArmy = new List<NameGroup>();
+            SuperSoldierArmy = [];
 
             PrimitiveArmySequentialName = "Primitive Army %C%";
-            PrimitiveArmy = new List<NameGroup>();
+            PrimitiveArmy = [];
             IndustrialArmySequentialName = "Industrial Army %C%";
-            IndustrialArmy = new List<NameGroup>();
+            IndustrialArmy = [];
             PostAtomicArmySequentialName = "Post-Atomic Army %C%";
-            PostAtomicArmy = new List<NameGroup>();
+            PostAtomicArmy = [];
         }
     }
 }

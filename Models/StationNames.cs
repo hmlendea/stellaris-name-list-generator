@@ -12,9 +12,9 @@ namespace StellarisNameListGenerator.Models
         public StationNames()
         {
             MilitaryStations = new MilitaryStationNames();
-            MiningStations = new List<NameGroup>();
-            ResearchStations = new List<NameGroup>();
-            ObservationStations = new List<NameGroup>();
+            MiningStations = [];
+            ResearchStations = [];
+            ObservationStations = [];
         }
     }
 }

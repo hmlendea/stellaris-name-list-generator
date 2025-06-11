@@ -9,10 +9,10 @@ namespace StellarisNameListGenerator
 {
     public class Program
     {
-        static readonly string[] InputFileOptions = new string[] { "-i", "--input" };
-        static readonly string[] OutputFileOptions = new string[] { "-o", "--output" };
-        static readonly string[] NameOptions = new string[] { "-n", "--name" };
-        static readonly string[] IsLockedOptions = new string[] { "-l", "--locked" };
+        private static readonly string[] InputFileOptions = ["-i", "--input"];
+        private static readonly string[] OutputFileOptions = ["-o", "--output"];
+        private static readonly string[] NameOptions = ["-n", "--name"];
+        private static readonly string[] IsLockedOptions = ["-l", "--locked"];
 
         /// <summary>
         /// The entry point of the program, where the program control starts and ends.

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Xml.Serialization;
 
 using StellarisNameListGenerator.Service;
@@ -12,7 +11,7 @@ namespace StellarisNameListGenerator.Models
     {
         // TODO: Move this from here
         // TODO: Use dependency injection
-        static IFileDownloader fileDownloader = new FileDownloader(new CacheManager());
+        static readonly IFileDownloader fileDownloader = new FileDownloader(new CacheManager());
 
         public string Name { get; set; }
 
@@ -24,8 +23,8 @@ namespace StellarisNameListGenerator.Models
             get
             {
                 List<string> values = ExplicitValues.ToList();
-                
-                if (UrlValues.Any())
+
+                if (UrlValues.Count != 0)
                 {
                     values.AddRange(UrlValues);
                 }
@@ -74,7 +73,7 @@ namespace StellarisNameListGenerator.Models
                 }
             }
 
-            return new List<string>();
+            return [];
         }
     }
 }
