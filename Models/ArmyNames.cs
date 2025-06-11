@@ -18,6 +18,8 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> SlaveArmy { get; set; }
         public string CloneArmySequentialName { get; set; }
         public List<NameGroup> CloneArmy { get; set; }
+        public string PerfectedCloneArmySequentialName { get; set; }
+        public List<NameGroup> PerfectedCloneArmy { get; set; }
         public string UndeadArmySequentialName { get; set; }
         public List<NameGroup> UndeadArmy { get; set; }
 
@@ -63,6 +65,8 @@ namespace StellarisNameListGenerator.Models
             SlaveArmy = [];
             CloneArmySequentialName = "%O% Clone Army";
             CloneArmy = [];
+            PerfectedCloneArmySequentialName = "%O% Clone Army";
+            PerfectedCloneArmy = [];
             UndeadArmySequentialName = "%O% Undead Army";
             UndeadArmy = [];
 

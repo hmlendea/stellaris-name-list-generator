@@ -8,9 +8,9 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public sealed class ArmyNamesBuilder : NamesBuilder, IArmyNamesBuilder
     {
-        static readonly List<NameGroup> EmptyNameList = []; // TODO: Temporary solution. Remove this
+        private static readonly List<NameGroup> EmptyNameList = []; // TODO: Temporary solution. Remove this
 
-        static readonly IList<string> xenomorphArmyFirstWords =
+        private static readonly IList<string> xenomorphArmyFirstWords =
         [
             "Abomination",
             "Beast",
@@ -23,7 +23,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             "Xenomorph"
         ];
 
-        static readonly IList<string> xenomorphArmySecondWords =
+        private static readonly IList<string> xenomorphArmySecondWords =
         [
             "Brood",
             "Flock",
@@ -57,6 +57,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
             innerContent += BuildNameArray(nameList.Armies.SlaveArmy, "slave_army", 2, nameList.Armies.SlaveArmySequentialName);
             innerContent += BuildNameArray(nameList.Armies.CloneArmy, "clone_army", 2, nameList.Armies.CloneArmySequentialName);
+            innerContent += BuildNameArray(nameList.Armies.PerfectedCloneArmy, "perfected_clone_army", 2, nameList.Armies.PerfectedCloneArmySequentialName);
             innerContent += BuildNameArray(nameList.Armies.UndeadArmy, "undead_army", 2, nameList.Armies.UndeadArmySequentialName);
 
             innerContent += BuildNameArray(nameList.Armies.RoboticDefenceArmy, "robotic_defense_army", 2, nameList.Armies.RoboticDefenceArmySequentialName);
@@ -84,7 +85,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             return content;
         }
 
-        IEnumerable<NameGroup> GeneratePsionicArmyNames(NameList nameList)
+        private static IEnumerable<NameGroup> GeneratePsionicArmyNames(NameList nameList)
         {
             IEnumerable<NameGroup> psionicArmyNames = nameList.Armies.PsionicArmy
                 .Concat(nameList.BiosphereNames.MythologicalCreatures
@@ -102,7 +103,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             return psionicArmyNames;
         }
 
-        List<NameGroup> GenerateXenomorphArmyNames(NameList nameList)
+        private static List<NameGroup> GenerateXenomorphArmyNames(NameList nameList)
         {
             List<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy;
             IEnumerable<NameGroup> deitiesForXenomorph = nameList.GreatPeople.DeathDeities
