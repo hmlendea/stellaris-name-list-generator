@@ -24,24 +24,24 @@ namespace StellarisNameListGenerator.Models
             .Concat(Forests)
             .Concat(Deserts)
             .Concat(WaterBodies);
-        
+
         public List<NameGroup> Airports { get; set; }
 
         public PlaceNames()
         {
-            Countries = new List<NameGroup>();
-            Regions = new List<NameGroup>();
-            Cities = new List<NameGroup>();
+            Countries = [];
+            Regions = [];
+            Cities = [];
 
-            Mountains = new List<NameGroup>();
-            Forests = new List<NameGroup>();
-            Deserts = new List<NameGroup>();
+            Mountains = [];
+            Forests = [];
+            Deserts = [];
 
-            Rivers = new List<NameGroup>();
-            Lakes = new List<NameGroup>();
-            Seas = new List<NameGroup>();
+            Rivers = [];
+            Lakes = [];
+            Seas = [];
 
-            Airports = new List<NameGroup>();
+            Airports = [];
         }
     }
 }

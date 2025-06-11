@@ -3,24 +3,15 @@ using System.Threading.Tasks;
 
 namespace StellarisNameListGenerator.Service
 {
-    public sealed class FileDownloader : IFileDownloader
+    public sealed class FileDownloader(ICacheManager cache) : IFileDownloader
     {
-        readonly ICacheManager cache;
-
-        readonly HttpClient httpClient;
-
-        public FileDownloader(ICacheManager cache)
-        {
-            this.cache = cache;
-
-            httpClient = new HttpClient();
-        }
+        private readonly HttpClient httpClient = new HttpClient();
 
         public async Task<string> TryDownloadStringAsync(string url)
         {
             string content = cache.GetNameList(url);
 
-            if (!(content is null))
+            if (content is not null)
             {
                 return content;
             }
@@ -31,15 +22,7 @@ namespace StellarisNameListGenerator.Service
             return content;
         }
 
-        async Task<string> GetAsync(string url)
-        {
-            using (HttpResponseMessage response = await httpClient.GetAsync(url))
-            {
-                using (HttpContent content = response.Content)
-                {
-                    return await content.ReadAsStringAsync();
-                }
-            }
-        }
+        private async Task<string> GetAsync(string url)
+            => await (await httpClient.GetAsync(url)).Content.ReadAsStringAsync();
     }
 }

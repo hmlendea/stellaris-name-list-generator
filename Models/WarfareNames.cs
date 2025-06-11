@@ -7,18 +7,18 @@ namespace StellarisNameListGenerator.Models
         public WeaponNames Weapons { get; set; }
         public List<NameGroup> MilitaryUnitTypes { get; set; }
         public List<NameGroup> ShipTypes { get; set; }
-        
+
         public List<NameGroup> Forts { get; set; }
         public List<NameGroup> BattleLocations { get; set; }
 
         public WarfareNames()
         {
             Weapons = new WeaponNames();
-            MilitaryUnitTypes = new List<NameGroup>();
-            ShipTypes = new List<NameGroup>();
+            MilitaryUnitTypes = [];
+            ShipTypes = [];
 
-            Forts = new List<NameGroup>();
-            BattleLocations = new List<NameGroup>();
+            Forts = [];
+            BattleLocations = [];
         }
     }
 }

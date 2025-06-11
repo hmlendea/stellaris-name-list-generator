@@ -20,7 +20,7 @@ namespace StellarisNameListGenerator.Models
         public List<NameGroup> FemaleFullNames { get; set; }
         public List<NameGroup> FemaleFirstNames { get; set; }
         public List<NameGroup> FemaleRoyalFirstNames { get; set; }
-        
+
         public List<NameGroup> SecondNames { get; set; }
         public List<NameGroup> RoyalSecondNames { get; set; }
 
@@ -39,20 +39,20 @@ namespace StellarisNameListGenerator.Models
 
         public CharacterNames()
         {
-            FullNames = new List<NameGroup>();
-            FirstNames = new List<NameGroup>();
-            RoyalFirstNames = new List<NameGroup>();
+            FullNames = [];
+            FirstNames = [];
+            RoyalFirstNames = [];
 
-            MaleFullNames = new List<NameGroup>();
-            MaleFirstNames = new List<NameGroup>();
-            MaleRoyalFirstNames = new List<NameGroup>();
+            MaleFullNames = [];
+            MaleFirstNames = [];
+            MaleRoyalFirstNames = [];
 
-            FemaleFullNames = new List<NameGroup>();
-            FemaleFirstNames = new List<NameGroup>();
-            FemaleRoyalFirstNames = new List<NameGroup>();
+            FemaleFullNames = [];
+            FemaleFirstNames = [];
+            FemaleRoyalFirstNames = [];
 
-            SecondNames = new List<NameGroup>();
-            RoyalSecondNames = new List<NameGroup>();
+            SecondNames = [];
+            RoyalSecondNames = [];
         }
     }
 }

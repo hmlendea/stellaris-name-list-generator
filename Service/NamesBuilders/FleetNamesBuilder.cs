@@ -9,8 +9,8 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public sealed class FleetNamesBuilder : NamesBuilder, IFleetNamesBuilder
     {
-        static readonly IList<string> fleetNameFormats = new List<string>
-        {
+        static readonly IList<string> fleetNameFormats =
+        [
             "{0} Extraorbital Corps",
             "{0} Squadron",
             "{0} Star Corps",
@@ -26,7 +26,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             "The {0} Fleet",
             "The {0} Flotilla",
             "The {0} Navy",
-        };
+        ];
 
         public string Build(NameList nameList)
         {
@@ -49,9 +49,9 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                     .GetRandomElement();
             }
 
-            List<string> cardinalNumbers = new List<string> { "1", "10", "33", "42", "56", "86", "101", "303", "500", "613", "743", "873" };
-            List<string> ordinalNumbers = new List<string> { "1st", "21st", "101st", "42nd", "62nd", "72nd", "53rd", "83rd", "123rd", "103rd", "4th", "12th", "14th", "404th" };
-            List<string> romanNumbers = new List<string> { "I", "II", "IV", "XI", "XXXII", "CXXXII", "CDII", "DLXII" };
+            List<string> cardinalNumbers = ["1", "10", "33", "42", "56", "86", "101", "303", "500", "613", "743", "873"];
+            List<string> ordinalNumbers = ["1st", "21st", "101st", "42nd", "62nd", "72nd", "53rd", "83rd", "123rd", "103rd", "4th", "12th", "14th", "404th"];
+            List<string> romanNumbers = ["I", "II", "IV", "XI", "XXXII", "CXXXII", "CDII", "DLXII"];
 
             return nameList.Armies.FleetSequentialName
                 .Replace("%O%", ordinalNumbers.GetRandomElement())
@@ -75,18 +75,19 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
                 fleetNames = fleetNames.Concat(categoryNames);
             }
-            
+
             return fleetNames;
         }
 
         IEnumerable<NameGroup> GenerateFleetNamesCategory(NameList nameList, string category, string nameFormat)
         {
-            IList<NameGroup> fleetNames = new List<NameGroup>();
-            
-            fleetNames.Add(GenerateUnifiedNameGroup(nameList.Warfare.Weapons.All, category, "Weapons", nameFormat));
-            fleetNames.Add(GenerateUnifiedNameGroup(nameList.Warfare.MilitaryUnitTypes, category, "Military Unit Types", nameFormat));
-            fleetNames.Add(GenerateUnifiedNameGroup(nameList.Warfare.ShipTypes, category, "Ship Types", nameFormat));
-            fleetNames.Add(GenerateUnifiedNameGroup(nameList.BiosphereNames.MythologicalCreatures, category, "Mythological Creatures", nameFormat));
+            IList<NameGroup> fleetNames =
+            [
+                GenerateUnifiedNameGroup(nameList.Warfare.Weapons.All, category, "Weapons", nameFormat),
+                GenerateUnifiedNameGroup(nameList.Warfare.MilitaryUnitTypes, category, "Military Unit Types", nameFormat),
+                GenerateUnifiedNameGroup(nameList.Warfare.ShipTypes, category, "Ship Types", nameFormat),
+                GenerateUnifiedNameGroup(nameList.BiosphereNames.MythologicalCreatures, category, "Mythological Creatures", nameFormat),
+            ];
 
             return fleetNames;
         }

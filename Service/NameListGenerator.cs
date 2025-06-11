@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 using NuciDAL.Repositories;
@@ -9,19 +8,10 @@ using StellarisNameListGenerator.Models;
 
 namespace StellarisNameListGenerator.Service
 {
-    public sealed class NameListGenerator : INameListGenerator
+    public sealed class NameListGenerator(
+        IFileContentBuilder fileContentBuilder,
+        IRepository<NameList> nameListRepository) : INameListGenerator
     {
-        readonly IFileContentBuilder fileContentBuilder;
-        readonly IRepository<NameList> nameListRepository;
-
-        public NameListGenerator(
-            IFileContentBuilder fileContentBuilder,
-            IRepository<NameList> nameListRepository)
-        {
-            this.fileContentBuilder = fileContentBuilder;
-            this.nameListRepository = nameListRepository;
-        }
-
         public void Generate(string filePath, string name, bool isLocked)
         {
             NameList nameList = GetMergedNameList();
@@ -37,14 +27,14 @@ namespace StellarisNameListGenerator.Service
 
         public NameList GetMergedNameList()
         {
-            List<NameList> nameLists = nameListRepository.GetAll().ToList();
+            List<NameList> nameLists = [.. nameListRepository.GetAll()];
 
             if (nameLists.Count == 1)
             {
                 return nameLists[0];
             }
 
-            NameList mergedNameList = new NameList();
+            NameList mergedNameList = new();
             nameLists.ForEach(mergedNameList.AddRange);
 
             foreach (NameList nameList in nameLists)

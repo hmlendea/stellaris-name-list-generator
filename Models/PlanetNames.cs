@@ -23,21 +23,21 @@ namespace StellarisNameListGenerator.Models
 
         public PlanetNames()
         {
-            Generic = new List<NameGroup>();
-            Desert = new List<NameGroup>();
-            Arid = new List<NameGroup>();
-            Tropical = new List<NameGroup>();
-            Continental = new List<NameGroup>();
-            Gaia = new List<NameGroup>();
-            Ocean = new List<NameGroup>();
-            Tundra = new List<NameGroup>();
-            Arctic = new List<NameGroup>();
-            Tomb = new List<NameGroup>();
-            Savannah = new List<NameGroup>();
-            Alpine = new List<NameGroup>();
-            Molten = new List<NameGroup>();
-            Barren = new List<NameGroup>();
-            Asteroid = new List<NameGroup>();
+            Generic = [];
+            Desert = [];
+            Arid = [];
+            Tropical = [];
+            Continental = [];
+            Gaia = [];
+            Ocean = [];
+            Tundra = [];
+            Arctic = [];
+            Tomb = [];
+            Savannah = [];
+            Alpine = [];
+            Molten = [];
+            Barren = [];
+            Asteroid = [];
         }
     }
 }

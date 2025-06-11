@@ -38,18 +38,18 @@ namespace StellarisNameListGenerator.Models
 
         public WeaponNames()
         {
-            Artillery = new List<NameGroup>();
+            Artillery = [];
 
-            Guns = new List<NameGroup>();
-            Crossbows = new List<NameGroup>();
-            Bows = new List<NameGroup>();
-            Throwables = new List<NameGroup>();
+            Guns = [];
+            Crossbows = [];
+            Bows = [];
+            Throwables = [];
 
-            Swords = new List<NameGroup>();
-            Daggers = new List<NameGroup>();
-            Polearms = new List<NameGroup>();
-            Axes = new List<NameGroup>();
-            Hammers = new List<NameGroup>();
+            Swords = [];
+            Daggers = [];
+            Polearms = [];
+            Axes = [];
+            Hammers = [];
         }
     }
 }

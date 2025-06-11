@@ -1,41 +1,19 @@
 using System;
 
-using NuciExtensions;
-
 using StellarisNameListGenerator.Models;
 using StellarisNameListGenerator.Service.NamesBuilders;
 
 namespace StellarisNameListGenerator.Service
 {
-    public sealed class FileContentBuilder : IFileContentBuilder
+    public sealed class FileContentBuilder(
+        IShipNamesBuilder shipNamesBuilder,
+        IShipClassNamesBuilder shipClassNamesBuilder,
+        IFleetNamesBuilder fleetNamesBuilder,
+        IArmyNamesBuilder armyNamesBuilder,
+        IPlanetNamesBuilder planetNamesBuilder,
+        ICharacterNamesBuilder characterNamesBuilder) : IFileContentBuilder
     {
-        const int IndentationSize = 4;
-        const int MaximumLineLength = 150;
-
-        readonly Random random = new Random(873);
-
-        readonly IShipNamesBuilder shipNamesBuilder;
-        readonly IShipClassNamesBuilder shipClassNamesBuilder;
-        readonly IFleetNamesBuilder fleetNamesBuilder;
-        readonly IArmyNamesBuilder armyNamesBuilder;
-        readonly IPlanetNamesBuilder planetNamesBuilder;
-        readonly ICharacterNamesBuilder characterNamesBuilder;
-
-        public FileContentBuilder(
-            IShipNamesBuilder shipNamesBuilder,
-            IShipClassNamesBuilder shipClassNamesBuilder,
-            IFleetNamesBuilder fleetNamesBuilder,
-            IArmyNamesBuilder armyNamesBuilder,
-            IPlanetNamesBuilder planetNamesBuilder,
-            ICharacterNamesBuilder characterNamesBuilder)
-        {
-            this.shipNamesBuilder = shipNamesBuilder;
-            this.shipClassNamesBuilder = shipClassNamesBuilder;
-            this.fleetNamesBuilder = fleetNamesBuilder;
-            this.armyNamesBuilder = armyNamesBuilder;
-            this.planetNamesBuilder = planetNamesBuilder;
-            this.characterNamesBuilder = characterNamesBuilder;
-        }
+        private const int IndentationSize = 4;
 
         public string BuildContent(NameList nameList)
         {
@@ -62,7 +40,7 @@ namespace StellarisNameListGenerator.Service
             return content;
         }
 
-        string BuildRandomisableOption(bool isLocked)
+        private static string BuildRandomisableOption(bool isLocked)
         {
             string randomisableLine;
 
@@ -78,14 +56,7 @@ namespace StellarisNameListGenerator.Service
             return $"{randomisableLine}{Environment.NewLine}";
         }
 
-        string GetIndentation(int levels)
-        {
-            return string.Empty.PadRight(levels * IndentationSize, ' ');
-        }
-
-        bool DoNamesMatch(string name1, string name2)
-        {
-            return name1.RemoveDiacritics() == name2.RemoveDiacritics();
-        }
+        private static string GetIndentation(int levels)
+            => string.Empty.PadRight(levels * IndentationSize, ' ');
     }
 }

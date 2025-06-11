@@ -8,10 +8,10 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public sealed class ArmyNamesBuilder : NamesBuilder, IArmyNamesBuilder
     {
-        static readonly List<NameGroup> EmptyNameList = new List<NameGroup>(); // TODO: Temporary solution. Remove this
+        static readonly List<NameGroup> EmptyNameList = []; // TODO: Temporary solution. Remove this
 
-        static readonly IList<string> xenomorphArmyFirstWords = new List<string>
-        {
+        static readonly IList<string> xenomorphArmyFirstWords =
+        [
             "Abomination",
             "Beast",
             "Death",
@@ -21,10 +21,10 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             "Mutant",
             "Rabid",
             "Xenomorph"
-        };
+        ];
 
-        static readonly IList<string> xenomorphArmySecondWords = new List<string>
-        {
+        static readonly IList<string> xenomorphArmySecondWords =
+        [
             "Brood",
             "Flock",
             "Horde",
@@ -35,7 +35,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             "Swarm",
             "Troopers",
             "Warband"
-        };
+        ];
 
         public string Build(NameList nameList)
         {
@@ -90,21 +90,21 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(nameList.BiosphereNames.MythologicalCreatures
                     .SelectMany(x => new List<NameGroup>
                     {
-                        new NameGroup { Name = $"Commandos - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Commando").ToList() },
-                        new NameGroup { Name = $"Covert Ops - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Covert Ops").ToList() },
-                        new NameGroup { Name = $"Divisions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Division").ToList() },
-                        new NameGroup { Name = $"Elite Corps - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Elite Corps").ToList() },
-                        new NameGroup { Name = $"Legions - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Legion").ToList() },
-                        new NameGroup { Name = $"Platoons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Platoon").ToList() },
-                        new NameGroup { Name = $"Squadrons - Mythological creatures", ExplicitValues = x.Values.Select(y => $"{y} Squadron").ToList() },
+                        new() { Name = $"Commandos - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Commando")] },
+                        new() { Name = $"Covert Ops - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Covert Ops")] },
+                        new() { Name = $"Divisions - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Division")] },
+                        new() { Name = $"Elite Corps - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Elite Corps")] },
+                        new() { Name = $"Legions - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Legion")] },
+                        new() { Name = $"Platoons - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Platoon")] },
+                        new() { Name = $"Squadrons - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Squadron")] },
                     }));
 
             return psionicArmyNames;
         }
 
-        IEnumerable<NameGroup> GenerateXenomorphArmyNames(NameList nameList)
+        List<NameGroup> GenerateXenomorphArmyNames(NameList nameList)
         {
-            IList<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy;
+            List<NameGroup> xenomorphArmies = nameList.Armies.XenomorphArmy;
             IEnumerable<NameGroup> deitiesForXenomorph = nameList.GreatPeople.DeathDeities
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)

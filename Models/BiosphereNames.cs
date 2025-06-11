@@ -9,8 +9,8 @@ namespace StellarisNameListGenerator.Models
 
         public BiosphereNames()
         {
-            Animals = new List<NameGroup>();
-            MythologicalCreatures = new List<NameGroup>();
+            Animals = [];
+            MythologicalCreatures = [];
         }
     }
 }

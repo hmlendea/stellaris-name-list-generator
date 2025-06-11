@@ -18,7 +18,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .GroupBy(x => x.Id)
                 .Select(x => x.First())
                 .OrderByDescending(x => x.Weight);
-            
+
             if (characterNameLists.All(x => x.IsEmpty))
             {
                 return content;
@@ -48,7 +48,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             CharacterNames characterNames = nameList.Characters.Where(x => !x.IsEmpty).GetRandomElement();
 
             bool takeMale = new List<bool> { true, false }.GetRandomElement();
-            
+
             if (characterNames.FullNames.Any(x => !x.IsEmpty))
             {
                 return characterNames.FullNames.SelectMany(x => x.Values).GetRandomElement();
@@ -101,7 +101,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             {
                 characterNamesId = $"names{DateTime.Now.Ticks}";
             }
-            
+
             content += $"{GetIndentation(2)}{characterNamesId} = {{{Environment.NewLine}";
             content += $"{GetIndentation(3)}weight = {characterNames.Weight}{Environment.NewLine}";
 
