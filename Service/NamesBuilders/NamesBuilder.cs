@@ -57,7 +57,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             return content;
         }
 
-        protected string GetFormattedNameCollection(IEnumerable<NameGroup> groups, int indentationLevels)
+        protected static string GetFormattedNameCollection(IEnumerable<NameGroup> groups, int indentationLevels)
         {
             string indentation = GetIndentation(indentationLevels);
             IList<string> usedNames = [];
@@ -124,7 +124,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             return string.Join('\n', values);
         }
 
-        protected List<NameGroup> CleanGenericNames(IEnumerable<NameGroup> genericNameGroups, params IEnumerable<NameGroup>[] specificNameGroupLists)
+        protected static List<NameGroup> CleanGenericNames(IEnumerable<NameGroup> genericNameGroups, params IEnumerable<NameGroup>[] specificNameGroupLists)
         {
             ConcurrentBag<NameGroup> cleanGenericNameGroups = [];
 

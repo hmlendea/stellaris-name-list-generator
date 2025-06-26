@@ -24,7 +24,7 @@ namespace StellarisNameListGenerator.Service
         {
             string fileName = GetFileNameFromUrl(url);
             string filePath = Path.Combine(CacheDirectoryPath, fileName);
-            
+
             if (File.Exists(filePath))
             {
                 if (DateTime.Now.Subtract(File.GetCreationTime(filePath)).TotalHours >= 8)
@@ -38,7 +38,7 @@ namespace StellarisNameListGenerator.Service
             return null;
         }
 
-        void PrepareFilesystem()
+        static void PrepareFilesystem()
         {
             if (!Directory.Exists(CacheDirectoryPath))
             {
@@ -46,7 +46,7 @@ namespace StellarisNameListGenerator.Service
             }
         }
 
-        string GetFileNameFromUrl(string url)
+        static string GetFileNameFromUrl(string url)
         {
             string fileName = string.Empty;
 

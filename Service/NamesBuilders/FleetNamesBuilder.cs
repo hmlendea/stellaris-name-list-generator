@@ -61,35 +61,32 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
         IEnumerable<NameGroup> GenerateFleetNames(NameList nameList)
         {
-            IEnumerable<NameGroup> fleetNames = nameList.Armies.Fleet.ToList();
+            var fleetNames = nameList.Armies.Fleet.ToList();
+            List<NameGroup> result = [.. fleetNames];
 
-            foreach (string fleetNameFormat in fleetNameFormats)
+            foreach (var fleetNameFormat in fleetNameFormats)
             {
                 string category = fleetNameFormat
                     .Replace("{0}", "")
                     .Replace("The ", "")
                     .Trim();
+
                 category = $"{category}s".Replace("ss", "s");
 
-                IEnumerable<NameGroup> categoryNames = GenerateFleetNamesCategory(nameList, category, fleetNameFormat);
+                var categoryNames = GenerateFleetNamesCategory(nameList, category, fleetNameFormat);
 
-                fleetNames = fleetNames.Concat(categoryNames);
+                result.AddRange(categoryNames);
             }
 
-            return fleetNames;
+            return result;
         }
 
-        IEnumerable<NameGroup> GenerateFleetNamesCategory(NameList nameList, string category, string nameFormat)
-        {
-            IList<NameGroup> fleetNames =
-            [
-                GenerateUnifiedNameGroup(nameList.Warfare.Weapons.All, category, "Weapons", nameFormat),
-                GenerateUnifiedNameGroup(nameList.Warfare.MilitaryUnitTypes, category, "Military Unit Types", nameFormat),
-                GenerateUnifiedNameGroup(nameList.Warfare.ShipTypes, category, "Ship Types", nameFormat),
-                GenerateUnifiedNameGroup(nameList.BiosphereNames.MythologicalCreatures, category, "Mythological Creatures", nameFormat),
-            ];
-
-            return fleetNames;
-        }
+        static IEnumerable<NameGroup> GenerateFleetNamesCategory(NameList nameList, string category, string nameFormat) =>
+        [
+            GenerateUnifiedNameGroup(nameList.Warfare.Weapons.All, category, "Weapons", nameFormat),
+            GenerateUnifiedNameGroup(nameList.Warfare.MilitaryUnitTypes, category, "Military Unit Types", nameFormat),
+            GenerateUnifiedNameGroup(nameList.Warfare.ShipTypes, category, "Ship Types", nameFormat),
+            GenerateUnifiedNameGroup(nameList.BiosphereNames.MythologicalCreatures, category, "Mythological Creatures", nameFormat),
+        ];
     }
 }
