@@ -19,7 +19,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
         protected string BuildNameArray(IEnumerable<NameGroup> nameGroups, string arrayName, int indentationLevels)
             => BuildNameArray(nameGroups, arrayName, indentationLevels, string.Empty);
 
-        protected string BuildNameArray(IEnumerable<NameGroup> nameGroups, string arrayName, int indentationLevels, string sequentialName)
+        protected static string BuildNameArray(IEnumerable<NameGroup> nameGroups, string arrayName, int indentationLevels, string sequentialName)
         {
             string content = string.Empty;
 

@@ -1,5 +1,5 @@
 using System;
-
+using System.Text;
 using StellarisNameListGenerator.Models;
 using StellarisNameListGenerator.Service.NamesBuilders;
 
@@ -17,27 +17,29 @@ namespace StellarisNameListGenerator.Service
 
         public string BuildContent(NameList nameList)
         {
-            string content = $"### {nameList.Id}{Environment.NewLine}";
-            content += $"### {nameList.Name}{Environment.NewLine}";
-            content += $"### Leaders: {characterNamesBuilder.GetRandomName(nameList)}, {characterNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}";
-            content += $"### Ships: {shipNamesBuilder.GetRandomName(nameList)}, {shipNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}";
-            content += $"### Fleets: {fleetNamesBuilder.GetRandomName(nameList)}, {fleetNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}";
-            content += $"### Colonies: {planetNamesBuilder.GetRandomName(nameList)}, {planetNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}";
-            content += Environment.NewLine;
+            StringBuilder sb = new();
 
-            content += $"{nameList.Id} = {{{Environment.NewLine}";
-            content += BuildRandomisableOption(nameList.IsLocked);
+            sb.Append($"### {nameList.Id}{Environment.NewLine}");
+            sb.Append($"### {nameList.Name}{Environment.NewLine}");
+            sb.Append($"### Leaders: {characterNamesBuilder.GetRandomName(nameList)}, {characterNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}");
+            sb.Append($"### Ships: {shipNamesBuilder.GetRandomName(nameList)}, {shipNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}");
+            sb.Append($"### Fleets: {fleetNamesBuilder.GetRandomName(nameList)}, {fleetNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}");
+            sb.Append($"### Colonies: {planetNamesBuilder.GetRandomName(nameList)}, {planetNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}");
+            sb.Append(Environment.NewLine);
 
-            content += shipNamesBuilder.Build(nameList);
-            content += shipClassNamesBuilder.Build(nameList);
-            content += fleetNamesBuilder.Build(nameList);
-            content += armyNamesBuilder.Build(nameList);
-            content += planetNamesBuilder.Build(nameList);
-            content += characterNamesBuilder.Build(nameList);
+            sb.Append($"{nameList.Id} = {{{Environment.NewLine}");
+            sb.Append(BuildRandomisableOption(nameList.IsLocked));
 
-            content += $"}}{Environment.NewLine}";
+            sb.Append(shipNamesBuilder.Build(nameList));
+            sb.Append(shipClassNamesBuilder.Build(nameList));
+            sb.Append(fleetNamesBuilder.Build(nameList));
+            sb.Append(armyNamesBuilder.Build(nameList));
+            sb.Append(planetNamesBuilder.Build(nameList));
+            sb.Append(characterNamesBuilder.Build(nameList));
 
-            return content;
+            sb.Append($"}}{Environment.NewLine}");
+
+            return sb.ToString();
         }
 
         private static string BuildRandomisableOption(bool isLocked)

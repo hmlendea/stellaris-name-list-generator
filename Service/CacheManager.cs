@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace StellarisNameListGenerator.Service
 {
@@ -8,9 +10,7 @@ namespace StellarisNameListGenerator.Service
         const string CacheDirectoryPath = ".cache";
 
         public CacheManager()
-        {
-            PrepareFilesystem();
-        }
+            => PrepareFilesystem();
 
         public void StoreNameList(string url, string content)
         {
@@ -46,19 +46,21 @@ namespace StellarisNameListGenerator.Service
             }
         }
 
+        static readonly HashSet<char> AllowedFileNameChars = [.. "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_.()".ToCharArray()];
+
         static string GetFileNameFromUrl(string url)
         {
-            string fileName = string.Empty;
+            StringBuilder sb = new();
 
             foreach (char c in url)
             {
-                if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_.()".Contains(c))
+                if (AllowedFileNameChars.Contains(c))
                 {
-                    fileName += c;
+                    sb.Append(c);
                 }
             }
 
-            return fileName;
+            return sb.ToString();
         }
     }
 }

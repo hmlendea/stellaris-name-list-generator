@@ -59,7 +59,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Replace("%R%", romanNumbers.GetRandomElement());
         }
 
-        IEnumerable<NameGroup> GenerateFleetNames(NameList nameList)
+        static IEnumerable<NameGroup> GenerateFleetNames(NameList nameList)
         {
             var fleetNames = nameList.Armies.Fleet.ToList();
             List<NameGroup> result = [.. fleetNames];
