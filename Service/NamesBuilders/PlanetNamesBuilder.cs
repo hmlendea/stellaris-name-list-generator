@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Text;
 using NuciExtensions;
 
 using StellarisNameListGenerator.Models;
@@ -135,47 +135,44 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             return content;
         }
 
-        public string GetRandomName(NameList nameList)
-        {
-            IEnumerable<NameGroup> planetNames = nameList.Planets.Generic
-                .Concat(nameList.Places.Deserts)
-                .Concat(nameList.Places.Forests)
-                .Concat(nameList.Places.Lakes)
-                .Concat(nameList.Places.Mountains)
-                .Concat(nameList.Places.Rivers)
-                .Concat(nameList.Places.Seas)
-                .Concat(nameList.Planets.Alpine)
-                .Concat(nameList.Planets.Arctic)
-                .Concat(nameList.Planets.Arid)
-                .Concat(nameList.Planets.Asteroid)
-                .Concat(nameList.Planets.Barren)
-                .Concat(nameList.Planets.Continental)
-                .Concat(nameList.Planets.Desert)
-                .Concat(nameList.Planets.Gaia)
-                .Concat(nameList.Planets.Molten)
-                .Concat(nameList.Planets.Ocean)
-                .Concat(nameList.Planets.Savannah)
-                .Concat(nameList.Planets.Tomb)
-                .Concat(nameList.Planets.Tropical)
-                .Concat(nameList.Planets.Tundra);
-
-            return planetNames.SelectMany(x => x.Values).GetRandomElement();
-        }
+        public string GetRandomName(NameList nameList) => nameList.Planets.Generic
+            .Concat(nameList.Places.Deserts)
+            .Concat(nameList.Places.Forests)
+            .Concat(nameList.Places.Lakes)
+            .Concat(nameList.Places.Mountains)
+            .Concat(nameList.Places.Rivers)
+            .Concat(nameList.Places.Seas)
+            .Concat(nameList.Planets.Alpine)
+            .Concat(nameList.Planets.Arctic)
+            .Concat(nameList.Planets.Arid)
+            .Concat(nameList.Planets.Asteroid)
+            .Concat(nameList.Planets.Barren)
+            .Concat(nameList.Planets.Continental)
+            .Concat(nameList.Planets.Desert)
+            .Concat(nameList.Planets.Gaia)
+            .Concat(nameList.Planets.Molten)
+            .Concat(nameList.Planets.Ocean)
+            .Concat(nameList.Planets.Savannah)
+            .Concat(nameList.Planets.Tomb)
+            .Concat(nameList.Planets.Tropical)
+            .Concat(nameList.Planets.Tundra)
+            .SelectMany(x => x.Values)
+            .GetRandomElement();
 
         string BuildPlanetNameArray(IEnumerable<NameGroup> nameGroups, string planetClass)
         {
-            string content = string.Empty;
+            StringBuilder sb = new();
 
             if (nameGroups.All(x => x.Values.Count == 0))
             {
-                return content;
+                return string.Empty;
             }
 
-            content += $"{GetIndentation(2)}{planetClass} = {{{Environment.NewLine}";
-            content += BuildNameArray(nameGroups, "names", 3);
-            content += $"{GetIndentation(2)}}}{Environment.NewLine}";
+            sb.Append($"{GetIndentation(2)}{planetClass} = {{{Environment.NewLine}");
+            sb.Append(BuildNameArray(nameGroups, "names", 3));
+            sb.Append($"{GetIndentation(2)}}}{Environment.NewLine}");
 
-            return content;
+            return sb.ToString();
         }
     }
 }

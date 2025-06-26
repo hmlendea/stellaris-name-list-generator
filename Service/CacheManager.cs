@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace StellarisNameListGenerator.Service
 {
@@ -8,9 +10,7 @@ namespace StellarisNameListGenerator.Service
         const string CacheDirectoryPath = ".cache";
 
         public CacheManager()
-        {
-            PrepareFilesystem();
-        }
+            => PrepareFilesystem();
 
         public void StoreNameList(string url, string content)
         {
@@ -24,7 +24,7 @@ namespace StellarisNameListGenerator.Service
         {
             string fileName = GetFileNameFromUrl(url);
             string filePath = Path.Combine(CacheDirectoryPath, fileName);
-            
+
             if (File.Exists(filePath))
             {
                 if (DateTime.Now.Subtract(File.GetCreationTime(filePath)).TotalHours >= 8)
@@ -38,7 +38,7 @@ namespace StellarisNameListGenerator.Service
             return null;
         }
 
-        void PrepareFilesystem()
+        static void PrepareFilesystem()
         {
             if (!Directory.Exists(CacheDirectoryPath))
             {
@@ -46,19 +46,21 @@ namespace StellarisNameListGenerator.Service
             }
         }
 
-        string GetFileNameFromUrl(string url)
+        static readonly HashSet<char> AllowedFileNameChars = [.. "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_.()".ToCharArray()];
+
+        static string GetFileNameFromUrl(string url)
         {
-            string fileName = string.Empty;
+            StringBuilder sb = new();
 
             foreach (char c in url)
             {
-                if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_.()".Contains(c))
+                if (AllowedFileNameChars.Contains(c))
                 {
-                    fileName += c;
+                    sb.Append(c);
                 }
             }
 
-            return fileName;
+            return sb.ToString();
         }
     }
 }

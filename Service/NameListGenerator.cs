@@ -35,7 +35,6 @@ namespace StellarisNameListGenerator.Service
             }
 
             NameList mergedNameList = new();
-            nameLists.ForEach(mergedNameList.AddRange);
 
             foreach (NameList nameList in nameLists)
             {

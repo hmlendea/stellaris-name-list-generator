@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 using NuciExtensions;
 
@@ -12,28 +13,29 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
     {
         public string Build(NameList nameList)
         {
-            string content = string.Empty;
+            StringBuilder sb = new();
 
-            IEnumerable<CharacterNames> characterNameLists = nameList.Characters
+            var characterNameLists = nameList.Characters
                 .GroupBy(x => x.Id)
                 .Select(x => x.First())
-                .OrderByDescending(x => x.Weight);
+                .OrderByDescending(x => x.Weight)
+                .ToList();
 
             if (characterNameLists.All(x => x.IsEmpty))
             {
-                return content;
+                return string.Empty;
             }
 
-            content += $"{GetIndentation(1)}character_names = {{{Environment.NewLine}";
+            sb.Append($"{GetIndentation(1)}character_names = {{{Environment.NewLine}");
 
-            foreach (CharacterNames characterNames in characterNameLists)
+            foreach (var characterNames in characterNameLists)
             {
-                content += BuildCharacterNamesArray(characterNames);
+                sb.Append(BuildCharacterNamesArray(characterNames));
             }
 
-            content += $"{GetIndentation(1)}}}{Environment.NewLine}";
+            sb.Append($"{GetIndentation(1)}}}{Environment.NewLine}");
 
-            return content;
+            return sb.ToString();
         }
 
         public string GetRandomName(NameList nameList)
@@ -93,7 +95,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
         string BuildCharacterNamesArray(CharacterNames characterNames)
         {
-            string content = string.Empty;
+            StringBuilder sb = new();
 
             string characterNamesId = characterNames.Id;
 
@@ -102,31 +104,31 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 characterNamesId = $"names{DateTime.Now.Ticks}";
             }
 
-            content += $"{GetIndentation(2)}{characterNamesId} = {{{Environment.NewLine}";
-            content += $"{GetIndentation(3)}weight = {characterNames.Weight}{Environment.NewLine}";
+            sb.Append($"{GetIndentation(2)}{characterNamesId} = {{{Environment.NewLine}");
+            sb.Append($"{GetIndentation(3)}weight = {characterNames.Weight}{Environment.NewLine}");
 
-            string innerContent = string.Empty;
-            innerContent += BuildNameArray(characterNames.FullNames, "full_names", 3);
-            innerContent += BuildNameArray(characterNames.FirstNames, "first_names", 3);
-            innerContent += BuildNameArray(characterNames.RoyalFirstNames, "regnal_first_names", 3);
-            innerContent += BuildNameArray(characterNames.MaleFullNames, "full_names_male", 3);
-            innerContent += BuildNameArray(characterNames.MaleFirstNames, "first_names_male", 3);
-            innerContent += BuildNameArray(characterNames.MaleRoyalFirstNames, "regnal_first_names_male", 3);
-            innerContent += BuildNameArray(characterNames.FemaleFullNames, "full_names_female", 3);
-            innerContent += BuildNameArray(characterNames.FemaleFirstNames, "first_names_female", 3);
-            innerContent += BuildNameArray(characterNames.FemaleRoyalFirstNames, "regnal_first_names_female", 3);
-            innerContent += BuildNameArray(characterNames.SecondNames, "second_names", 3);
-            innerContent += BuildNameArray(characterNames.RoyalSecondNames, "regnal_second_names", 3);
+            StringBuilder innerSb = new();
+            innerSb.Append(BuildNameArray(characterNames.FullNames, "full_names", 3));
+            innerSb.Append(BuildNameArray(characterNames.FirstNames, "first_names", 3));
+            innerSb.Append(BuildNameArray(characterNames.RoyalFirstNames, "regnal_first_names", 3));
+            innerSb.Append(BuildNameArray(characterNames.MaleFullNames, "full_names_male", 3));
+            innerSb.Append(BuildNameArray(characterNames.MaleFirstNames, "first_names_male", 3));
+            innerSb.Append(BuildNameArray(characterNames.MaleRoyalFirstNames, "regnal_first_names_male", 3));
+            innerSb.Append(BuildNameArray(characterNames.FemaleFullNames, "full_names_female", 3));
+            innerSb.Append(BuildNameArray(characterNames.FemaleFirstNames, "first_names_female", 3));
+            innerSb.Append(BuildNameArray(characterNames.FemaleRoyalFirstNames, "regnal_first_names_female", 3));
+            innerSb.Append(BuildNameArray(characterNames.SecondNames, "second_names", 3));
+            innerSb.Append(BuildNameArray(characterNames.RoyalSecondNames, "regnal_second_names", 3));
 
-            if (string.IsNullOrWhiteSpace(innerContent))
+            if (innerSb.Length == 0)
             {
                 return string.Empty;
             }
 
-            content += innerContent;
-            content += $"{GetIndentation(2)}}}{Environment.NewLine}";
+            sb.Append(innerSb);
+            sb.Append($"{GetIndentation(2)}}}{Environment.NewLine}");
 
-            return content;
+            return sb.ToString();
         }
     }
 }
