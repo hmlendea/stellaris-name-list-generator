@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Text;
 using NuciExtensions;
 
 using StellarisNameListGenerator.Models;
@@ -161,7 +161,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
         string BuildPlanetNameArray(IEnumerable<NameGroup> nameGroups, string planetClass)
         {
-            var sb = new System.Text.StringBuilder();
+            StringBuilder sb = new();
 
             if (nameGroups.All(x => x.Values.Count == 0))
             {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Text;
 using StellarisNameListGenerator.Models;
 
 namespace StellarisNameListGenerator.Service.NamesBuilders
@@ -10,9 +10,8 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
     {
         public string Build(NameList nameList)
         {
-            string content = string.Empty;
-
-            content += $"{GetIndentation(1)}ship_class_names = {{{Environment.NewLine}";
+            StringBuilder content = new();
+            content.Append($"{GetIndentation(1)}ship_class_names = {{{Environment.NewLine}");
 
             IEnumerable<NameGroup> genericShipClasses = nameList.ShipClasses.Generic
                 .Concat(nameList.Denonyms)
@@ -56,37 +55,37 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             IEnumerable<NameGroup> ionCannonClasses = nameList.ShipClasses.IonCannon
                 .Concat(nameList.Warfare.Weapons.Artillery);
 
-            string innerContent = string.Empty;
-            innerContent += BuildNameArray(genericShipClasses, "generic", 2);
-            innerContent += BuildNameArray(corvetteClasses, "corvette", 2);
-            innerContent += BuildNameArray(destroyerClasses, "destroyer", 2);
-            innerContent += BuildNameArray(cruisedClasses, "cruiser", 2);
-            innerContent += BuildNameArray(battleshipClasses, "battleship", 2);
-            innerContent += BuildNameArray(titanClasses, "titan", 2);
-            innerContent += BuildNameArray(colossusClasses, "colossus", 2);
-            innerContent += BuildNameArray(juggernautClasses, "juggernaut", 2);
-            innerContent += BuildNameArray(constructorClasses, "constructor", 2);
-            innerContent += BuildNameArray(scienceClasses, "science", 2);
-            innerContent += BuildNameArray(coloniserClasses, "coloniser", 2);
-            innerContent += BuildNameArray(sponsoredColoniserClasses, "sponsored_coloniser", 2);
-            innerContent += BuildNameArray(transportClasses, "transport", 2);
-            innerContent += BuildNameArray(nameList.StationClasses.MiningStations, "mining_station", 2);
-            innerContent += BuildNameArray(nameList.StationClasses.ResearchStations, "research_station", 2);
-            innerContent += BuildNameArray(nameList.StationClasses.ObservationStations, "observation_station", 2);
-            innerContent += BuildNameArray(smallMilitaryStationClasses, "military_station_small", 2);
-            innerContent += BuildNameArray(mediumMilitaryStationClasses, "military_station_medium", 2);
-            innerContent += BuildNameArray(largeMilitaryStationClasses, "military_station_large", 2);
-            innerContent += BuildNameArray(ionCannonClasses, "ion_cannon", 2);
+            StringBuilder innerContent = new();
+            innerContent.Append(BuildNameArray(genericShipClasses, "generic", 2));
+            innerContent.Append(BuildNameArray(corvetteClasses, "corvette", 2));
+            innerContent.Append(BuildNameArray(destroyerClasses, "destroyer", 2));
+            innerContent.Append(BuildNameArray(cruisedClasses, "cruiser", 2));
+            innerContent.Append(BuildNameArray(battleshipClasses, "battleship", 2));
+            innerContent.Append(BuildNameArray(titanClasses, "titan", 2));
+            innerContent.Append(BuildNameArray(colossusClasses, "colossus", 2));
+            innerContent.Append(BuildNameArray(juggernautClasses, "juggernaut", 2));
+            innerContent.Append(BuildNameArray(constructorClasses, "constructor", 2));
+            innerContent.Append(BuildNameArray(scienceClasses, "science", 2));
+            innerContent.Append(BuildNameArray(coloniserClasses, "coloniser", 2));
+            innerContent.Append(BuildNameArray(sponsoredColoniserClasses, "sponsored_coloniser", 2));
+            innerContent.Append(BuildNameArray(transportClasses, "transport", 2));
+            innerContent.Append(BuildNameArray(nameList.StationClasses.MiningStations, "mining_station", 2));
+            innerContent.Append(BuildNameArray(nameList.StationClasses.ResearchStations, "research_station", 2));
+            innerContent.Append(BuildNameArray(nameList.StationClasses.ObservationStations, "observation_station", 2));
+            innerContent.Append(BuildNameArray(smallMilitaryStationClasses, "military_station_small", 2));
+            innerContent.Append(BuildNameArray(mediumMilitaryStationClasses, "military_station_medium", 2));
+            innerContent.Append(BuildNameArray(largeMilitaryStationClasses, "military_station_large", 2));
+            innerContent.Append(BuildNameArray(ionCannonClasses, "ion_cannon", 2));
 
-            if (string.IsNullOrWhiteSpace(innerContent))
+            if (innerContent.Length == 0)
             {
                 return string.Empty;
             }
 
-            content += innerContent;
-            content += $"{GetIndentation(1)}}}{Environment.NewLine}";
+            content.Append(innerContent);
+            content.Append($"{GetIndentation(1)}}}{Environment.NewLine}");
 
-            return content;
+            return content.ToString();
         }
     }
 }
