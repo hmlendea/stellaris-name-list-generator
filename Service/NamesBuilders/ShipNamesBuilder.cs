@@ -232,7 +232,19 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             return content;
         }
 
-        public string GetRandomName(NameList nameList) => nameList.Ships.Generic
+        public string GetRandomName(NameList nameList)
+        {
+            IEnumerable<string> names = GetAllNames(nameList);
+
+            if (EnumerableExt.IsNullOrEmpty(names))
+            {
+                return string.Empty;
+            }
+
+            return names.GetRandomElement();
+        }
+
+        public IEnumerable<string> GetAllNames(NameList nameList) => nameList.Ships.Generic
             .Concat(nameList.Denonyms)
             .Concat(nameList.GreatPeople.Explorers)
             .Concat(nameList.GreatPeople.Pioneers)
@@ -270,7 +282,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             .Concat(nameList.Warfare.MilitaryUnitTypes)
             .Concat(nameList.Warfare.ShipTypes)
             .Concat(nameList.Warfare.Weapons.All)
-            .SelectMany(x => x.Values)
-            .GetRandomElement();
+            .SelectMany(x => x.Values);
+
     }
 }
