@@ -135,7 +135,19 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             return content;
         }
 
-        public string GetRandomName(NameList nameList) => nameList.Planets.Generic
+        public string GetRandomName(NameList nameList)
+        {
+            IEnumerable<string> names = GetAllNames(nameList);
+
+            if (EnumerableExt.IsNullOrEmpty(names))
+            {
+                return string.Empty;
+            }
+
+            return names.GetRandomElement();
+        }
+
+        IEnumerable<string> GetAllNames(NameList nameList) => nameList.Planets.Generic
             .Concat(nameList.Places.Deserts)
             .Concat(nameList.Places.Forests)
             .Concat(nameList.Places.Lakes)
@@ -156,8 +168,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             .Concat(nameList.Planets.Tomb)
             .Concat(nameList.Planets.Tropical)
             .Concat(nameList.Planets.Tundra)
-            .SelectMany(x => x.Values)
-            .GetRandomElement();
+            .SelectMany(x => x.Values);
 
         string BuildPlanetNameArray(IEnumerable<NameGroup> nameGroups, string planetClass)
         {
