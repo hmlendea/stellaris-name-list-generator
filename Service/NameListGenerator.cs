@@ -10,7 +10,7 @@ namespace StellarisNameListGenerator.Service
 {
     public sealed class NameListGenerator(
         IFileContentBuilder fileContentBuilder,
-        IRepository<NameList> nameListRepository) : INameListGenerator
+        IFileRepository<NameList> nameListRepository) : INameListGenerator
     {
         public void Generate(string filePath, string name, bool isLocked)
         {
