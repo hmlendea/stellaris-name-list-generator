@@ -101,5 +101,102 @@ namespace StellarisNameListGenerator.UnitTests.Models
 
             Assert.That(nameGroup.Name, Is.EqualTo("TestGroup"));
         }
+
+        [Test]
+        public void GivenNameGroupWithEmptyExplicitValues_WhenCheckingIsEmpty_ThenReturnsTrue()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = [],
+                Url = string.Empty
+            };
+
+            Assert.That(nameGroup.IsEmpty, Is.True);
+        }
+
+        [Test]
+        public void GivenNameGroupWithWhitespaceUrl_WhenCheckingIsEmpty_ThenReturnsTrue()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = [],
+                Url = "   "
+            };
+
+            Assert.That(nameGroup.IsEmpty, Is.True);
+        }
+
+        [Test]
+        public void GivenNameGroupWithNullUrl_WhenCheckingIsEmpty_ThenReturnsTrue()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = [],
+                Url = null!
+            };
+
+            Assert.That(nameGroup.IsEmpty, Is.True);
+        }
+
+        [Test]
+        public void GivenNameGroupWithMultipleExplicitValues_WhenGettingValues_ThenReturnsAllValues()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = ["A", "B", "C", "D", "E"],
+                Url = string.Empty
+            };
+
+            Assert.That(nameGroup.Values, Has.Count.EqualTo(5));
+            Assert.That(nameGroup.Values, Is.EqualTo(new List<string> { "A", "B", "C", "D", "E" }));
+        }
+
+        [Test]
+        public void GivenNameGroupWithDuplicateExplicitValues_WhenGettingValues_ThenReturnsDuplicates()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = ["John", "John", "Jane"],
+                Url = string.Empty
+            };
+
+            Assert.That(nameGroup.Values, Has.Count.EqualTo(3));
+        }
+
+        [Test]
+        public void GivenNameGroupWithEmptyStringInExplicitValues_WhenGettingValues_ThenIncludesEmptyString()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = ["John", "", "Jane"],
+                Url = string.Empty
+            };
+
+            Assert.That(nameGroup.Values, Has.Count.EqualTo(3));
+            Assert.That(nameGroup.Values, Contains.Item(""));
+        }
+
+        [Test]
+        public void GivenNameGroup_WhenSettingUrl_ThenUrlIsStored()
+        {
+            NameGroup nameGroup = new()
+            {
+                Url = "https://example.com/names.txt"
+            };
+
+            Assert.That(nameGroup.Url, Is.EqualTo("https://example.com/names.txt"));
+        }
+
+        [Test]
+        public void GivenNameGroupWithNullExplicitValuesAndEmptyUrl_WhenCheckingIsEmpty_ThenReturnsTrue()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = null!,
+                Url = string.Empty
+            };
+
+            Assert.That(nameGroup.IsEmpty, Is.True);
+        }
     }
 }
