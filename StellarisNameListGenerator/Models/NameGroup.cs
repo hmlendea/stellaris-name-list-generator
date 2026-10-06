@@ -22,7 +22,7 @@ namespace StellarisNameListGenerator.Models
         {
             get
             {
-                List<string> values = ExplicitValues.ToList();
+                List<string> values = ExplicitValues?.ToList() ?? [];
 
                 if (UrlValues.Count != 0)
                 {

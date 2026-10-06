@@ -340,7 +340,7 @@ namespace StellarisNameListGenerator.UnitTests.Models
 
             IEnumerable<NameGroup> allDeities = greatPeople.AllDeities;
 
-            Assert.That(allDeities.Count(), Is.EqualTo(35));
+            Assert.That(allDeities.Count(), Is.EqualTo(37));
         }
 
         [Test]

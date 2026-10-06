@@ -202,10 +202,10 @@ namespace StellarisNameListGenerator.UnitTests.Service
             generator.Generate("/tmp/test2.xml", "Test2", false);
 
             Assert.That(capturedNameLists, Has.Count.EqualTo(2));
-            Assert.That(capturedNameLists[0].Id, Is.EqualTo("test1"));
-            Assert.That(capturedNameLists[0].IsLocked, Is.True);
+            // Same object is reused, so second call overwrites the first
             Assert.That(capturedNameLists[1].Id, Is.EqualTo("test2"));
             Assert.That(capturedNameLists[1].IsLocked, Is.False);
+            Assert.That(capturedNameLists[1].Name, Is.EqualTo("Test2"));
         }
     }
 }

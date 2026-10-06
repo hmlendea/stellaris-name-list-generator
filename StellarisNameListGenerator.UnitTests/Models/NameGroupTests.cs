@@ -49,7 +49,7 @@ namespace StellarisNameListGenerator.UnitTests.Models
         }
 
         [Test]
-        public void GivenNameGroupWithNullExplicitValues_WhenGettingValues_ThenThrowsArgumentNullException()
+        public void GivenNameGroupWithNullExplicitValues_WhenGettingValues_ThenReturnsEmptyList()
         {
             NameGroup nameGroup = new()
             {
@@ -57,7 +57,7 @@ namespace StellarisNameListGenerator.UnitTests.Models
                 Url = string.Empty
             };
 
-            Assert.Throws<System.ArgumentNullException>(() => _ = nameGroup.Values);
+            Assert.That(nameGroup.Values, Is.Empty);
         }
 
         [Test]

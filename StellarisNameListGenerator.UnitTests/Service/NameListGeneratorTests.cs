@@ -284,30 +284,37 @@ namespace StellarisNameListGenerator.UnitTests.Service
             mockNameListRepository.Setup(x => x.GetAll()).Returns([nameList1, nameList2]);
             mockFileContentBuilder.Setup(x => x.BuildContent(It.IsAny<NameList>())).Returns("<xml/>");
 
+            var capturedNameList = (NameList)null;
+            mockFileContentBuilder.Setup(x => x.BuildContent(It.IsAny<NameList>()))
+                .Returns("<xml/>")
+                .Callback<NameList>(nl => capturedNameList = nl);
+
             generator.Generate("/tmp/complex.xml", "Complex", true);
 
-            mockFileContentBuilder.Verify(x => x.BuildContent(It.Is<NameList>(nl =>
-                nl.Id == "complex" &&
-                nl.Denonyms.Count == 2 &&
-                nl.Places.Countries.Count == 1 &&
-                nl.Places.Regions.Count == 1 &&
-                nl.GreatPeople.Explorers.Count == 1 &&
-                nl.GreatPeople.Scientists.Count == 1 &&
-                nl.Companies.RobotManufacturers.Count == 1 &&
-                nl.Companies.SpacecraftManufacturers.Count == 1 &&
-                nl.Warfare.MilitaryUnitTypes.Count == 1 &&
-                nl.Warfare.ShipTypes.Count == 1 &&
-                nl.BiosphereNames.Animals.Count == 1 &&
-                nl.BiosphereNames.MythologicalCreatures.Count == 1 &&
-                nl.Ships.Corvette.Count == 1 &&
-                nl.Ships.Destroyer.Count == 1 &&
-                nl.Stations.MiningStations.Count == 1 &&
-                nl.Stations.ResearchStations.Count == 1 &&
-                nl.Armies.Fleet.Count == 1 &&
-                nl.Armies.DefenceArmy.Count == 1 &&
-                nl.Planets.Generic.Count == 1 &&
-                nl.Planets.Desert.Count == 1 &&
-                nl.Characters.Count == 2)), Times.Once);
+            Assert.That(capturedNameList, Is.Not.Null);
+            Assert.That(capturedNameList.Id, Is.EqualTo("complex"));
+            Assert.That(capturedNameList.Name, Is.EqualTo("Complex"));
+            Assert.That(capturedNameList.IsLocked, Is.True);
+            Assert.That(capturedNameList.Denonyms.Count, Is.EqualTo(2));
+            Assert.That(capturedNameList.Places.Countries.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Places.Regions.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.GreatPeople.Explorers.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.GreatPeople.Scientists.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Companies.RobotManufacturers.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Companies.SpacecraftManufacturers.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Warfare.MilitaryUnitTypes.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Warfare.ShipTypes.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.BiosphereNames.Animals.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.BiosphereNames.MythologicalCreatures.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Ships.Corvette.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Ships.Destroyer.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Stations.MiningStations.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Stations.ResearchStations.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Armies.Fleet.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Armies.DefenceArmy.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Planets.Generic.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Planets.Desert.Count, Is.EqualTo(1));
+            Assert.That(capturedNameList.Characters.Count, Is.EqualTo(2));
         }
     }
 }
