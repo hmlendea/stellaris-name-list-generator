@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<SolutionFilter Version="1.0.0.0">
-  <Projects>
-    <Project ProjectPath="StellarisNameListGenerator\StellarisNameListGenerator.csproj" />
-  </Projects>
-</SolutionFilter>
+<Solution>
+  <Project Path="StellarisNameListGenerator/StellarisNameListGenerator.csproj" />
+</Solution>
