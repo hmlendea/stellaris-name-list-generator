@@ -65,7 +65,7 @@ namespace StellarisNameListGenerator.Models
                 {
                     // TODO: Use async
                     string namesString = fileDownloader.TryDownloadStringAsync(url).Result;
-                    return namesString.Replace("\r" , "").Split('\n').ToList();
+                    return namesString.Replace("\r", "").Split('\n').ToList();
                 }
                 catch
                 {
