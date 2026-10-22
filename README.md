@@ -19,6 +19,7 @@ Generate Stellaris-compatible name-list text from structured XML sources.
   - [Configuration Files](#configuration-files)
   - [Command-Line Options](#command-line-options)
 - [Compatibility](#compatibility)
+- [Privacy and Data](#privacy-and-data)
 - [Development](#development)
   - [Requirements](#requirements)
   - [Setup](#setup)
@@ -98,6 +99,12 @@ The generator receives its invocation configuration through command-line options
 | .NET | 10.0 | The executable targets `net10.0`. |
 | Stellaris name-list format | Current project output | The generator produces a Stellaris-compatible text file for mod content. |
 | XML input | `ArrayOfNameList` | The input may contain one or more `NameList` records. |
+
+## 🛡️ Privacy and Data
+
+Stellaris Name List Generator processes XML input files and optional URL-backed name groups locally on the operator's machine. No personal data is requested, collected, or transmitted by the application itself. Network access occurs only when the operator includes URLs in the input XML for optional name-group downloads.
+
+For the detailed description of how the application handles privacy and personal data, see [PRIVACY.md](./PRIVACY.md).
 
 ## 🛠️ Development
 
