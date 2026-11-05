@@ -185,6 +185,12 @@ When doing so:
 - Maintain your branch synchronised with `master`
 - Revise the documentation when functionality changes
 
+See the [Contributing Guidelines](./CONTRIBUTING.md) for details on how to report issues, suggest enhancements, and submit changes.
+
+## 📜 Code of Conduct
+
+See the [Code of Conduct](./CODE_OF_CONDUCT.md) for the standards of conduct expected in all project spaces.
+
 ## 💝 Project Engagement
 
 Discovered a problem or have a suggestion? [Open an issue](https://github.com/hmlendea/stellaris-name-list-generator/issues)!
