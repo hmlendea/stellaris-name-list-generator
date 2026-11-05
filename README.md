@@ -175,6 +175,24 @@ The repository contains one .NET console project with domain models and generati
 
 See the [architecture documentation](ARCHITECTURE.md) for the system context, principal components, runtime flows, ownership boundaries, dependencies, constraints, and extension points.
 
+## 📚 Documentation
+
+Detailed technical documentation is available under [`docs/`](docs/INDEX.md).
+
+| Resource | Description |
+|----------|-------------|
+| [Documentation Index](docs/INDEX.md) | Master index of all repository documentation |
+| [Repository Overview](docs/repository-overview.md) | Project purpose, scope, and high-level summary |
+| [Repository Structure](docs/repository-structure.md) | Directory layout and file organization |
+| [Architecture](docs/architecture.md) | System architecture, components, and design decisions |
+| [Data Model](docs/data-model.md) | Domain entities, relationships, and serialization |
+| [Name List Generation Flow](docs/flows/name-list-generation.md) | End-to-end generation pipeline |
+| [Name Download Flow](docs/flows/name-download.md) | URL-based name acquisition and caching |
+| [Testing](docs/testing.md) | Test structure, execution, and coverage |
+| [Change Guide](docs/change-guide.md) | How to make common changes safely |
+| [Design Decisions](docs/design-decisions.md) | Key architectural and implementation decisions |
+| [Ambiguities](docs/ambiguities.md) | Known uncertainties and areas needing clarification |
+
 ## 🤝 Contributing
 
 You are welcome to submit any suggestion, feedback, or modification to this project.

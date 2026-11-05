@@ -345,3 +345,16 @@ The adapter must return fully initialised model collections expected by `NameLis
 ## 📚 Related Documentation
 
 - [README.md](README.md) defines installation prerequisites, CLI usage, the input template, helper scripts, and operator troubleshooting. This document concentrates upon internal boundaries and change-sensitive contracts instead.
+- [Documentation Index](docs/INDEX.md) is the master index of all technical documentation under `docs/`.
+- [Repository Overview](docs/repository-overview.md) summarises project purpose and scope.
+- [Repository Structure](docs/repository-structure.md) describes directory layout.
+- [Data Model](docs/data-model.md) documents domain entities and relationships.
+- [Components](docs/components/presentation.md) covers the CLI and service layers.
+- [Flows](docs/flows/name-list-generation.md) describes the end-to-end generation pipeline.
+- [Configuration](docs/configuration.md) covers CLI arguments and settings.
+- [Dependencies](docs/dependencies.md) lists external libraries.
+- [Build and Deployment](docs/build-and-deployment.md) covers build, publish, and release.
+- [Testing](docs/testing.md) covers test structure and execution.
+- [Change Guide](docs/change-guide.md) covers common changes.
+- [Design Decisions](docs/design-decisions.md) records key decisions.
+- [Ambiguities](docs/ambiguities.md) lists known uncertainties.
