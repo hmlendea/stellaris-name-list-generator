@@ -1,6 +1,7 @@
 [![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/funding)
 [![Latest Release](https://img.shields.io/github/v/release/hmlendea/stellaris-name-list-generator)](https://github.com/hmlendea/stellaris-name-list-generator/releases/latest)
 [![Build Status](https://github.com/hmlendea/stellaris-name-list-generator/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/stellaris-name-list-generator/actions/workflows/dotnet.yml)
+[![Security Scan](https://github.com/hmlendea/stellaris-name-list-generator/actions/workflows/security.yml/badge.svg)](https://github.com/hmlendea/stellaris-name-list-generator/actions/workflows/security.yml)
 [![License](https://img.shields.io/github/license/hmlendea/stellaris-name-list-generator)](https://github.com/hmlendea/stellaris-name-list-generator/blob/master/LICENSE)
 
 # Stellaris Name List Generator
@@ -160,6 +161,7 @@ Releases are published from the GitHub interface. Publishing a release triggers 
 |----------|---------|--------------|
 | [ .NET ](https://github.com/hmlendea/stellaris-name-list-generator/blob/master/.github/workflows/dotnet.yml) | Continuous integration | Determines the .NET version, restores dependencies, builds the solution, and runs tests for pushes and pull requests targeting `master`. |
 | [ GitHub Release ](https://github.com/hmlendea/stellaris-name-list-generator/blob/master/.github/workflows/github-release.yml) | Release publication | Runs when a release is published, builds self-contained artefacts, and uploads them to the GitHub release. |
+| [ Security ](https://github.com/hmlendea/stellaris-name-list-generator/blob/master/.github/workflows/security.yml) | Security scanning | Restores dependencies, reports vulnerable packages, runs CodeQL analysis for C#, and publishes the results for pushes, pull requests targeting `master`, and a weekly schedule. |
 
 ## 🗂️ Project Structure
 
@@ -173,7 +175,7 @@ The repository contains one .NET console project with domain models and generati
 | `Service/` | Generation, content construction, download, and cache services. |
 | `Service/NamesBuilders/` | Category-specific Stellaris name-format builders. |
 | `Service/Text/` | Unicode-to-Stellaris character conversion. |
-| `.github/workflows/` | Continuous-integration and release workflow definitions. |
+| `.github/workflows/` | Continuous-integration, security-scanning, and release workflow definitions. |
 
 ## 🏗️ Architecture
 
@@ -216,6 +218,8 @@ See the [Contributing Guidelines](./CONTRIBUTING.md) for details on how to repor
 See the [Code of Conduct](./CODE_OF_CONDUCT.md) for the standards of conduct expected in all project spaces.
 
 ## 🔒 Security
+
+Stellaris Name List Generator confines network access to operator-supplied URLs and runs automated CodeQL scanning and vulnerable-package checks on every change.
 
 For information on reporting security vulnerabilities, see the [Security Policy](./SECURITY.md).
 

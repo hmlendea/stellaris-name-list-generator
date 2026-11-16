@@ -166,6 +166,10 @@ The repository uses a standard .NET workflow for CI. The workflow runs on push/P
 
 The repository uses a GitHub Release workflow triggered by a published release. It determines the .NET version from the main project, builds self-contained artefacts for the supported runtime identifiers, and attaches them to the published GitHub Release.
 
+### Workflow: `.github/workflows/security.yml`
+
+The repository uses a Security workflow triggered by pushes, pull requests to `master`, and a weekly schedule. It restores dependencies, lists packages with known vulnerabilities including transitive dependencies, runs CodeQL analysis for C#, and publishes the results to GitHub Code Scanning.
+
 ## Release Process
 
 ### Versioning

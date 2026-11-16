@@ -85,6 +85,7 @@ This document lists complementary documentation, external resources, and referen
 | GitHub Actions Docs | https://docs.github.com/actions | CI/CD workflow reference |
 | dotnet.yml | `.github/workflows/dotnet.yml` | Build and test workflow |
 | github-release.yml | `.github/workflows/github-release.yml` | Release build and asset publication workflow |
+| security.yml | `.github/workflows/security.yml` | CodeQL and vulnerable-package security scanning workflow |
 
 ## Standards and Conventions
 
