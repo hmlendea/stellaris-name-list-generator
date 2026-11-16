@@ -97,7 +97,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(nameList.GreatPeople.DisloyaltyDeities)
                 .Concat(nameList.GreatPeople.DarknessDeities);
 
-            genericNames = CleanGenericNames(
+            genericNames = ExcludeSpecificNames(
                 genericNames,
                 desertNames,
                 aridNames,

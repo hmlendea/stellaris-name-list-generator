@@ -478,4 +478,4 @@ The `NameGroup.Values` property is computed and not serialized directly; only `E
 - `Planets`: Each subcategory concatenated
 - `Characters`: `this.Characters.AddRange(other.Characters)`
 
-No deduplication occurs during merge; deduplication happens later in `NamesBuilder.GetFormattedNameCollection()`.
+No deduplication occurs during merge; deduplication happens later in `NamesBuilder.BuildNameCollection()`.

@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+
 using StellarisNameListGenerator.Models;
 using StellarisNameListGenerator.Service.NamesBuilders;
 
@@ -13,49 +14,57 @@ namespace StellarisNameListGenerator.Service
         IPlanetNamesBuilder planetNamesBuilder,
         ICharacterNamesBuilder characterNamesBuilder) : IFileContentBuilder
     {
-        private const int IndentationSize = 4;
+        private static int IndentationSize => 4;
 
         public string BuildContent(NameList nameList)
         {
-            StringBuilder sb = new();
+            StringBuilder content = new();
 
-            sb.Append($"### {nameList.Id}{Environment.NewLine}");
-            sb.Append($"### {nameList.Name}{Environment.NewLine}");
-            sb.Append($"### Leaders: {characterNamesBuilder.GetRandomName(nameList)}, {characterNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}");
-            sb.Append($"### Ships: {shipNamesBuilder.GetRandomName(nameList)}, {shipNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}");
-            sb.Append($"### Fleets: {fleetNamesBuilder.GetRandomName(nameList)}, {fleetNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}");
-            sb.Append($"### Colonies: {planetNamesBuilder.GetRandomName(nameList)}, {planetNamesBuilder.GetRandomName(nameList)}{Environment.NewLine}");
-            sb.Append(Environment.NewLine);
+            content.Append(BuildHeaders(nameList));
+            content.Append($"{nameList.Id} = {{{Environment.NewLine}");
+            content.Append(BuildRandomisedOption(nameList.IsLocked));
 
-            sb.Append($"{nameList.Id} = {{{Environment.NewLine}");
-            sb.Append(BuildRandomisableOption(nameList.IsLocked));
+            content.Append(shipNamesBuilder.Build(nameList));
+            content.Append(shipClassNamesBuilder.Build(nameList));
+            content.Append(fleetNamesBuilder.Build(nameList));
+            content.Append(armyNamesBuilder.Build(nameList));
+            content.Append(planetNamesBuilder.Build(nameList));
+            content.Append(characterNamesBuilder.Build(nameList));
 
-            sb.Append(shipNamesBuilder.Build(nameList));
-            sb.Append(shipClassNamesBuilder.Build(nameList));
-            sb.Append(fleetNamesBuilder.Build(nameList));
-            sb.Append(armyNamesBuilder.Build(nameList));
-            sb.Append(planetNamesBuilder.Build(nameList));
-            sb.Append(characterNamesBuilder.Build(nameList));
+            content.Append($"}}{Environment.NewLine}");
 
-            sb.Append($"}}{Environment.NewLine}");
-
-            return sb.ToString();
+            return content.ToString();
         }
 
-        private static string BuildRandomisableOption(bool isLocked)
+        private string BuildHeaders(NameList nameList)
         {
-            string randomisableLine;
+            StringBuilder headers = new();
+
+            headers.Append($"### {nameList.Id}{Environment.NewLine}");
+            headers.Append($"### {nameList.Name}{Environment.NewLine}");
+            headers.Append($"### Leaders: {NameSampleBuilder.Build(characterNamesBuilder, nameList)}{Environment.NewLine}");
+            headers.Append($"### Ships: {NameSampleBuilder.Build(shipNamesBuilder, nameList)}{Environment.NewLine}");
+            headers.Append($"### Fleets: {NameSampleBuilder.Build(fleetNamesBuilder, nameList)}{Environment.NewLine}");
+            headers.Append($"### Colonies: {NameSampleBuilder.Build(planetNamesBuilder, nameList)}{Environment.NewLine}");
+            headers.Append(Environment.NewLine);
+
+            return headers.ToString();
+        }
+
+        private static string BuildRandomisedOption(bool isLocked)
+        {
+            string randomisedValue;
 
             if (isLocked)
             {
-                randomisableLine = $"{GetIndentation(1)}randomized = no";
+                randomisedValue = "no";
             }
             else
             {
-                randomisableLine = $"{GetIndentation(1)}randomized = yes";
+                randomisedValue = "yes";
             }
 
-            return $"{randomisableLine}{Environment.NewLine}";
+            return $"{GetIndentation(1)}randomized = {randomisedValue}{Environment.NewLine}";
         }
 
         private static string GetIndentation(int levels)

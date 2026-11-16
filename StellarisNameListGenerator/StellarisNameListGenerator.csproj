@@ -5,6 +5,9 @@
     <IsPackable>false</IsPackable>
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>StellarisNameListGenerator</RootNamespace>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +15,7 @@
     <PackageReference Include="NuciCLI.Arguments" Version="1.0.2" />
     <PackageReference Include="NuciDAL" Version="4.2.0" />
     <PackageReference Include="NuciExtensions" Version="6.0.2" />
+    <PackageReference Include="NuciWeb.HTTP" Version="1.7.3" />
   </ItemGroup>
 
 </Project>

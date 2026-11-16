@@ -198,5 +198,17 @@ namespace StellarisNameListGenerator.UnitTests.Models
 
             Assert.That(nameGroup.IsEmpty, Is.True);
         }
+
+        [Test]
+        public void GivenNameGroupWithWhitespaceUrl_WhenGettingValues_ThenReturnsOnlyExplicitValues()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = ["Sole"],
+                Url = "   "
+            };
+
+            Assert.That(nameGroup.Values, Is.EqualTo(new List<string> { "Sole" }));
+        }
     }
 }

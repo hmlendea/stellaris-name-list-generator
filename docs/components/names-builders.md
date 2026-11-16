@@ -2,12 +2,12 @@
 
 ## Overview
 
-The names builders layer contains category-specific formatters that convert domain models into Stellaris-compatible Paradox script format. Each builder handles one name category and inherits shared formatting logic from the `NamesBuilder` base class.
+The names builders layer contains category-specific formatters that convert domain models into Stellaris-compatible Paradox script format. Each builder handles one name category and inherits shared formatting logic from the `NamesBuilder` base class. Unicode character conversion is delegated to `NameTransliterator` in the `Service.Text` namespace, and the comment-header samples are produced by `NameSampleBuilder`.
 
 ## Architecture
 
 ```
-INamesBuilder (interface)
+INamesBuilder (random-name provider contract)
     │
     ├──► NamesBuilder (abstract base class)
     │       │
@@ -17,6 +17,8 @@ INamesBuilder (interface)
     │       ├──► ArmyNamesBuilder
     │       ├──► PlanetNamesBuilder
     │       └──► CharacterNamesBuilder
+    │              │
+    │              └──► NameTransliterator (Service.Text)
     │
     └──► (Injected into FileContentBuilder)
 ```
@@ -29,79 +31,51 @@ Provides shared formatting, cleaning, and Unicode normalization logic used by al
 
 ### Key Methods
 
-#### `BuildNameArray(string categoryName, IEnumerable<string> names)`
+#### `BuildNameArray(...)`
 
-Formats a collection of names as a Paradox script array:
-
-```csharp
-protected string BuildNameArray(string categoryName, IEnumerable<string> names)
-{
-    var formatted = names
-        .Select(n => $"\"{ProcessName(n)}\"")
-        .Distinct(StringComparer.OrdinalIgnoreCase)
-        .OrderBy(n => n, StringComparer.OrdinalIgnoreCase);
-
-    if (!formatted.Any())
-    {
-        return string.Empty;
-    }
-
-    var sb = new StringBuilder();
-    sb.AppendLine($"{categoryName} = {{");
-    foreach (var name in formatted)
-    {
-        sb.AppendLine($"    {name}");
-    }
-    sb.AppendLine($"}}");
-    sb.AppendLine();
-    return sb.ToString();
-}
-```
-
-#### `CleanGenericNames(IEnumerable<string> names)`
-
-Removes duplicates with diacritic-insensitive comparison:
+Formats a collection of names as a Paradox script array, wrapping generated lines at a maximum of 150 characters and emitting either `random_names` values or a `sequential_name` fallback:
 
 ```csharp
-protected IEnumerable<string> CleanGenericNames(IEnumerable<string> names)
-{
-    return names
-        .Where(n => !string.IsNullOrWhiteSpace(n))
-        .Select(n => n.Trim())
-        .Distinct(DoNamesMatch)
-        .OrderBy(n => n, StringComparer.OrdinalIgnoreCase);
-}
+protected static string BuildNameArray(
+    IEnumerable<NameGroup> nameGroups,
+    string arrayName,
+    int indentationLevels,
+    string sequentialName)
 ```
 
-#### `ProcessName(string name)`
+#### `BuildNameCollection(IEnumerable<NameGroup> nameGroups, int indentationLevels)`
 
-Normalizes Unicode characters (500+ mappings):
+Groups the values by group name, orders them, removes diacritic-insensitive duplicates through `GetComparableName`, and formats each remaining name through `NameTransliterator.ProcessName`:
 
 ```csharp
-protected string ProcessName(string name)
-{
-    // Extensive character replacement mapping
-    // Examples:
-    // "æ" → "ae", "ø" → "o", "ß" → "ss"
-    // "α" → "a", "β" → "b", "γ" → "g"
-    // Full-width → half-width, smart quotes → straight quotes
-    // ... 500+ mappings
-}
+protected static string BuildNameCollection(IEnumerable<NameGroup> nameGroups, int indentationLevels)
 ```
 
-#### `DoNamesMatch(string a, string b)`
+#### `ExcludeSpecificNames(...)`
+
+Removes generic values that also occur in any of the specified specific group lists, using parallel processing:
+
+```csharp
+protected static IEnumerable<NameGroup> ExcludeSpecificNames(
+    IEnumerable<NameGroup> genericNameGroups,
+    params IEnumerable<NameGroup>[] specificNameGroupLists)
+```
+
+#### `NameTransliterator.ProcessName(string name)`
+
+Normalizes Unicode characters through an ordered chain of named character-replacement steps:
+
+```csharp
+public static string ProcessName(string name);
+```
+
+#### `DoNamesMatch(string name1, string name2)`
 
 Diacritic-insensitive equality comparison:
 
 ```csharp
-protected bool DoNamesMatch(string a, string b)
-{
-    return string.Equals(
-        a.RemoveDiacritics(),
-        b.RemoveDiacritics(),
-        StringComparison.OrdinalIgnoreCase
-    );
-}
+protected static bool DoNamesMatch(string name1, string name2)
+    => name1.RemoveDiacritics().Equals(name2.RemoveDiacritics());
 ```
 
 ### Dependencies
@@ -418,7 +392,7 @@ protected string BuildPlanetNameArray(string categoryName, List<NameGroup> nameG
     sb.AppendLine($"{categoryName} = {{");
     foreach (var name in names)
     {
-        sb.AppendLine($"    \"{ProcessName(name)}\"");
+        sb.AppendLine($"    \"{NameTransliterator.ProcessName(name)}\"");
     }
     sb.AppendLine($"}}");
     sb.AppendLine();

@@ -60,14 +60,14 @@ This document records key architectural and implementation decisions made during
 - ❌ Network dependency at build time
 - ❌ External URLs may become unavailable
 
-### ADR-004: Unicode Normalization (NFKD) for Name Processing
+### ADR-004: Unicode Character Replacement for Name Processing
 
 **Date**: 2025-01
 **Status**: Accepted
 
 **Context**: Stellaris expects ASCII-compatible names; input may contain diacritics.
 
-**Decision**: `ProcessName()` applies NFKD normalization + regex removal of combining marks.
+**Decision**: `NameTransliterator.ProcessName()` applies an ordered chain of named character-replacement steps.
 
 **Consequences**:
 - ✅ Ensures ASCII output compatibility

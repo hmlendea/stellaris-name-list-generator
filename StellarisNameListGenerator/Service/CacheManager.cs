@@ -7,38 +7,36 @@ namespace StellarisNameListGenerator.Service
 {
     public sealed class CacheManager : ICacheManager
     {
-        const string CacheDirectoryPath = ".cache";
+        private static string CacheDirectoryPath => ".cache";
+        private static TimeSpan CacheValidityPeriod => TimeSpan.FromHours(8);
+
+        private static readonly HashSet<char> AllowedFileNameChars =
+            [.. "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_.()".ToCharArray()];
 
         public CacheManager()
             => PrepareFilesystem();
 
         public void StoreNameList(string url, string content)
-        {
-            string fileName = GetFileNameFromUrl(url);
-            string filePath = Path.Combine(CacheDirectoryPath, fileName);
-
-            File.WriteAllText(filePath, content);
-        }
+            => File.WriteAllText(GetCacheFilePath(url), content);
 
         public string GetNameList(string url)
         {
-            string fileName = GetFileNameFromUrl(url);
-            string filePath = Path.Combine(CacheDirectoryPath, fileName);
+            string filePath = GetCacheFilePath(url);
 
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
-                if (DateTime.Now.Subtract(File.GetCreationTime(filePath)).TotalHours >= 8)
-                {
-                    return null;
-                }
-
-                return File.ReadAllText(filePath);
+                return null;
             }
 
-            return null;
+            if (DateTime.Now.Subtract(File.GetCreationTime(filePath)) >= CacheValidityPeriod)
+            {
+                return null;
+            }
+
+            return File.ReadAllText(filePath);
         }
 
-        static void PrepareFilesystem()
+        private static void PrepareFilesystem()
         {
             if (!Directory.Exists(CacheDirectoryPath))
             {
@@ -46,21 +44,22 @@ namespace StellarisNameListGenerator.Service
             }
         }
 
-        static readonly HashSet<char> AllowedFileNameChars = [.. "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_.()".ToCharArray()];
+        private static string GetCacheFilePath(string url)
+            => Path.Combine(CacheDirectoryPath, GetFileNameFromUrl(url));
 
-        static string GetFileNameFromUrl(string url)
+        private static string GetFileNameFromUrl(string url)
         {
-            StringBuilder sb = new();
+            StringBuilder fileName = new();
 
-            foreach (char c in url)
+            foreach (char character in url)
             {
-                if (AllowedFileNameChars.Contains(c))
+                if (AllowedFileNameChars.Contains(character))
                 {
-                    sb.Append(c);
+                    fileName.Append(character);
                 }
             }
 
-            return sb.ToString();
+            return fileName.ToString();
         }
     }
 }

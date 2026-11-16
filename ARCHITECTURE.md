@@ -8,7 +8,7 @@ This document describes the verified current architecture of the Stellaris Name 
 - [Purpose](#purpose)
 - [System Context](#system-context)
 - [Architectural Style](#architectural-style)
-- [Runtime Flow](#runtime-flow)
+- [Runtime Process](#runtime-process)
 - [Components](#components)
 - [Data Architecture](#data-architecture)
 - [Interfaces and Integrations](#interfaces-and-integrations)
@@ -67,28 +67,31 @@ The implementation is a synchronous console transformation pipeline with manual 
 ```mermaid
 flowchart TD
     program["Program / composition root"] --> parser["NuciCLI argument parser"]
+    program --> normaliser["ArgumentNormaliser"]
     program --> generator["NameListGenerator"]
     program --> repository["XmlRepository<NameList>"]
     program --> content["FileContentBuilder"]
     generator --> repository
     generator --> content
     content --> builders["Specialised names builders"]
-    repository --> models["NameList aggregate model"]
-    builders --> models
+    content --> samples["NameSampleBuilder"]
+    builders --> models["NameList aggregate model"]
     builders --> base["NamesBuilder formatting policy"]
+    base --> transliterator["NameTransliterator"]
+    samples --> builders
     models -->|Current reverse dependency| downloader["FileDownloader"]
     downloader --> cache["CacheManager"]
     downloader --> http["HTTP name source"]
 ```
 
 The principal architecture boundaries are:
-- **Composition Boundary:** [`Program.Main`](Program.cs) selects concrete implementations and assigns process-lifetime collaborators without a dependency injection container.
+- **Composition Boundary:** [`Program.Main`](Program.cs) selects concrete implementations and assigns process-lifetime collaborators without a dependency injection container; [`ArgumentNormaliser`](ArgumentNormaliser.cs) expands the compatibility aliases before parsing.
 - **Orchestration Boundary:** [`NameListGenerator`](Service/NameListGenerator.cs) owns aggregate retrieval, multi-record merging, runtime metadata assignment, content generation, and the final write.
-- **Transformation Boundary:** [`FileContentBuilder`](Service/FileContentBuilder.cs) and the specialised builders own Stellaris syntax, category mapping, normalisation, and fallback policy.
+- **Transformation Boundary:** [`FileContentBuilder`](Service/FileContentBuilder.cs) and the specialised builders own Stellaris syntax, category mapping, normalisation, and fallback policy; [`NameTransliterator`](Service/Text/NameTransliterator.cs) owns the Unicode-to-Stellaris character conversion, and [`NameSampleBuilder`](Service/NamesBuilders/NameSampleBuilder.cs) owns the comment-header samples.
 - **Data Boundary:** Types under [Models](Models/) represent XML data and the merged in-memory aggregate. `NameGroup` additionally owns lazy remote-value resolution in the current implementation.
 - **Adapter Boundary:** NuciDAL provides XML repository access, while [`FileDownloader`](Service/FileDownloader.cs) and [`CacheManager`](Service/CacheManager.cs) adapt HTTP and local cache storage.
 
-## 🔄 Runtime Flow
+## 🔄 Runtime Process
 
 ```mermaid
 sequenceDiagram
@@ -136,12 +139,15 @@ The principal runtime sequence is:
 
 | Component | Responsibility | Principal Dependencies | Lifetime or Ownership |
 |-----------|----------------|------------------------|-----------------------|
-| [`Program`](Program.cs) | Normalises and parses CLI options and constructs the object graph. | NuciCLI, NuciDAL, service interfaces and implementations | Static process entry point; composition occurs once per invocation. |
+| [`Program`](Program.cs) | Normalises and parses CLI options and constructs the object graph. | NuciCLI, NuciDAL, `ArgumentNormaliser`, service interfaces and implementations | Static process entry point; composition occurs once per invocation. |
+| [`ArgumentNormaliser`](ArgumentNormaliser.cs) | Expands the recognised short option aliases into canonical long options. | None | Stateless static helper invoked once per invocation. |
 | [`NameListGenerator`](Service/NameListGenerator.cs) | Retrieves and merges records, assigns runtime metadata, invokes formatting, and persists the result. | `IFileContentBuilder`, `IFileRepository<NameList>`, filesystem | One instance constructed by `Program` per invocation. |
 | `XmlRepository<NameList>` | Deserialises the XML source into aggregate records. | NuciDAL and the caller-supplied input path | One repository instance per invocation, owned by `Program`. |
-| [`FileContentBuilder`](Service/FileContentBuilder.cs) | Constructs headers, the outer name-list block, the `randomized` option, and ordered builder sections. | Six builder interfaces and `NameList` | One instance per invocation, owned by `Program`. |
+| [`FileContentBuilder`](Service/FileContentBuilder.cs) | Constructs headers, the outer name-list block, the `randomized` option, and ordered builder sections. | Six builder interfaces, `NameSampleBuilder`, and `NameList` | One instance per invocation, owned by `Program`. |
 | [Specialised Names Builders](Service/NamesBuilders/) | Map domain collections to ship, class, fleet, army, planet, and character categories. | `NameList`, model subtypes, shared `NamesBuilder` policy | Six stateless collaborators constructed per invocation. |
-| [`NamesBuilder`](Service/NamesBuilders/NamesBuilder.cs) | Supplies shared array, fallback, duplicate-removal, line-wrapping, comparison, and character-normalisation policy. | NuciExtensions and model values | Base implementation inherited by specialised builders. |
+| [`NamesBuilder`](Service/NamesBuilders/NamesBuilder.cs) | Supplies shared array, fallback, duplicate-removal, line-wrapping, comparison, and category-unification policy. | NuciExtensions, model values, `NameTransliterator` | Base implementation inherited by specialised builders. |
+| [`NameTransliterator`](Service/Text/NameTransliterator.cs) | Converts Unicode name text into the ASCII-compatible character forms accepted by Stellaris. | `System.Text.RegularExpressions` | Stateless static helper composed of ordered character-replacement steps. |
+| [`NameSampleBuilder`](Service/NamesBuilders/NameSampleBuilder.cs) | Builds the two-name comment-header samples for a name list. | `NameList` and a random-name delegate | Stateless static helper invoked once per header. |
 | [`NameList`](Models/NameList.cs) and Model Types | Represent deserialised source data and the merged mutable aggregate. | NuciDAL `EntityBase`; collections of model types | Created by deserialisation or merge and retained for one generation. |
 | [`NameGroup`](Models/NameGroup.cs) | Combines explicit values with lazily resolved URL values and memoises the resolved URL per instance. | `FileDownloader` and `CacheManager` concrete implementations | Aggregate-owned instances plus a type-owned static downloader. |
 | [`FileDownloader`](Service/FileDownloader.cs) | Applies cache-first retrieval and performs optional HTTP GET requests. | `ICacheManager`, process-wide static `HttpClient` | One static instance owned indirectly by the `NameGroup` type. |
@@ -182,13 +188,13 @@ flowchart LR
 |--------------------------|-----------|----------|-------|-------------------|
 | CLI | Inbound | `--input`, `--output`, and `--name` are required; `--locked` defaults to `false`. `-i`, `-o`, `-n`, and `-l` are compatibility aliases, and bare `-l` means `true`. | `Program` and NuciCLI | Missing or invalid values produce exceptions and terminate the invocation. |
 | XML Name-List Document | Inbound | NuciDAL XML serialisation of one or more `NameList` records beneath `ArrayOfNameList`. | `XmlRepository<NameList>` and model types | Deserialisation, model-shape, and filesystem failures are not translated by the executable and terminate generation. |
-| Remote Name Source | Outbound | HTTP GET to `NameGroup.Url`; response content is divided on newline characters and appended to explicit values. | `NameGroup` and `FileDownloader` | Retrieval exceptions are caught by `NameGroup`, reported to standard output, and degraded to no remote values. HTTP status is not explicitly validated prior to caching content. |
+| Remote Name Source | Outbound | HTTP GET to `NameGroup.Url`; response content is divided on newline characters and appended to explicit values. | `NameGroup` and `FileDownloader` | Retrieval exceptions, including a non-success response status, are caught by `NameGroup`, reported to standard output, and degraded to no remote values. |
 | Filesystem Cache | Bidirectional | Cache-first text retrieval beneath hard-coded `.cache`; validity is eight hours from creation time. | `CacheManager` | Cache exceptions reached during lazy resolution are generally absorbed by `NameGroup`; type initialisation and unrelated filesystem failures have no dedicated translation. |
 | Stellaris Name-List File | Outbound | Hand-constructed Stellaris assignments, arrays, sequential-name fallbacks, and metadata encoded as UTF-8 with BOM. | `FileContentBuilder`, builders, and `NameListGenerator` | Formatting and write failures propagate and terminate the invocation; a partial filesystem result is not explicitly recovered. |
 
 ## ⚙️ Name Transformation and Stellaris Formatting
 
-[`NamesBuilder`](Service/NamesBuilders/NamesBuilder.cs) centralises the compatibility-sensitive value policy. It removes duplicates, compares selected values without diacritics where required, transliterates or replaces numerous characters, wraps generated array lines at a maximum of 150 characters, and emits either `random_names` values or a `sequential_name` fallback. Specialised builders then map model collections to Stellaris keys and derive categories from generic and specific sources.
+[`NamesBuilder`](Service/NamesBuilders/NamesBuilder.cs) centralises the compatibility-sensitive value policy. It removes duplicates, compares selected values without diacritics where required, wraps generated array lines at a maximum of 150 characters, and emits either `random_names` values or a `sequential_name` fallback. Character transliteration is delegated to [`NameTransliterator`](Service/Text/NameTransliterator.cs), which applies its ordered replacement steps through named methods. Specialised builders then map model collections to Stellaris keys and derive categories from generic and specific sources.
 
 The output body is assembled in a fixed builder order: ship names, ship classes, fleets, armies, planets, and characters. Fleet and army builders can synthesise sequential patterns, while character groups are emitted by identifier and descending weight. [`FileContentBuilder`](Service/FileContentBuilder.cs) also places randomly selected leader, ship, fleet, and colony examples in comment headers. Consequently, comment samples can differ between invocations even when the functional category content is identical.
 
@@ -204,7 +210,7 @@ Filesystem reads and writes execute with the invoker's permissions, and the call
 
 ### Error Handling
 
-Argument parsing, XML access, merge and builder failures, and final output writes have no local exception translation or retry policy; an exception terminates the invocation. Missing alias values explicitly produce `ArgumentNullException`, and invalid Boolean values produce `ArgumentException`. The optional remote branch is the sole degradation path: `NameGroup` catches retrieval exceptions, emits a console message, and continues with explicit values only. The broad catch does not distinguish network, cache, parsing, or cancellation failures.
+Argument parsing, XML access, merge and builder failures, and final output writes have no local exception translation or retry policy; an exception terminates the invocation. Missing alias values explicitly produce `ArgumentNullException`, and invalid Boolean values produce `ArgumentException`. The optional remote branch is the sole degradation path: `NameGroup` catches retrieval exceptions, emits a console message that includes the exception message, and continues with explicit values only. The broad catch does not distinguish network, cache, parsing, or cancellation failures.
 
 ### Observability
 
@@ -220,7 +226,7 @@ There are no structured logs, metrics, traces, health checks, or audit records. 
 
 ### Concurrency and Resource Use
 
-The principal flow is single-threaded and synchronous. The remote adapter uses asynchronous `HttpClient` APIs internally, but `NameGroup` blocks on the resulting task through `.Result`; no cancellation token or application-level request bound is exposed. A static `HttpClient` is reused for the process lifetime.
+The principal flow is single-threaded and synchronous. The remote adapter uses asynchronous `HttpClient` APIs internally, but `NameGroup` blocks on the resulting task through `.Result`; no cancellation token or application-level request bound is exposed. A static `HttpClient` created through `NuciWeb.HTTP`'s `HttpClientCreator` is reused for the process lifetime, and a non-success response status now fails the retrieval and degrades to explicit values only.
 
 All records, merged collections, remote response strings, and generated content are materialised in memory. The implementation applies no explicit input-size or collection bounds. Separate processes can execute concurrently, but `.cache` and caller-selected output paths have no inter-process locking, so corresponding filenames can contend or overwrite one another.
 
@@ -258,6 +264,7 @@ The principal dependency rules are:
 | `NuciCLI` and `NuciCLI.Arguments` | Supply command argument parsing. | `Program` | Parser conduct and accepted canonical syntax depend upon package contracts; local alias normalisation precedes parsing. |
 | `NuciDAL` | Supplies `EntityBase`, `IFileRepository<T>`, and `XmlRepository<T>`. | Models and `Program` composition | XML persistence and model identity are coupled to the package's serialisation and repository contracts. |
 | `NuciExtensions` | Supplies collection and text utility extensions used during name selection and normalisation. | Specialised builders and `NamesBuilder` | Random selection and utility semantics are package-coupled transformation details. |
+| `NuciWeb.HTTP` | Supplies the configured `HttpClient` creation path. | `FileDownloader` | The user-agent and connection configuration are delegated to the package rather than allocated locally. |
 | Remote HTTP Providers | Optionally supply newline-delimited name data. | `NameGroup` through `FileDownloader` | Generation can depend upon network availability unless a valid cache entry or explicit values suffice. |
 | Shell Utilities | Support extraction and XML merging through [extractor.sh](extractor.sh) and [merge.sh](merge.sh). | Operator-invoked scripts | These tools are auxiliary and require a compatible shell environment; they do not execute during normal .NET generation. |
 
@@ -317,7 +324,7 @@ The smoke result must be inspected for a top-level identifier derived from `gene
 - **Append-Only Merge:** Multiple source records are concatenated without entity-level conflict resolution. Duplicate and category filtering occurs later and varies by builder policy.
 - **Hand-Constructed Grammar:** Stellaris text is assembled with `StringBuilder` and formatter methods rather than a syntax tree or external schema, concentrating grammar compatibility in builder code.
 - **Non-Deterministic Headers:** Random comment samples prevent byte-identical results for identical inputs even when the functional name pools have not changed.
-- **Synchronous Remote Resolution:** Lazy URL retrieval blocks the generation thread and provides no caller cancellation, explicit retry, or status validation.
+- **Synchronous Remote Resolution:** Lazy URL retrieval blocks the generation thread and provides no caller cancellation or explicit retry; a non-success response status now raises an exception that degrades to explicit values only.
 - **Cache Identity and Retention:** URL character filtering can produce filename collisions; the eight-hour test uses creation time, and expired files are not eliminated automatically.
 - **Layering Exception:** `NameGroup` directly owns concrete service construction, so downloader and cache substitutions cannot be configured from `Program` despite their interfaces.
 - **Platform-Sensitive Text:** `Environment.NewLine` produces platform-native line separators, while encoding remains explicitly UTF-8 with BOM.

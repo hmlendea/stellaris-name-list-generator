@@ -9,7 +9,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public sealed class ArmyNamesBuilder : NamesBuilder, IArmyNamesBuilder
     {
-        private static readonly IList<string> xenomorphArmyFirstWords =
+        private static readonly string[] XenomorphArmyFirstWords =
         [
             "Abomination",
             "Beast",
@@ -22,7 +22,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             "Xenomorph"
         ];
 
-        private static readonly IList<string> xenomorphArmySecondWords =
+        private static readonly string[] XenomorphArmySecondWords =
         [
             "Brood",
             "Flock",
@@ -38,51 +38,51 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
         public string Build(NameList nameList)
         {
-            StringBuilder sb = new();
-            sb.Append($"{GetIndentation(1)}army_names = {{{Environment.NewLine}");
+            StringBuilder builder = new();
+            builder.Append($"{GetIndentation(1)}army_names = {{{Environment.NewLine}");
 
-            var psionicArmies = GeneratePsionicArmyNames(nameList);
-            var xenomorphArmies = GenerateXenomorphArmyNames(nameList);
+            IEnumerable<NameGroup> psionicArmies = GeneratePsionicArmyNames(nameList);
+            List<NameGroup> xenomorphArmies = GenerateXenomorphArmyNames(nameList);
 
-            StringBuilder innerSb = new();
+            StringBuilder innerContent = new();
 
-            innerSb.Append(BuildNameArray([], "machine_defense", 2, nameList.Armies.DefenceArmySequentialName));
-            innerSb.Append(BuildNameArray([], "machine_assault_1", 2, nameList.Armies.AssaultArmySequentialName));
-            innerSb.Append(BuildNameArray([], "machine_assault_2", 2, nameList.Armies.AssaultArmySequentialName));
-            innerSb.Append(BuildNameArray([], "machine_assault_3", 2, nameList.Armies.AssaultArmySequentialName));
+            innerContent.Append(BuildNameArray([], "machine_defense", 2, nameList.Armies.DefenceArmySequentialName));
+            innerContent.Append(BuildNameArray([], "machine_assault_1", 2, nameList.Armies.AssaultArmySequentialName));
+            innerContent.Append(BuildNameArray([], "machine_assault_2", 2, nameList.Armies.AssaultArmySequentialName));
+            innerContent.Append(BuildNameArray([], "machine_assault_3", 2, nameList.Armies.AssaultArmySequentialName));
 
-            innerSb.Append(BuildNameArray(nameList.Armies.DefenceArmy, "defense_army", 2, nameList.Armies.DefenceArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.AssaultArmy, "assault_army", 2, nameList.Armies.AssaultArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.OccupationArmy, "occupation_army", 2, nameList.Armies.OccupationArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.DefenceArmy, "defense_army", 2, nameList.Armies.DefenceArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.AssaultArmy, "assault_army", 2, nameList.Armies.AssaultArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.OccupationArmy, "occupation_army", 2, nameList.Armies.OccupationArmySequentialName));
 
-            innerSb.Append(BuildNameArray(nameList.Armies.SlaveArmy, "slave_army", 2, nameList.Armies.SlaveArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.CloneArmy, "clone_army", 2, nameList.Armies.CloneArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.PerfectedCloneArmy, "perfected_clone_army", 2, nameList.Armies.PerfectedCloneArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.UndeadArmy, "undead_army", 2, nameList.Armies.UndeadArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.SlaveArmy, "slave_army", 2, nameList.Armies.SlaveArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.CloneArmy, "clone_army", 2, nameList.Armies.CloneArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.PerfectedCloneArmy, "perfected_clone_army", 2, nameList.Armies.PerfectedCloneArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.UndeadArmy, "undead_army", 2, nameList.Armies.UndeadArmySequentialName));
 
-            innerSb.Append(BuildNameArray(nameList.Armies.RoboticDefenceArmy, "robotic_defense_army", 2, nameList.Armies.RoboticDefenceArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.RoboticAssaultArmy, "robotic_army", 2, nameList.Armies.RoboticAssaultArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.RoboticOccupationArmy, "robotic_occupation_army", 2, nameList.Armies.RoboticOccupationArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.AndroidDefenceArmy, "android_defense_army", 2, nameList.Armies.AndroidDefenceArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.AndroidAssaultArmy, "android_army", 2, nameList.Armies.AndroidAssaultArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.RoboticDefenceArmy, "robotic_defense_army", 2, nameList.Armies.RoboticDefenceArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.RoboticAssaultArmy, "robotic_army", 2, nameList.Armies.RoboticAssaultArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.RoboticOccupationArmy, "robotic_occupation_army", 2, nameList.Armies.RoboticOccupationArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.AndroidDefenceArmy, "android_defense_army", 2, nameList.Armies.AndroidDefenceArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.AndroidAssaultArmy, "android_army", 2, nameList.Armies.AndroidAssaultArmySequentialName));
 
-            innerSb.Append(BuildNameArray(psionicArmies, "psionic_army", 2, nameList.Armies.PsionicArmySequentialName));
-            innerSb.Append(BuildNameArray(xenomorphArmies, "xenomorph_army", 2, nameList.Armies.XenomorphArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.SuperSoldierArmy, "gene_warrior_army", 2, nameList.Armies.SuperSoldierArmySequentialName));
+            innerContent.Append(BuildNameArray(psionicArmies, "psionic_army", 2, nameList.Armies.PsionicArmySequentialName));
+            innerContent.Append(BuildNameArray(xenomorphArmies, "xenomorph_army", 2, nameList.Armies.XenomorphArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.SuperSoldierArmy, "gene_warrior_army", 2, nameList.Armies.SuperSoldierArmySequentialName));
 
-            innerSb.Append(BuildNameArray(nameList.Armies.PrimitiveArmy, "primitive_army", 2, nameList.Armies.PrimitiveArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.IndustrialArmy, "industrial_army", 2, nameList.Armies.IndustrialArmySequentialName));
-            innerSb.Append(BuildNameArray(nameList.Armies.PostAtomicArmy, "postatomic_army", 2, nameList.Armies.PostAtomicArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.PrimitiveArmy, "primitive_army", 2, nameList.Armies.PrimitiveArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.IndustrialArmy, "industrial_army", 2, nameList.Armies.IndustrialArmySequentialName));
+            innerContent.Append(BuildNameArray(nameList.Armies.PostAtomicArmy, "postatomic_army", 2, nameList.Armies.PostAtomicArmySequentialName));
 
-            if (innerSb.Length == 0)
+            if (innerContent.Length == 0)
             {
                 return string.Empty;
             }
 
-            sb.Append(innerSb);
-            sb.Append($"{GetIndentation(1)}}}{Environment.NewLine}");
+            builder.Append(innerContent);
+            builder.Append($"{GetIndentation(1)}}}{Environment.NewLine}");
 
-            return sb.ToString();
+            return builder.ToString();
         }
 
         private static IEnumerable<NameGroup> GeneratePsionicArmyNames(NameList nameList)
@@ -91,13 +91,13 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(nameList.BiosphereNames.MythologicalCreatures
                     .SelectMany(x => new List<NameGroup>
                     {
-                        new() { Name = $"Commandos - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Commando")] },
-                        new() { Name = $"Covert Ops - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Covert Ops")] },
-                        new() { Name = $"Divisions - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Division")] },
-                        new() { Name = $"Elite Corps - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Elite Corps")] },
-                        new() { Name = $"Legions - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Legion")] },
-                        new() { Name = $"Platoons - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Platoon")] },
-                        new() { Name = $"Squadrons - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Squadron")] },
+                        new() { Name = "Commandos - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Commando")] },
+                        new() { Name = "Covert Ops - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Covert Ops")] },
+                        new() { Name = "Divisions - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Division")] },
+                        new() { Name = "Elite Corps - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Elite Corps")] },
+                        new() { Name = "Legions - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Legion")] },
+                        new() { Name = "Platoons - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Platoon")] },
+                        new() { Name = "Squadrons - Mythological creatures", ExplicitValues = [.. x.Values.Select(y => $"{y} Squadron")] },
                     }));
 
             return psionicArmyNames;
@@ -106,7 +106,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
         private static List<NameGroup> GenerateXenomorphArmyNames(NameList nameList)
         {
             List<NameGroup> xenomorphArmies = [.. nameList.Armies.XenomorphArmy];
-            var deitiesForXenomorph = nameList.GreatPeople.DeathDeities
+            List<NameGroup> deitiesForXenomorph = nameList.GreatPeople.DeathDeities
                 .Concat(nameList.GreatPeople.HatredDeities)
                 .Concat(nameList.GreatPeople.FearDeities)
                 .Concat(nameList.GreatPeople.SorrowDeities)
@@ -114,25 +114,22 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 .Concat(nameList.GreatPeople.DarknessDeities)
                 .ToList();
 
-            List<NameGroup> newGroups = [];
-
-            foreach (var firstWord in xenomorphArmyFirstWords)
+            foreach (string firstWord in XenomorphArmyFirstWords)
             {
-                foreach (var secondWord in xenomorphArmySecondWords)
+                foreach (string secondWord in XenomorphArmySecondWords)
                 {
-                    var secondWordPlural = $"{secondWord}s".Replace("ss", "s");
-
-                    newGroups.Add(
-                        GenerateUnifiedNameGroup(deitiesForXenomorph,
-                        $"{firstWord} {secondWordPlural}",
+                    xenomorphArmies.Add(
+                        BuildUnifiedNameGroup(deitiesForXenomorph,
+                        $"{firstWord} {Pluralise(secondWord)}",
                         "Deities",
                         $"{{0}}'s {firstWord} {secondWord}")
                     );
                 }
             }
-            xenomorphArmies.AddRange(newGroups);
 
             return xenomorphArmies;
         }
+
+        private static string Pluralise(string word) => $"{word}s".Replace("ss", "s");
     }
 }

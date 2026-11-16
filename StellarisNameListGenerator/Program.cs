@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using NuciCLI.Arguments;
 using NuciDAL.Repositories;
@@ -10,123 +9,78 @@ using StellarisNameListGenerator.Service.NamesBuilders;
 
 namespace StellarisNameListGenerator
 {
-    public class Program
+    public sealed class Program
     {
-        private const string InputArgument = "input";
-        private const string OutputArgument = "output";
-        private const string NameArgument = "name";
-        private const string LockedArgument = "locked";
+        private static string InputArgument => "input";
+        private static string OutputArgument => "output";
+        private static string NameArgument => "name";
+        private static string LockedArgument => "locked";
 
         /// <summary>
         /// The entry point of the program, where the program control starts and ends.
         /// </summary>
-        /// <param name="args">CLI arguments</param>
+        /// <param name="args">The command line arguments.</param>
         public static void Main(string[] args)
         {
-            string[] normalizedArgs = NormalizeArguments(args);
-
             ArgumentParser argumentParser = new();
             argumentParser.AddArgument(InputArgument, required: true);
             argumentParser.AddArgument(OutputArgument, required: true);
             argumentParser.AddArgument(NameArgument, required: true);
             argumentParser.AddArgument(LockedArgument, defaultValue: false);
 
-            ArgumentsCollection parsedArgs = argumentParser.ParseArgs(normalizedArgs);
+            ArgumentsCollection parsedArguments = argumentParser.ParseArgs(ArgumentNormaliser.Normalise(args));
 
-            string inputFilePath = parsedArgs.Get<string>(InputArgument);
-            string outputFilePath = parsedArgs.Get<string>(OutputArgument);
-            string namelistName = parsedArgs.Get<string>(NameArgument);
-            bool isLocked = ReadBool(parsedArgs.Get<object>(LockedArgument));
+            GenerateNameList(parsedArguments);
+        }
 
-            IShipNamesBuilder shipNamesBuilder = new ShipNamesBuilder();
-            IShipClassNamesBuilder shipClassNamesBuilder = new ShipClassNamesBuilder();
-            IFleetNamesBuilder fleetnamesBuilder = new FleetNamesBuilder();
-            IArmyNamesBuilder armyNamesBuilder = new ArmyNamesBuilder();
-            IPlanetNamesBuilder planetNamesBuilder = new PlanetNamesBuilder();
-            ICharacterNamesBuilder characterNamesBuilder = new CharacterNamesBuilder();
+        private static void GenerateNameList(ArgumentsCollection parsedArguments)
+        {
+            string inputFilePath = parsedArguments.Get<string>(InputArgument);
+            string outputFilePath = parsedArguments.Get<string>(OutputArgument);
+            string nameListName = parsedArguments.Get<string>(NameArgument);
+            bool isLocked = ReadBool(parsedArguments.Get<object>(LockedArgument));
 
+            INameListGenerator nameListGenerator = BuildNameListGenerator(inputFilePath);
+
+            nameListGenerator.Generate(outputFilePath, nameListName, isLocked);
+        }
+
+        private static INameListGenerator BuildNameListGenerator(string inputFilePath)
+        {
             IFileContentBuilder fileContentBuilder = new FileContentBuilder(
-                shipNamesBuilder,
-                shipClassNamesBuilder,
-                fleetnamesBuilder,
-                armyNamesBuilder,
-                planetNamesBuilder,
-                characterNamesBuilder);
+                new ShipNamesBuilder(),
+                new ShipClassNamesBuilder(),
+                new FleetNamesBuilder(),
+                new ArmyNamesBuilder(),
+                new PlanetNamesBuilder(),
+                new CharacterNamesBuilder());
 
             IFileRepository<NameList> nameListRepository = new XmlRepository<NameList>(inputFilePath);
-            INameListGenerator nameListGenerator = new NameListGenerator(fileContentBuilder, nameListRepository);
 
-            nameListGenerator.Generate(outputFilePath, namelistName, isLocked);
-        }
-
-        private static string[] NormalizeArguments(string[] args)
-        {
-            List<string> normalized = [];
-
-            for (int i = 0; i < args.Length; i++)
-            {
-                string current = args[i];
-
-                if (current is "-i" or "--input")
-                {
-                    normalized.Add($"--{InputArgument}");
-                    normalized.Add(ReadNextValue(args, ref i, InputArgument));
-                    continue;
-                }
-
-                if (current is "-o" or "--output")
-                {
-                    normalized.Add($"--{OutputArgument}");
-                    normalized.Add(ReadNextValue(args, ref i, OutputArgument));
-                    continue;
-                }
-
-                if (current is "-n" or "--name")
-                {
-                    normalized.Add($"--{NameArgument}");
-                    normalized.Add(ReadNextValue(args, ref i, NameArgument));
-                    continue;
-                }
-
-                if (current is "-l" or "--locked")
-                {
-                    normalized.Add($"--{LockedArgument}");
-
-                    if (i + 1 < args.Length && !args[i + 1].StartsWith('-'))
-                    {
-                        normalized.Add(args[++i]);
-                    }
-                    else
-                    {
-                        normalized.Add("true");
-                    }
-
-                    continue;
-                }
-
-                normalized.Add(current);
-            }
-
-            return [.. normalized];
-        }
-
-        private static string ReadNextValue(string[] args, ref int index, string argumentName)
-        {
-            if (index + 1 >= args.Length)
-            {
-                throw new ArgumentNullException(argumentName);
-            }
-
-            return args[++index];
+            return new NameListGenerator(fileContentBuilder, nameListRepository);
         }
 
         private static bool ReadBool(object value)
-            => value switch
+        {
+            if (value is null)
             {
-                bool boolValue => boolValue,
-                string stringValue when bool.TryParse(stringValue, out bool parsedValue) => parsedValue,
-                null => false,
-                _ => throw new ArgumentException($"Invalid boolean value: '{value}'")
-            };
+                return false;
+            }
+
+            if (value is bool boolValue)
+            {
+                return boolValue;
+            }
+
+            if (value is string stringValue)
+            {
+                if (bool.TryParse(stringValue, out bool parsedValue))
+                {
+                    return parsedValue;
+                }
+            }
+
+            throw new ArgumentException($"Invalid boolean value: '{value}'", nameof(value));
+        }
     }
 }
