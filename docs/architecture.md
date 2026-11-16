@@ -406,7 +406,7 @@ The principal dependency rules are:
 Execute the principal automated verification with:
 
 ```bash
-dotnet test StellarisNameListGenerator.UnitTests/StellarisNameListGenerator.UnitTests.csproj --verbosity normal
+dotnet test StellarisNameListGenerator.slnx --verbosity normal
 ```
 
 Test boundaries:
@@ -417,11 +417,19 @@ Test boundaries:
 - `CharacterNamesTests`: Tests IsEmpty, gender-specific groups
 - `PlaceNamesTests`: Tests WaterBodies, GeographicalPlaces concatenation
 - `OtherModelTests`: Tests all model default initializations
+- `CommandLineTests`: Tests argument aliases, the lock flag, argument validation, and input failure modes end-to-end
+- `NameListGenerationTests`: Tests file envelope, encoding, identifier derivation, category ordering, overwrite, and merging end-to-end
+- `NameListFormattingTests`: Tests per-builder grammar, quoting, sorting, exclusions, derived names, and sequential fallbacks
+- `CharacterNameGenerationTests`: Tests character ordering, empty groups, duplicate identifiers, and missing identifiers
+- `NameTransliterationTests`: Tests diacritic removal, transliterated deduplication, and quoting of spaced names
+- `RemoteNameResolutionTests`: Tests degradation when a URL source is unusable and the cache-directory contract
+- `DependencyRuleTests`, `ProjectAndSolutionTests`, `SourceFileConventionTests`: Architecture and fitness tests
 
 Material coverage gaps:
-- No integration tests for end-to-end generation
+- No golden-file comparison against a captured Stellaris reference output
+- Remote name resolution is only exercised against unusable URLs; the static downloader is not stubbed for a successful download
 - No UI or manual verification procedures documented
-- Builder-specific formatting edge cases not exhaustively tested
+
 
 ## ⚠️ Design Constraints
 
@@ -478,7 +486,9 @@ No migration phases are planned.
 | Application Services | `StellarisNameListGenerator/Service/` |
 | Domain Models | `StellarisNameListGenerator/Models/` |
 | Names Builders | `StellarisNameListGenerator/Service/NamesBuilders/` |
-| Test Project | `StellarisNameListGenerator.UnitTests/` |
+| Unit Test Project | `StellarisNameListGenerator.UnitTests/` |
+| Integration Test Project | `StellarisNameListGenerator.IntegrationTests/` |
+| Architecture Test Project | `StellarisNameListGenerator.ArchitectureTests/` |
 
 ## 📚 Related Documentation
 

@@ -16,8 +16,10 @@ stellaris-name-list-generator/
 ├── extractor.sh                 # Name extraction helper script
 ├── merge.sh                     # Name list merging helper script
 ├── docs/                        # This documentation set
-├── StellarisNameListGenerator/         # Main application project
-└── StellarisNameListGenerator.UnitTests/  # Unit test project
+├── StellarisNameListGenerator/                        # Main application project
+├── StellarisNameListGenerator.ArchitectureTests/      # Architecture and fitness tests
+├── StellarisNameListGenerator.IntegrationTests/       # End-to-end generation tests
+└── StellarisNameListGenerator.UnitTests/              # Unit test project
 ```
 
 ## Main Project: `StellarisNameListGenerator/`
@@ -83,7 +85,43 @@ StellarisNameListGenerator.UnitTests/
 │   └── PlaceNamesTests.cs
 └── Service/
     ├── FileContentBuilderTests.cs
-    └── NameListGeneratorTests.cs
+    ├── NameListGeneratorTests.cs
+    └── NameTransliteratorTests.cs
+```
+
+## Integration Test Project: `StellarisNameListGenerator.IntegrationTests/`
+
+```
+StellarisNameListGenerator.IntegrationTests/
+├── StellarisNameListGenerator.IntegrationTests.csproj
+├── CommandLineTests.cs               # Argument aliases, lock flag, validation, failure modes
+├── NameListGenerationTests.cs        # Envelope, encoding, identifier, ordering, overwrite
+├── NameListFormattingTests.cs        # Per-builder grammar, quoting, sorting, exclusions
+├── CharacterNameGenerationTests.cs   # Character ordering, empty groups, duplicate identifiers
+├── NameTransliterationTests.cs       # Diacritic removal, transliterated dedup, quoting
+├── RemoteNameResolutionTests.cs      # Unusable URL degradation, cache-directory contract
+├── Fixtures/
+│   └── NameListFixtures.cs           # Canonical XML inputs and shared expected values
+└── Tools/
+    ├── GeneratorEnvironment.cs       # Isolated temporary working directory per invocation
+    ├── GeneratedNameList.cs          # Structured access to generated output
+    ├── NameListGeneratorCli.cs       # In-process command line invocation
+    ├── NameListXml.cs                # XML document construction helpers
+    └── TemporaryDirectory.cs         # Portable temporary directory lifecycle
+```
+
+## Architecture Test Project: `StellarisNameListGenerator.ArchitectureTests/`
+
+```
+StellarisNameListGenerator.ArchitectureTests/
+├── StellarisNameListGenerator.ArchitectureTests.csproj
+├── DependencyRuleTests.cs            # Layer dependency boundaries
+├── ProjectAndSolutionTests.cs        # Project, solution, and packaging conventions
+├── SourceFileConventionTests.cs      # One type per file, naming, namespaces
+└── Infrastructure/
+    ├── SourceFileLoader.cs
+    ├── SourceFileSyntax.cs
+    └── SourcePathResolver.cs
 ```
 
 ## Shell Scripts

@@ -34,6 +34,9 @@ Predefined tasks in `.vscode/tasks.json` (via `tasks.json` generation):
 | `build` | `dotnet build` | Debug build |
 | `publish` | `dotnet publish` | Release publish |
 | `watch` | `dotnet watch run` | Hot reload development |
+| `test` | `dotnet test` | Run every test project in the solution |
+| `test-unit` | `dotnet test` | Run the unit tests only |
+| `test-integration` | `dotnet test` | Run the integration tests only |
 
 ## Project Structure
 
@@ -45,6 +48,13 @@ StellarisNameListGenerator.slnx
 │   ├── Models/
 │   ├── Service/
 │   └── Service/NamesBuilders/
+├── StellarisNameListGenerator.ArchitectureTests/
+│   ├── StellarisNameListGenerator.ArchitectureTests.csproj
+│   └── Infrastructure/
+├── StellarisNameListGenerator.IntegrationTests/
+│   ├── StellarisNameListGenerator.IntegrationTests.csproj
+│   ├── Fixtures/
+│   └── Tools/
 └── StellarisNameListGenerator.UnitTests/
     ├── StellarisNameListGenerator.UnitTests.csproj
     ├── Models/
@@ -56,8 +66,10 @@ StellarisNameListGenerator.slnx
 ```xml
 <!-- StellarisNameListGenerator.slnx -->
 <Solution>
-  <Project Name="StellarisNameListGenerator" Path="StellarisNameListGenerator/StellarisNameListGenerator.csproj" />
-  <Project Name="StellarisNameListGenerator.UnitTests" Path="StellarisNameListGenerator.UnitTests/StellarisNameListGenerator.UnitTests.csproj" />
+  <Project Path="StellarisNameListGenerator/StellarisNameListGenerator.csproj" />
+  <Project Path="StellarisNameListGenerator.ArchitectureTests/StellarisNameListGenerator.ArchitectureTests.csproj" />
+  <Project Path="StellarisNameListGenerator.IntegrationTests/StellarisNameListGenerator.IntegrationTests.csproj" />
+  <Project Path="StellarisNameListGenerator.UnitTests/StellarisNameListGenerator.UnitTests.csproj" />
 </Solution>
 ```
 

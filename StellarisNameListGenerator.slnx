@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="StellarisNameListGenerator/StellarisNameListGenerator.csproj" />
   <Project Path="StellarisNameListGenerator.ArchitectureTests/StellarisNameListGenerator.ArchitectureTests.csproj" />
+  <Project Path="StellarisNameListGenerator.IntegrationTests/StellarisNameListGenerator.IntegrationTests.csproj" />
   <Project Path="StellarisNameListGenerator.UnitTests/StellarisNameListGenerator.UnitTests.csproj" />
 </Solution>

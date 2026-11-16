@@ -163,12 +163,13 @@ This document records key architectural and implementation decisions made during
 
 **Context**: Choose testing framework.
 
-**Decision**: NUnit 3.14.0 with Moq 4.20.72.
+**Decision**: NUnit 5.0.0 with Moq 4.21.0 for unit tests, NUnit 5.0.0 with FluentAssertions 8.11.0 for integration tests, and NUnit 5.0.0 with ArchUnitNET for architecture tests. All previously chosen alternatives follow the NUnit family so a single runner discovers every project.
 
 **Consequences**:
 - ✅ Mature, well-documented
 - ✅ Good VS Code integration
 - ✅ Parameterized tests via TestCase
+- ✅ One runner and one assertion model across every test project
 - ❌ xUnit more popular in .NET ecosystem
 - ❌ Moq has some limitations with non-virtual methods
 

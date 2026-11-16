@@ -134,7 +134,7 @@ This document records known uncertainties, unresolved questions, and areas requi
 
 **Impact**: Silent data loss or incorrect deserialization.
 
-**Status**: Works for known examples. Edge cases untested.
+**Status**: Works for known examples, and the integration suite now covers unmapped elements, multi-record merging, and absent record identifiers. Categories not exercised by `Fixtures/NameListFixtures.cs` remain unverified.
 
 ### AMB-012: Large File Handling
 

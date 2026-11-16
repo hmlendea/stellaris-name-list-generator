@@ -296,7 +296,7 @@ Repository CI in [.github/workflows/dotnet.yml](.github/workflows/dotnet.yml) re
 
 ## ✅ Testing and Verification
 
-The repository contains no test project or automated test source files. The CI workflow nevertheless executes `dotnet test`, which currently provides compilation/project validation rather than demonstrated behavioural coverage. Architecture-sensitive modifications require at minimum a successful restore and build plus generation from the example XML. CLI aliases, multi-record merging, URL/cache degradation, empty collections, normalisation, category mappings, encoding, and Stellaris acceptance remain material coverage gaps.
+The repository contains three test projects: `StellarisNameListGenerator.UnitTests` (model and service behaviour), `StellarisNameListGenerator.IntegrationTests` (end-to-end generation through the command line entry point), and `StellarisNameListGenerator.ArchitectureTests` (dependency, project, solution, and source-file conventions). The integration project invokes the generator in-process inside an isolated temporary working directory, so URL caching and generated files never touch the repository.
 
 Execute the principal automated verification with:
 
@@ -316,7 +316,8 @@ dotnet run --no-build -- \
   --locked true
 ```
 
-The smoke result must be inspected for a top-level identifier derived from `generated_name_list.txt`, `randomized = no`, expected builder sections, and UTF-8 BOM encoding. Stellaris ingestion remains a specialised manual verification until a representative parser or golden-output suite is introduced.
+The smoke result must be inspected for a top-level identifier derived from `generated_name_list.txt`, `randomized = no`, expected builder sections, and UTF-8 BOM encoding. Stellaris ingestion remains a specialised manual verification; the integration suite asserts the generated grammar structure, quoting, transliteration, category ordering, and failure modes, but not game acceptance. Remote name resolution is exercised only against deliberately unusable URLs, because the downloader is a process-wide static dependency that cannot be substituted from the command line boundary.
+
 
 ## ⚠️ Design Constraints
 
