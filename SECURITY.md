@@ -8,6 +8,7 @@ This project follows coordinated disclosure for security vulnerabilities. Mainta
 - [Reporting a Vulnerability](#reporting-a-vulnerability)
 - [Scope](#scope)
 - [Disclosure Policy](#disclosure-policy)
+- [Automated Security Scanning](#automated-security-scanning)
 - [Safe Harbour](#safe-harbour)
 - [Recognition](#recognition)
 
@@ -51,6 +52,14 @@ This project follows coordinated disclosure:
 2. A remediation plan is prepared and validated.
 3. Public disclosure is published after a fix, mitigation, or agreed risk decision is available.
 4. Credit is attributed in accordance with reporter preference and project policy.
+
+## 🔍 Automated Security Scanning
+
+This repository runs automated security scans on pushes, pull requests targeting `master`, and a weekly schedule. The scan includes:
+- **Static analysis** CodeQL inspects the C# sources for security weaknesses.
+- **Dependency auditing** `dotnet list package --vulnerable --include-transitive` reports packages with known vulnerabilities, including transitive dependencies.
+
+Results are published to the [Security](https://github.com/hmlendea/stellaris-name-list-generator/security) tab and the [Actions](https://github.com/hmlendea/stellaris-name-list-generator/actions/workflows/security.yml) workflow page.
 
 ## 🧾 Safe Harbour
 
