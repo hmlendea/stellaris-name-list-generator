@@ -222,8 +222,12 @@ Update all Nuci packages together (they're version-locked as a set):
 
 ```xml
 <!-- StellarisNameListGenerator.UnitTests.csproj -->
-<PackageReference Include="NUnit" Version="3.14.0" />
-<PackageReference Include="Moq" Version="4.20.72" />
+<PackageReference Include="NUnit" Version="5.0.0" />
+<PackageReference Include="Moq" Version="4.21.0" />
+
+<!-- StellarisNameListGenerator.IntegrationTests.csproj -->
+<PackageReference Include="FluentAssertions" Version="8.11.0" />
+<PackageReference Include="NUnit" Version="5.0.0" />
 ```
 
 ### Validation After Update
@@ -239,6 +243,12 @@ Update all Nuci packages together (they're version-locked as a set):
 ```
 StellarisNameListGenerator.UnitTests
     └── StellarisNameListGenerator (project reference)
+
+StellarisNameListGenerator.IntegrationTests
+    └── StellarisNameListGenerator (project reference)
+
+StellarisNameListGenerator.ArchitectureTests
+    └── StellarisNameListGenerator (project reference)
 ```
 
 ### Namespace Organization
@@ -251,6 +261,9 @@ StellarisNameListGenerator.UnitTests
 | `StellarisNameListGenerator.Service.NamesBuilders` | Main | Category formatters |
 | `StellarisNameListGenerator.UnitTests.Models` | Tests | Model tests |
 | `StellarisNameListGenerator.UnitTests.Service` | Tests | Service tests |
+| `StellarisNameListGenerator.IntegrationTests` | Tests | End-to-end generation tests |
+| `StellarisNameListGenerator.IntegrationTests.Fixtures` | Tests | Canonical input documents |
+| `StellarisNameListGenerator.IntegrationTests.Tools` | Tests | Generation and parsing helpers |
 
 ## Dependency Rules
 

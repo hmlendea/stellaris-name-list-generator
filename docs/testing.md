@@ -2,7 +2,7 @@
 
 ## Overview
 
-The project uses **NUnit 3.14.0** with **Moq 4.20.72** for mocking. Tests are organized by layer: model tests in `Models/` and service tests in `Service/`.
+The project uses **NUnit** with **Moq** for mocking. Tests are grouped into three projects: `StellarisNameListGenerator.UnitTests` (model and service behaviour in isolation), `StellarisNameListGenerator.IntegrationTests` (end-to-end generation through the command line entry point), and `StellarisNameListGenerator.ArchitectureTests` (dependency, project, solution, and source-file conventions).
 
 ## Test Structure
 
@@ -10,14 +10,39 @@ The project uses **NUnit 3.14.0** with **Moq 4.20.72** for mocking. Tests are or
 StellarisNameListGenerator.UnitTests/
 ├── StellarisNameListGenerator.UnitTests.csproj
 ├── Models/
-│   ├── CharacterNamesTests.cs      # 5 tests
-│   ├── NameGroupTests.cs           # 6 tests
-│   ├── NameListTests.cs            # 7 tests
-│   ├── OtherModelTests.cs          # 10 tests (all models)
-│   └── PlaceNamesTests.cs          # 2 tests
+│   ├── CharacterNamesTests.cs
+│   ├── NameGroupTests.cs
+│   ├── NameListTests.cs
+│   ├── OtherModelTests.cs
+│   └── PlaceNamesTests.cs
 └── Service/
-    ├── FileContentBuilderTests.cs  # 5 tests
-    └── NameListGeneratorTests.cs    # 4 tests
+    ├── FileContentBuilderTests.cs
+    ├── NameListGeneratorTests.cs
+    └── NameTransliteratorTests.cs
+
+StellarisNameListGenerator.IntegrationTests/
+├── StellarisNameListGenerator.IntegrationTests.csproj
+├── CommandLineTests.cs
+├── NameListGenerationTests.cs
+├── NameListFormattingTests.cs
+├── CharacterNameGenerationTests.cs
+├── NameTransliterationTests.cs
+├── RemoteNameResolutionTests.cs
+├── Fixtures/
+│   └── NameListFixtures.cs
+└── Tools/
+    ├── GeneratorEnvironment.cs
+    ├── GeneratedNameList.cs
+    ├── NameListGeneratorCli.cs
+    ├── NameListXml.cs
+    └── TemporaryDirectory.cs
+
+StellarisNameListGenerator.ArchitectureTests/
+├── StellarisNameListGenerator.ArchitectureTests.csproj
+├── DependencyRuleTests.cs
+├── ProjectAndSolutionTests.cs
+├── SourceFileConventionTests.cs
+└── Infrastructure/
 ```
 
 ## Running Tests
@@ -25,15 +50,20 @@ StellarisNameListGenerator.UnitTests/
 ### Command Line
 
 ```bash
-dotnet test StellarisNameListGenerator.UnitTests/StellarisNameListGenerator.UnitTests.csproj --verbosity normal
+# Everything in the solution
+dotnet test StellarisNameListGenerator.slnx --verbosity normal
+
+# A single project
+dotnet test StellarisNameListGenerator.IntegrationTests/StellarisNameListGenerator.IntegrationTests.csproj --verbosity normal
 ```
 
 ### VS Code Tasks
 
 | Task | Command | Purpose |
 |------|---------|---------|
-| `test` | `dotnet test --no-build -c Release` | Run all tests |
-| `test-unit` | `dotnet test --no-build -c Release --filter "FullyQualifiedName~Unit"` | Unit tests only |
+| `test` | `dotnet test` | Run every test project in the solution |
+| `test-unit` | `dotnet test` | Run the unit tests only |
+| `test-integration` | `dotnet test` | Run the integration tests only |
 
 ### CI Workflow
 
@@ -194,36 +224,34 @@ Note: Most tests use real implementations (not mocks) since the services are sim
 |-------|----------|-------|
 | Models | High | All models tested for defaults, merging, URL behavior |
 | Services | Medium | Merge, build, write tested; download not directly tested |
-| Builders | Low | Indirectly tested via FileContentBuilder tests |
-| Presentation | None | Not unit tested (integration tested via CLI) |
+| Builders | High | Directly covered end-to-end by `NameListFormattingTests` |
+| Presentation | High | `CommandLineTests` exercises argument parsing, validation, and failure modes |
+| Encoding and grammar | High | `NameListGenerationTests` asserts the UTF-8 preamble, line endings, identifier derivation, and category ordering |
 
 ### Gaps
 
-1. **No integration tests**: End-to-end generation from CLI to file not tested
-2. **No UI tests**: No GUI or manual verification procedures
-3. **Builder edge cases**: Exhaustive testing of Unicode normalization, dedup logic not done
-4. **Download flow**: CacheManager and FileDownloader not directly unit tested
-5. **Error paths**: Exception handling for malformed XML, network errors not tested
-6. **Performance**: No performance benchmarks or load tests
+1. **Golden files**: No comparison against a captured Stellaris reference output
+2. **Successful remote download**: `FileDownloader`/`CacheManager` cannot be stubbed from the command line boundary, so only the degradation path is covered
+3. **Stellaris acceptance**: Game ingestion is verified manually, not automatically
+4. **Performance**: No performance benchmarks or load tests
 
 ### Recommended Additional Tests
 
 ```csharp
-// Integration test example
+// Golden-file comparison
 [Test]
-public async Task GenerateAsync_EndToEnd_ProducesValidOutput()
+public void GivenRichDocument_WhenGenerating_ThenOutputMatchesTheGoldenFile()
 {
-    // Create temp input XML
-    // Run generator
-    // Validate output format (Paradox script syntax)
+    Assert.That(
+        environment.GenerateRichDocument("nucilandia.txt"),
+        Is.EqualTo(expectedGoldenContent));
 }
 
-// Builder edge case
+// Successful remote download (requires a stubbable downloader)
 [Test]
-public void ProcessName_WhenSpecialCharacters_ThenNormalized()
+public void GivenReachableUrl_WhenGenerating_ThenDownloadedNamesAreMerged()
 {
-    string result = NameTransliterator.ProcessName("Café résumé naïve");
-    Assert.That(result, Does.Not.Contain("é")); // Should be normalized
+    Assert.That(output.BlockContains("ship_names", "generic", "Downloaded"), Is.True);
 }
 ```
 
@@ -276,16 +304,16 @@ Test results uploaded as artifact:
 
 ## Test Data
 
-No external test data files. Tests create in-memory objects and use real file I/O for output verification. The `exampleNameList.xml` in the repository root serves as documentation but is not used as test fixture.
+The unit tests construct in-memory model objects. The integration tests build XML documents through `Tools/NameListXml.cs` and the canonical inputs in `Fixtures/NameListFixtures.cs`, writing each document into a private temporary directory. No external data file is required, so the suite is cross-platform, environment-independent, and machine-independent.
 
 ## Test Execution Time
 
 | Command | Time |
 |---------|------|
-| `dotnet test` | ~2-5 seconds |
-| `dotnet test --filter "FullyQualifiedName~Unit"` | ~1-3 seconds |
-| `dotnet test --filter "FullyQualifiedName~Models"` | ~1-2 seconds |
-| `dotnet test --filter "FullyQualifiedName~Service"` | ~1-2 seconds |
+| `dotnet test StellarisNameListGenerator.slnx` | ~5 seconds |
+| `dotnet test ...IntegrationTests.csproj` | ~4 seconds |
+| `dotnet test ...UnitTests.csproj` | ~1 second |
+| `dotnet test ...ArchitectureTests.csproj` | ~1 second |
 
 ## Test Maintenance
 
@@ -295,3 +323,4 @@ When adding new models or builders:
 3. Update `FileContentBuilderTests` if builder order changes
 4. Update `NameListGeneratorTests` if merge behavior changes
 5. Update `OtherModelTests` if new model needs default initialization test
+6. Extend `Fixtures/NameListFixtures.cs` and the matching integration fixture if the generated grammar changes

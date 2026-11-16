@@ -165,7 +165,7 @@ Releases are published from the GitHub interface. Publishing a release triggers 
 
 ## 🗂️ Project Structure
 
-The repository contains one .NET console project with domain models and generation services.
+The repository contains one .NET console project, accompanied by unit, integration, and architecture test projects.
 
 ### Directories
 
@@ -175,6 +175,9 @@ The repository contains one .NET console project with domain models and generati
 | `Service/` | Generation, content construction, download, and cache services. |
 | `Service/NamesBuilders/` | Category-specific Stellaris name-format builders. |
 | `Service/Text/` | Unicode-to-Stellaris character conversion. |
+| `StellarisNameListGenerator.UnitTests/` | Model and service behaviour tests. |
+| `StellarisNameListGenerator.IntegrationTests/` | End-to-end generation tests through the command line entry point. |
+| `StellarisNameListGenerator.ArchitectureTests/` | Dependency, project, solution, and source-file convention tests. |
 | `.github/workflows/` | Continuous-integration, security-scanning, and release workflow definitions. |
 
 ## 🏗️ Architecture
