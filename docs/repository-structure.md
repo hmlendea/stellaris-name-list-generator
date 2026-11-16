@@ -15,7 +15,6 @@ stellaris-name-list-generator/
 ├── exampleNameList.xml          # Example XML input
 ├── extractor.sh                 # Name extraction helper script
 ├── merge.sh                     # Name list merging helper script
-├── release.sh                   # Release helper script
 ├── docs/                        # This documentation set
 ├── StellarisNameListGenerator/         # Main application project
 └── StellarisNameListGenerator.UnitTests/  # Unit test project
@@ -89,7 +88,6 @@ StellarisNameListGenerator.UnitTests/
 |--------|---------|
 | `extractor.sh` | Extracts names from existing Stellaris name lists into XML |
 | `merge.sh` | Merges multiple name list XML files |
-| `release.sh` | Automates release packaging |
 
 ## Naming Conventions
 

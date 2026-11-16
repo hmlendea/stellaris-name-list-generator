@@ -28,12 +28,15 @@ Generate Stellaris-compatible name-list text from structured XML sources.
   - [Continuous Integration](#continuous-integration)
   - [Release](#release)
   - [Dependencies](#dependencies)
+- [GitHub Actions](#github-actions)
 - [Project Structure](#project-structure)
   - [Directories](#directories)
 - [Architecture](#architecture)
+- [Documentation](#documentation)
 - [Contributing](#contributing)
-- [Project Engagement](#project-engagement)
-- [License](#license)
+- [Code of Conduct](#code-of-conduct)
+- [Security](#security)
+- [Support](#support)
 
 ## ✨ Capabilities
 
@@ -139,15 +142,7 @@ The GitHub Actions workflow restores dependencies, builds the project, and execu
 
 ### Release
 
-The repository includes `release.sh`, which delegates to the upstream deployment script used by the project maintainer.
-
-```bash
-bash ./release.sh 3.4.3
-```
-
-This script downloads and executes an external release helper from `https://raw.githubusercontent.com/hmlendea/deployment-scripts/master/release/dotnet/10.0.sh`.
-
-**Note:** Piping into `bash` is an intensely controversial topic. Please review any external scripts before running them in your environment!
+Releases are published from the GitHub interface. Publishing a release triggers the [GitHub Release workflow](https://github.com/hmlendea/stellaris-name-list-generator/blob/master/.github/workflows/github-release.yml), which builds self-contained artefacts for the supported runtime identifiers and attaches them to the published release.
 
 ### Dependencies
 
@@ -157,6 +152,13 @@ This script downloads and executes an external release helper from `https://raw.
 | `NuciCLI.Arguments` | 1.0.1 | Runtime | Command argument parsing. |
 | `NuciDAL` | 3.0.1 | Runtime | XML repository access. |
 | `NuciExtensions` | 5.3.1 | Runtime | Collection and text utilities. |
+
+## ⚙️ GitHub Actions
+
+| Workflow | Purpose | What it does |
+|----------|---------|--------------|
+| [ .NET ](https://github.com/hmlendea/stellaris-name-list-generator/blob/master/.github/workflows/dotnet.yml) | Continuous integration | Determines the .NET version, restores dependencies, builds the solution, and runs tests for pushes and pull requests targeting `master`. |
+| [ GitHub Release ](https://github.com/hmlendea/stellaris-name-list-generator/blob/master/.github/workflows/github-release.yml) | Release publication | Runs when a release is published, builds self-contained artefacts, and uploads them to the GitHub release. |
 
 ## 🗂️ Project Structure
 
@@ -169,7 +171,7 @@ The repository contains one .NET console project with domain models and generati
 | `Models/` | XML-serialised name-list model types. |
 | `Service/` | Generation, content construction, download, and cache services. |
 | `Service/NamesBuilders/` | Category-specific Stellaris name-format builders. |
-| `.github/workflows/` | Continuous-integration workflow definitions. |
+| `.github/workflows/` | Continuous-integration and release workflow definitions. |
 
 ## 🏗️ Architecture
 
@@ -208,6 +210,14 @@ See the [Contributing Guidelines](./CONTRIBUTING.md) for details on how to repor
 ## 📜 Code of Conduct
 
 See the [Code of Conduct](./CODE_OF_CONDUCT.md) for the standards of conduct expected in all project spaces.
+
+## 🔒 Security
+
+For information on reporting security vulnerabilities, see the [Security Policy](./SECURITY.md).
+
+## 💬 Support
+
+For support, please [open an issue](https://github.com/hmlendea/stellaris-name-list-generator/issues).
 
 ## 💝 Project Engagement
 

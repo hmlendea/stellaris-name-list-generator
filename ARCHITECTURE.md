@@ -200,7 +200,7 @@ The lock flag is represented through an inverted Stellaris option: `IsLocked == 
 
 The executable has no authentication, authorisation, secret store, or telemetry. CLI paths, XML content, and embedded URLs cross into the process without an application-level validation layer. A URL-bearing input can initiate an outbound request, and remote content is accepted as name data without size, scheme, host, or status validation. Remote failure reporting includes the supplied URL, so URLs must not contain credentials or sensitive query values. Cache filenames retain only a restricted character set; distinct URLs can therefore map to an identical local filename.
 
-Filesystem reads and writes execute with the invoker's permissions, and the caller controls both principal paths. The adjacent [release script](release.sh) downloads and executes an external script through the shell, creating a separate release-time supply-chain trust boundary that is not part of normal generation.
+Filesystem reads and writes execute with the invoker's permissions, and the caller controls both principal paths. Release packaging runs in [.github/workflows/github-release.yml](.github/workflows/github-release.yml), which retrieves and executes an external release script, creating a separate release-time supply-chain trust boundary that is not part of normal generation.
 
 ### Error Handling
 
@@ -259,13 +259,13 @@ The principal dependency rules are:
 | `NuciDAL` | Supplies `EntityBase`, `IFileRepository<T>`, and `XmlRepository<T>`. | Models and `Program` composition | XML persistence and model identity are coupled to the package's serialisation and repository contracts. |
 | `NuciExtensions` | Supplies collection and text utility extensions used during name selection and normalisation. | Specialised builders and `NamesBuilder` | Random selection and utility semantics are package-coupled transformation details. |
 | Remote HTTP Providers | Optionally supply newline-delimited name data. | `NameGroup` through `FileDownloader` | Generation can depend upon network availability unless a valid cache entry or explicit values suffice. |
-| Shell Utilities | Support extraction, XML merging, and release automation through [extractor.sh](extractor.sh), [merge.sh](merge.sh), and [release.sh](release.sh). | Operator-invoked scripts | These tools are auxiliary and require a compatible shell environment; they do not execute during normal .NET generation. |
+| Shell Utilities | Support extraction and XML merging through [extractor.sh](extractor.sh) and [merge.sh](merge.sh). | Operator-invoked scripts | These tools are auxiliary and require a compatible shell environment; they do not execute during normal .NET generation. |
 
 ## 🚀 Deployment and Operations
 
 The deployment unit is a .NET 10 console executable constructed from one project. Each invocation creates one process, reads one XML path, and attempts to produce one output file; there is no resident service, port, scheduler, or distributed topology. Normal operation requires read access to the input, write access to the output parent directory, and write access to the current working directory when `NameGroup` initialisation creates `.cache`. Network access is conditional upon URL-backed groups being consumed.
 
-Repository CI in [.github/workflows/dotnet.yml](.github/workflows/dotnet.yml) restores, builds, and invokes `dotnet test` on Ubuntu for pushes and pull requests to `master`. Release automation is delegated by [release.sh](release.sh) to an externally retrieved deployment script. The helper [extractor.sh](extractor.sh) and [merge.sh](merge.sh) scripts prepare XML-related artefacts independently of the executable.
+Repository CI in [.github/workflows/dotnet.yml](.github/workflows/dotnet.yml) restores, builds, and invokes `dotnet test` on Ubuntu for pushes and pull requests to `master`. Release automation runs in [.github/workflows/github-release.yml](.github/workflows/github-release.yml), which builds the release artefacts through an externally retrieved release script and attaches them to the published GitHub release. The helper [extractor.sh](extractor.sh) and [merge.sh](merge.sh) scripts prepare XML-related artefacts independently of the executable.
 
 | Concern | Current Design | Architectural Consequence |
 |---------|----------------|---------------------------|

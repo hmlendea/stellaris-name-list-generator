@@ -164,7 +164,7 @@ The repository uses a standard .NET workflow for CI. The workflow runs on push/P
 
 ### Workflow: `.github/workflows/github-release.yml`
 
-The repository uses a GitHub Release workflow triggered on version tags (v*). It builds self-contained executables for Linux, Windows, and macOS, then creates a GitHub Release with all three platform binaries.
+The repository uses a GitHub Release workflow triggered by a published release. It determines the .NET version from the main project, builds self-contained artefacts for the supported runtime identifiers, and attaches them to the published GitHub Release.
 
 ## Release Process
 
@@ -178,24 +178,24 @@ No automated versioning. Version managed via:
 ### Creating a Release
 
 ```bash
-# 1. Ensure main is up to date
-git checkout main
+# 1. Ensure master is up to date
+git checkout master
 git pull
 
 # 2. Create and push tag
 git tag v1.0.0
 git push origin v1.0.0
 
-# 3. GitHub Actions builds and creates release automatically
+# 3. Publish the release in the GitHub interface
+#    Publishing triggers the GitHub Release workflow, which builds and uploads the release artefacts automatically
 ```
 
 ### Release Artifacts
 
-| Platform | Artifact Name | Size (approx) |
-|----------|---------------|---------------|
-| Linux x64 | `StellarisNameListGenerator` | 65 MB |
-| Windows x64 | `StellarisNameListGenerator.exe` | 68 MB |
-| macOS x64 | `StellarisNameListGenerator` | 65 MB |
+| Runtime identifier | Artifact |
+|--------------------|----------|
+| `linux-arm`, `linux-arm64`, `linux-x64` | `stellaris-name-list-generator_<version>_<runtime-identifier>` |
+| `osx-arm64`, `osx-x64`, `win-arm64`, `win-x64` | `stellaris-name-list-generator_<version>_<runtime-identifier>` |
 
 ## Installation (End User)
 
