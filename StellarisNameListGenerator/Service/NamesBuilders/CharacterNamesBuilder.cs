@@ -11,11 +11,11 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public sealed class CharacterNamesBuilder : NamesBuilder, ICharacterNamesBuilder
     {
+        private static bool[] Genders => [true, false];
+
         public string Build(NameList nameList)
         {
-            StringBuilder sb = new();
-
-            var characterNameLists = nameList.Characters
+            List<CharacterNames> characterNameLists = nameList.Characters
                 .GroupBy(x => x.Id)
                 .Select(x => x.First())
                 .OrderByDescending(x => x.Weight)
@@ -26,16 +26,17 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 return string.Empty;
             }
 
-            sb.Append($"{GetIndentation(1)}character_names = {{{Environment.NewLine}");
+            StringBuilder content = new();
+            content.Append($"{GetIndentation(1)}character_names = {{{Environment.NewLine}");
 
-            foreach (var characterNames in characterNameLists)
+            foreach (CharacterNames characterNames in characterNameLists)
             {
-                sb.Append(BuildCharacterNamesArray(characterNames));
+                content.Append(BuildCharacterNamesArray(characterNames));
             }
 
-            sb.Append($"{GetIndentation(1)}}}{Environment.NewLine}");
+            content.Append($"{GetIndentation(1)}}}{Environment.NewLine}");
 
-            return sb.ToString();
+            return content.ToString();
         }
 
         public string GetRandomName(NameList nameList)
@@ -49,7 +50,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
             CharacterNames characterNames = nameList.Characters.Where(x => !x.IsEmpty).GetRandomElement();
 
-            bool takeMale = new List<bool> { true, false }.GetRandomElement();
+            bool takeMale = Genders.GetRandomElement();
 
             if (characterNames.FullNames.Any(x => !x.IsEmpty))
             {
@@ -66,37 +67,33 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 return characterNames.FemaleFullNames.SelectMany(x => x.Values).GetRandomElement();
             }
 
-            if (characterNames.SecondNames.Any(x => !x.IsEmpty))
+            if (!characterNames.SecondNames.Any(x => !x.IsEmpty))
             {
-                if (characterNames.FirstNames.Any(x => !x.IsEmpty))
-                {
-                    return
-                        characterNames.FirstNames.SelectMany(x => x.Values).GetRandomElement() + " " +
-                        characterNames.SecondNames.SelectMany(x => x.Values).GetRandomElement();
-                }
+                return string.Empty;
+            }
 
-                if (takeMale && characterNames.MaleFirstNames.Any(x => !x.IsEmpty))
-                {
-                    return
-                        characterNames.MaleFirstNames.SelectMany(x => x.Values).GetRandomElement() + " " +
-                        characterNames.SecondNames.SelectMany(x => x.Values).GetRandomElement();
-                }
+            string secondName = characterNames.SecondNames.SelectMany(x => x.Values).GetRandomElement();
 
-                if (!takeMale && characterNames.FemaleFirstNames.Any(x => !x.IsEmpty))
-                {
-                    return
-                        characterNames.FemaleFirstNames.SelectMany(x => x.Values).GetRandomElement() + " " +
-                        characterNames.SecondNames.SelectMany(x => x.Values).GetRandomElement();
-                }
+            if (characterNames.FirstNames.Any(x => !x.IsEmpty))
+            {
+                return $"{characterNames.FirstNames.SelectMany(x => x.Values).GetRandomElement()} {secondName}";
+            }
+
+            if (takeMale && characterNames.MaleFirstNames.Any(x => !x.IsEmpty))
+            {
+                return $"{characterNames.MaleFirstNames.SelectMany(x => x.Values).GetRandomElement()} {secondName}";
+            }
+
+            if (!takeMale && characterNames.FemaleFirstNames.Any(x => !x.IsEmpty))
+            {
+                return $"{characterNames.FemaleFirstNames.SelectMany(x => x.Values).GetRandomElement()} {secondName}";
             }
 
             return string.Empty;
         }
 
-        string BuildCharacterNamesArray(CharacterNames characterNames)
+        private string BuildCharacterNamesArray(CharacterNames characterNames)
         {
-            StringBuilder sb = new();
-
             string characterNamesId = characterNames.Id;
 
             if (string.IsNullOrWhiteSpace(characterNamesId))
@@ -104,31 +101,31 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 characterNamesId = $"names{DateTime.Now.Ticks}";
             }
 
-            sb.Append($"{GetIndentation(2)}{characterNamesId} = {{{Environment.NewLine}");
-            sb.Append($"{GetIndentation(3)}weight = {characterNames.Weight}{Environment.NewLine}");
+            StringBuilder innerContent = new();
+            innerContent.Append(BuildNameArray(characterNames.FullNames, "full_names", 3));
+            innerContent.Append(BuildNameArray(characterNames.FirstNames, "first_names", 3));
+            innerContent.Append(BuildNameArray(characterNames.RoyalFirstNames, "regnal_first_names", 3));
+            innerContent.Append(BuildNameArray(characterNames.MaleFullNames, "full_names_male", 3));
+            innerContent.Append(BuildNameArray(characterNames.MaleFirstNames, "first_names_male", 3));
+            innerContent.Append(BuildNameArray(characterNames.MaleRoyalFirstNames, "regnal_first_names_male", 3));
+            innerContent.Append(BuildNameArray(characterNames.FemaleFullNames, "full_names_female", 3));
+            innerContent.Append(BuildNameArray(characterNames.FemaleFirstNames, "first_names_female", 3));
+            innerContent.Append(BuildNameArray(characterNames.FemaleRoyalFirstNames, "regnal_first_names_female", 3));
+            innerContent.Append(BuildNameArray(characterNames.SecondNames, "second_names", 3));
+            innerContent.Append(BuildNameArray(characterNames.RoyalSecondNames, "regnal_second_names", 3));
 
-            StringBuilder innerSb = new();
-            innerSb.Append(BuildNameArray(characterNames.FullNames, "full_names", 3));
-            innerSb.Append(BuildNameArray(characterNames.FirstNames, "first_names", 3));
-            innerSb.Append(BuildNameArray(characterNames.RoyalFirstNames, "regnal_first_names", 3));
-            innerSb.Append(BuildNameArray(characterNames.MaleFullNames, "full_names_male", 3));
-            innerSb.Append(BuildNameArray(characterNames.MaleFirstNames, "first_names_male", 3));
-            innerSb.Append(BuildNameArray(characterNames.MaleRoyalFirstNames, "regnal_first_names_male", 3));
-            innerSb.Append(BuildNameArray(characterNames.FemaleFullNames, "full_names_female", 3));
-            innerSb.Append(BuildNameArray(characterNames.FemaleFirstNames, "first_names_female", 3));
-            innerSb.Append(BuildNameArray(characterNames.FemaleRoyalFirstNames, "regnal_first_names_female", 3));
-            innerSb.Append(BuildNameArray(characterNames.SecondNames, "second_names", 3));
-            innerSb.Append(BuildNameArray(characterNames.RoyalSecondNames, "regnal_second_names", 3));
-
-            if (innerSb.Length == 0)
+            if (innerContent.Length == 0)
             {
                 return string.Empty;
             }
 
-            sb.Append(innerSb);
-            sb.Append($"{GetIndentation(2)}}}{Environment.NewLine}");
+            StringBuilder content = new();
+            content.Append($"{GetIndentation(2)}{characterNamesId} = {{{Environment.NewLine}");
+            content.Append($"{GetIndentation(3)}weight = {characterNames.Weight}{Environment.NewLine}");
+            content.Append(innerContent);
+            content.Append($"{GetIndentation(2)}}}{Environment.NewLine}");
 
-            return sb.ToString();
+            return content.ToString();
         }
     }
 }

@@ -20,7 +20,7 @@ This document records known uncertainties, unresolved questions, and areas requi
 
 **Question**: Does NFKD normalization handle all diacritics and special characters correctly for Stellaris?
 
-**Context**: `ProcessName()` uses NFKD + regex to strip combining marks. Some characters may not decompose as expected (e.g., ł, ø, å, ß).
+**Context**: `NameTransliterator.ProcessName()` applies an ordered chain of character-replacement steps. Some characters may not decompose as expected (e.g., ł, ø, å, ß).
 
 **Impact**: Names with unsupported characters may appear garbled or be rejected by game.
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The project targets **.NET 10.0** (`net10.0`) and uses four NuGet packages from the `Nuci` ecosystem, all authored by the same publisher.
+The project targets **.NET 10.0** (`net10.0`) and uses NuGet packages from the `Nuci` ecosystem, all authored by the same publisher.
 
 ## NuGet Packages
 
@@ -101,17 +101,13 @@ public interface IFileRepository<T>
 
 ```csharp
 // In NamesBuilder.DoNamesMatch():
-return string.Equals(
-    a.RemoveDiacritics(),
-    b.RemoveDiacritics(),
-    StringComparison.OrdinalIgnoreCase
-);
+return name1.RemoveDiacritics().Equals(name2.RemoveDiacritics());
 ```
 
 **Key Extensions Used**:
 - `string.RemoveDiacritics()` - Removes diacritical marks (accents, umlauts, etc.)
-- Collection extensions (likely `DistinctBy`, `Chunk`, etc.)
-- Text processing utilities
+- `GetRandomElement()` - Selects a random element from a collection
+- `IsNullOrEmpty()` - Determines whether a sequence is null or empty
 
 **Other Available Extensions** (not directly used but available):
 - `IEnumerable<T>` extensions
@@ -119,23 +115,38 @@ return string.Equals(
 - Date/time formatting
 - Numeric formatting
 
+### `NuciWeb.HTTP` (1.7.3)
+
+**Purpose**: Supplies the configured `HttpClient` creation path for outgoing requests.
+
+**Usage**: `FileDownloader` - Creates the process-wide static client through `HttpClientCreator`.
+
+```csharp
+// In FileDownloader:
+private static readonly HttpClient HttpClient = HttpClientCreator.Create();
+```
+
+**Relationship**: Companion package to the Nuci ecosystem; supplies `HttpClientCreator`, `UserAgentFetcher`, and `NetworkUtils`.
+
 ## Dependency Graph
 
 ```
 StellarisNameListGenerator (net10.0)
-├── NuciCLI (3.0.1)
-│   └── NuciCLI.Arguments (1.0.1)
-├── NuciDAL (3.0.1)
+├── NuciCLI (3.0.3)
+│   └── NuciCLI.Arguments (1.0.2)
+├── NuciDAL (4.2.0)
 │   └── (System.Xml, System.IO)
-└── NuciExtensions (5.3.1)
-    └── (System.Text, System.Collections)
+├── NuciExtensions (6.0.2)
+│   └── (System.Text, System.Collections)
+└── NuciWeb.HTTP (1.7.3)
+    └── NuciExtensions (6.0.0)
 
 StellarisNameListGenerator.UnitTests (net10.0)
-├── NUnit (3.14.0)
-├── Moq (4.20.72)
-├── NuciCLI (3.0.1)
-├── NuciDAL (3.0.1)
-└── NuciExtensions (5.3.1)
+├── NUnit (5.0.0)
+├── Moq (4.21.0)
+├── NuciCLI (3.0.3)
+├── NuciDAL (4.2.0)
+└── NuciExtensions (6.0.2)
     └── StellarisNameListGenerator (project reference)
 ```
 
@@ -169,6 +180,7 @@ StellarisNameListGenerator.UnitTests (net10.0)
 | NuciCLI | NuciCLI.Arguments, System.CommandLine (likely) | Modern CLI parsing |
 | NuciDAL | System.Xml, System.IO | XML serialization |
 | NuciExtensions | System.Text, System.Collections | Extension methods |
+| NuciWeb.HTTP | NuciExtensions | HTTP client creation |
 | NUnit | NUnit.Analyzers | Test framework |
 | Moq | Castle.Core | Mocking framework |
 
@@ -195,14 +207,15 @@ dotnet list package --outdated
 
 ### Update Nuci Packages
 
-Update all three Nuci packages together (they're version-locked as a set):
+Update all Nuci packages together (they're version-locked as a set):
 
 ```xml
 <!-- StellarisNameListGenerator.csproj -->
-<PackageReference Include="NuciCLI" Version="3.0.1" />
-<PackageReference Include="NuciCLI.Arguments" Version="1.0.1" />
-<PackageReference Include="NuciDAL" Version="3.0.1" />
-<PackageReference Include="NuciExtensions" Version="5.3.1" />
+<PackageReference Include="NuciCLI" Version="3.0.3" />
+<PackageReference Include="NuciCLI.Arguments" Version="1.0.2" />
+<PackageReference Include="NuciDAL" Version="4.2.0" />
+<PackageReference Include="NuciExtensions" Version="6.0.2" />
+<PackageReference Include="NuciWeb.HTTP" Version="1.7.3" />
 ```
 
 ### Update Test Packages

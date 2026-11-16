@@ -328,7 +328,7 @@ Ownership: `FileDownloader` handles HTTP and caching. `CacheManager` owns the fi
 
 ### Unicode Normalization
 
-The `NamesBuilder.ProcessName()` method performs extensive character mapping to ensure game compatibility. This includes:
+The `NameTransliterator.NameTransliterator.ProcessName()` method performs extensive character mapping to ensure game compatibility. This includes:
 
 - Accent mapping (e.g., `Ά` → `Á`, `Ά` → `À`, `Ά` → `Ă`)
 - Ligature mapping (e.g., `Χ` → `Ch`, `Č` → `Ch`)
@@ -340,15 +340,15 @@ This is a domain-specific concern because it directly affects game compatibility
 
 ### Generic Name Cleaning
 
-`CleanGenericNames()` removes generic names that appear in specific categories, preventing duplicate names in the output. This is domain-specific because it depends on the semantic relationship between categories (e.g., "generic" ship names should not duplicate deity names).
+`ExcludeSpecificNames()` removes generic names that appear in specific categories, preventing duplicate names in the output. This is domain-specific because it depends on the semantic relationship between categories (e.g., "generic" ship names should not duplicate deity names).
 
 ## 🧵 Cross-Cutting Concerns
 
 ### Concurrency and Resource Use
 
 - `FileDownloader` uses a static `HttpClient` for connection reuse
-- `CacheManager` uses `ConcurrentBag` for thread-safe collection operations
-- `CleanGenericNames` uses `Parallel.ForEach` for concurrent processing
+- `NamesBuilder.ExcludeSpecificNames` uses a `ConcurrentBag` with `Parallel.ForEach` for concurrent processing
+- `ExcludeSpecificNames` uses `Parallel.ForEach` for concurrent processing
 - No shared mutable state between components
 
 ### Error Handling

@@ -100,7 +100,7 @@ The generated script may conflict with certain Stellaris mods that also generate
 
 ### Unicode Normalization
 
-The `ProcessName()` method applies Unicode normalization (NFKD). This could theoretically affect names from mods that use non-standard Unicode. However, this is unlikely to cause issues as most Stellaris names use standard Latin characters.
+The `NameTransliterator.ProcessName()` method applies an ordered chain of character-replacement steps. This could theoretically affect names from mods that use non-standard Unicode. However, this is unlikely to cause issues as most Stellaris names use standard Latin characters.
 
 ## Rollback Procedure
 

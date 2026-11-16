@@ -220,10 +220,9 @@ public async Task GenerateAsync_EndToEnd_ProducesValidOutput()
 
 // Builder edge case
 [Test]
-public void ProcessName_SpecialCharacters_Normalized()
+public void ProcessName_WhenSpecialCharacters_ThenNormalized()
 {
-    var builder = new ShipNamesBuilder();
-    var result = builder.ProcessName("Café résumé naïve");
+    string result = NameTransliterator.ProcessName("Café résumé naïve");
     Assert.That(result, Does.Not.Contain("é")); // Should be normalized
 }
 ```

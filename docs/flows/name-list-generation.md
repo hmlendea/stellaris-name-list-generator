@@ -261,8 +261,8 @@ public List<string> UrlValues
 
 Each builder receives domain model, extracts names via `NameGroup.Values`, processes through:
 
-1. `ProcessName()` - Unicode normalization (500+ char mappings)
-2. `CleanGenericNames()` - Diacritic-insensitive deduplication
+1. `NameTransliterator.ProcessName()` - Unicode normalization (500+ char mappings)
+2. `ExcludeSpecificNames()` - Diacritic-insensitive deduplication
 3. `BuildNameArray()` - Paradox script formatting
 
 ## Error Handling

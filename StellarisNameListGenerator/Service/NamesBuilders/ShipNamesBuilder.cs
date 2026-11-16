@@ -192,7 +192,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             IEnumerable<NameGroup> ionCannonNames = nameList.Ships.IonCannon
                 .Concat(nameList.Warfare.Weapons.Ranged);
 
-            genericNames = CleanGenericNames(
+            genericNames = ExcludeSpecificNames(
                 genericNames,
                 corvetteNames,
                 destroyerNames,

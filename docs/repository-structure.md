@@ -25,6 +25,7 @@ stellaris-name-list-generator/
 ```
 StellarisNameListGenerator/
 ├── Program.cs                   # Entry point, CLI parsing, dependency composition
+├── ArgumentNormaliser.cs        # Expands short CLI aliases to canonical options
 ├── StellarisNameListGenerator.csproj
 ├── Models/                      # Domain entities (XML-serializable)
 │   ├── NameList.cs              # Root aggregate: all name categories
@@ -49,9 +50,12 @@ StellarisNameListGenerator/
     ├── FileContentBuilder.cs   # Orchestrates all names builders
     ├── INameListGenerator.cs    # Generation abstraction
     ├── NameListGenerator.cs    # Merges lists, writes output file
+    ├── Text/                    # Text conversion
+    │   └── NameTransliterator.cs  # Unicode-to-Stellaris character conversion
     └── NamesBuilders/           # Per-category output formatters
-        ├── INamesBuilder.cs     # Base builder contract
-        ├── NamesBuilder.cs      # Shared: arrays, dedup, Unicode mapping
+        ├── INamesBuilder.cs     # Random-name provider contract
+        ├── NamesBuilder.cs      # Shared: arrays, dedup, category unification
+        ├── NameSampleBuilder.cs # Comment-header name samples
         ├── IShipNamesBuilder.cs
         ├── ShipNamesBuilder.cs
         ├── IShipClassNamesBuilder.cs

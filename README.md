@@ -148,10 +148,11 @@ Releases are published from the GitHub interface. Publishing a release triggers 
 
 | Package | Version | Scope | Purpose |
 |---------|---------|-------|---------|
-| `NuciCLI` | 3.0.1 | Runtime | Command-line processing. |
-| `NuciCLI.Arguments` | 1.0.1 | Runtime | Command argument parsing. |
-| `NuciDAL` | 3.0.1 | Runtime | XML repository access. |
-| `NuciExtensions` | 5.3.1 | Runtime | Collection and text utilities. |
+| `NuciCLI` | 3.0.3 | Runtime | Command-line processing. |
+| `NuciCLI.Arguments` | 1.0.2 | Runtime | Command argument parsing. |
+| `NuciDAL` | 4.2.0 | Runtime | XML repository access. |
+| `NuciExtensions` | 6.0.2 | Runtime | Collection and text utilities. |
+| `NuciWeb.HTTP` | 1.7.3 | Runtime | HTTP client creation for optional name-group downloads. |
 
 ## ⚙️ GitHub Actions
 
@@ -171,11 +172,14 @@ The repository contains one .NET console project with domain models and generati
 | `Models/` | XML-serialised name-list model types. |
 | `Service/` | Generation, content construction, download, and cache services. |
 | `Service/NamesBuilders/` | Category-specific Stellaris name-format builders. |
+| `Service/Text/` | Unicode-to-Stellaris character conversion. |
 | `.github/workflows/` | Continuous-integration and release workflow definitions. |
 
 ## 🏗️ Architecture
 
-See the [architecture documentation](ARCHITECTURE.md) for the system context, principal components, runtime flows, ownership boundaries, dependencies, constraints, and extension points.
+Stellaris Name List Generator is a synchronous .NET console transformation pipeline that composes its collaborators manually and converts XML name sources into a Stellaris-compatible text file.
+
+See the [Architecture Documentation](ARCHITECTURE.md) for the system context, principal components, runtime flows, ownership boundaries, dependencies, constraints, and extension points.
 
 ## 📚 Documentation
 

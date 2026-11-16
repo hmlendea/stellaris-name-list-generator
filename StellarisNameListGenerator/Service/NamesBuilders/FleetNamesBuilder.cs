@@ -9,7 +9,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 {
     public sealed class FleetNamesBuilder : NamesBuilder, IFleetNamesBuilder
     {
-        static readonly IList<string> fleetNameFormats =
+        private static readonly string[] FleetNameFormats =
         [
             "{0} Extraorbital Corps",
             "{0} Squadron",
@@ -28,19 +28,21 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             "The {0} Navy",
         ];
 
+        private static readonly string[] CardinalNumbers =
+            ["1", "10", "33", "42", "56", "86", "101", "303", "500", "613", "743", "873"];
+
+        private static readonly string[] OrdinalNumbers =
+            ["1st", "21st", "101st", "42nd", "62nd", "72nd", "53rd", "83rd", "123rd", "103rd", "4th", "12th", "14th", "404th"];
+
+        private static readonly string[] RomanNumbers =
+            ["I", "II", "IV", "XI", "XXXII", "CXXXII", "CDII", "DLXII"];
+
         public string Build(NameList nameList)
-        {
-            string content = string.Empty;
-
-            IEnumerable<NameGroup> fleetNames = GenerateFleetNames(nameList);
-            content += BuildNameArray(fleetNames, "fleet_names", 1, nameList.Armies.FleetSequentialName);
-
-            return content;
-        }
+            => BuildNameArray(GenerateFleetNames(nameList), "fleet_names", 1, nameList.Armies.FleetSequentialName);
 
         public string GetRandomName(NameList nameList)
         {
-            IEnumerable<NameGroup> fleetNames = GenerateFleetNames(nameList);
+            List<NameGroup> fleetNames = GenerateFleetNames(nameList);
 
             if (fleetNames.Any(x => !x.IsEmpty))
             {
@@ -49,44 +51,45 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                     .GetRandomElement();
             }
 
-            List<string> cardinalNumbers = ["1", "10", "33", "42", "56", "86", "101", "303", "500", "613", "743", "873"];
-            List<string> ordinalNumbers = ["1st", "21st", "101st", "42nd", "62nd", "72nd", "53rd", "83rd", "123rd", "103rd", "4th", "12th", "14th", "404th"];
-            List<string> romanNumbers = ["I", "II", "IV", "XI", "XXXII", "CXXXII", "CDII", "DLXII"];
-
-            return nameList.Armies.FleetSequentialName
-                .Replace("%O%", ordinalNumbers.GetRandomElement())
-                .Replace("%C%", cardinalNumbers.GetRandomElement())
-                .Replace("%R%", romanNumbers.GetRandomElement());
+            return BuildSequentialName(nameList.Armies.FleetSequentialName);
         }
 
-        static IEnumerable<NameGroup> GenerateFleetNames(NameList nameList)
+        private static string BuildSequentialName(string nameFormat)
+            => nameFormat
+                .Replace("%O%", OrdinalNumbers.GetRandomElement())
+                .Replace("%C%", CardinalNumbers.GetRandomElement())
+                .Replace("%R%", RomanNumbers.GetRandomElement());
+
+        private static List<NameGroup> GenerateFleetNames(NameList nameList)
         {
-            var fleetNames = nameList.Armies.Fleet.ToList();
-            List<NameGroup> result = [.. fleetNames];
+            List<NameGroup> fleetNames = [.. nameList.Armies.Fleet];
 
-            foreach (var fleetNameFormat in fleetNameFormats)
+            foreach (string fleetNameFormat in FleetNameFormats)
             {
-                string category = fleetNameFormat
-                    .Replace("{0}", "")
-                    .Replace("The ", "")
-                    .Trim();
-
-                category = $"{category}s".Replace("ss", "s");
-
-                var categoryNames = GenerateFleetNamesCategory(nameList, category, fleetNameFormat);
-
-                result.AddRange(categoryNames);
+                fleetNames.AddRange(GenerateFleetNamesCategory(nameList, GetCategory(fleetNameFormat), fleetNameFormat));
             }
 
-            return result;
+            return fleetNames;
         }
 
-        static IEnumerable<NameGroup> GenerateFleetNamesCategory(NameList nameList, string category, string nameFormat) =>
+        private static string GetCategory(string fleetNameFormat)
+        {
+            string category = fleetNameFormat
+                .Replace("{0}", string.Empty)
+                .Replace("The ", string.Empty)
+                .Trim();
+
+            return Pluralise(category);
+        }
+
+        private static string Pluralise(string word) => $"{word}s".Replace("ss", "s");
+
+        private static IEnumerable<NameGroup> GenerateFleetNamesCategory(NameList nameList, string category, string nameFormat) =>
         [
-            GenerateUnifiedNameGroup(nameList.Warfare.Weapons.All, category, "Weapons", nameFormat),
-            GenerateUnifiedNameGroup(nameList.Warfare.MilitaryUnitTypes, category, "Military Unit Types", nameFormat),
-            GenerateUnifiedNameGroup(nameList.Warfare.ShipTypes, category, "Ship Types", nameFormat),
-            GenerateUnifiedNameGroup(nameList.BiosphereNames.MythologicalCreatures, category, "Mythological Creatures", nameFormat),
+            BuildUnifiedNameGroup(nameList.Warfare.Weapons.All, category, "Weapons", nameFormat),
+            BuildUnifiedNameGroup(nameList.Warfare.MilitaryUnitTypes, category, "Military Unit Types", nameFormat),
+            BuildUnifiedNameGroup(nameList.Warfare.ShipTypes, category, "Ship Types", nameFormat),
+            BuildUnifiedNameGroup(nameList.BiosphereNames.MythologicalCreatures, category, "Mythological Creatures", nameFormat),
         ];
     }
 }
