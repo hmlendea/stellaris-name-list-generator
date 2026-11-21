@@ -16,6 +16,10 @@ namespace StellarisNameListGenerator.Models
         private List<string> remoteValues;
         private string downloadedUrl;
 
+        private List<string>? cachedValues;
+        private List<string>? cachedExplicitValues;
+        private string? cachedUrl;
+
         public string Name { get; set; }
 
         public string Url { get; set; }
@@ -25,16 +29,16 @@ namespace StellarisNameListGenerator.Models
         {
             get
             {
-                List<string> values = [];
-
-                if (ExplicitValues is not null)
+                if (cachedValues is null ||
+                    !ReferenceEquals(cachedExplicitValues, ExplicitValues) ||
+                    !string.Equals(cachedUrl, Url))
                 {
-                    values.AddRange(ExplicitValues);
+                    cachedValues = BuildValues();
+                    cachedExplicitValues = ExplicitValues;
+                    cachedUrl = Url;
                 }
 
-                values.AddRange(GetRemoteValues());
-
-                return values;
+                return cachedValues;
             }
         }
 
@@ -58,6 +62,20 @@ namespace StellarisNameListGenerator.Models
 
         [XmlIgnore]
         public bool IsEmpty => Values.Count == 0;
+
+        private List<string> BuildValues()
+        {
+            List<string> values = [];
+
+            if (ExplicitValues is not null)
+            {
+                values.AddRange(ExplicitValues);
+            }
+
+            values.AddRange(GetRemoteValues());
+
+            return values;
+        }
 
         private List<string> GetRemoteValues()
         {

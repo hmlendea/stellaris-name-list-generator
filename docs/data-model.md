@@ -81,6 +81,7 @@ public sealed class NameGroup
 - `UrlValues` uses static `FileDownloader` with `CacheManager` (8-hour TTL)
 - Download happens on first access to `Values` or `UrlValues`
 - Downloaded content is split by newline into individual names
+- `Values` caches its resolved list and rebuilds it only when `ExplicitValues` or `Url` changes
 
 ## Category Models
 

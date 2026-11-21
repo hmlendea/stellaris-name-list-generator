@@ -14,6 +14,11 @@ namespace StellarisNameListGenerator.Service.Text
         /// <returns>The converted name.</returns>
         public static string ProcessName(string name)
         {
+            if (IsAscii(name))
+            {
+                return name;
+            }
+
             name = ReplaceUppercaseCharactersFromAToH(name);
             name = ReplaceUppercaseCharactersFromIToR(name);
             name = ReplaceUppercaseCharactersFromSToZ(name);
@@ -35,6 +40,19 @@ namespace StellarisNameListGenerator.Service.Text
             name = ReplaceCharsetCharacters(name);
 
             return name;
+        }
+
+        static bool IsAscii(string name)
+        {
+            foreach (char character in name)
+            {
+                if (character > '\u007F')
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         static string ReplaceUppercaseCharactersFromAToH(string name)

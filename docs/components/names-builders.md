@@ -78,6 +78,15 @@ protected static bool DoNamesMatch(string name1, string name2)
     => name1.RemoveDiacritics().Equals(name2.RemoveDiacritics());
 ```
 
+### Performance
+
+Generation is optimised for large merged inputs while preserving identical output:
+
+- `ExcludeSpecificNames(...)` precomputes the comparable (diacritic-insensitive) form of every specific name into a single set, then filters the generic values through one set lookup instead of scanning every specific name for every generic name. This changes the exclusion from quadratic to near-linear time.
+- `NameGroup.Values` caches its resolved list and rebuilds it only when `ExplicitValues` or `Url` changes, so the repeated `Values` reads performed by the builders no longer rebuild collections.
+- `GetComparableName` and `GetFormattedName` memoise diacritic removal and `NameTransliterator.ProcessName` results in shared `ConcurrentDictionary` caches, so each distinct name is compared and transliterated at most once per process.
+- `NameTransliterator.ProcessName` returns the input unchanged when it contains only ASCII characters, because no replacement rule alters ASCII text.
+
 ### Dependencies
 
 - `NuciExtensions.RemoveDiacritics()` - Diacritic removal

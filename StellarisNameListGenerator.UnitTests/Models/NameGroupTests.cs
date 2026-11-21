@@ -210,5 +210,49 @@ namespace StellarisNameListGenerator.UnitTests.Models
 
             Assert.That(nameGroup.Values, Is.EqualTo(new List<string> { "Sole" }));
         }
+
+        [Test]
+        public void GivenNameGroup_WhenGettingValuesTwice_ThenReturnsTheSameCachedInstance()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = ["John Doe", "Jane Smith"],
+                Url = string.Empty
+            };
+
+            Assert.That(nameGroup.Values, Is.SameAs(nameGroup.Values));
+        }
+
+        [Test]
+        public void GivenNameGroup_WhenExplicitValuesChange_ThenValuesAreRebuilt()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = ["John Doe"],
+                Url = string.Empty
+            };
+
+            List<string> initialValues = nameGroup.Values;
+            nameGroup.ExplicitValues = ["Jane Smith"];
+
+            Assert.That(nameGroup.Values, Is.EqualTo(new List<string> { "Jane Smith" }));
+            Assert.That(nameGroup.Values, Is.Not.SameAs(initialValues));
+        }
+
+        [Test]
+        public void GivenNameGroup_WhenUrlChanges_ThenValuesAreRebuilt()
+        {
+            NameGroup nameGroup = new()
+            {
+                ExplicitValues = ["John Doe"],
+                Url = string.Empty
+            };
+
+            List<string> initialValues = nameGroup.Values;
+            nameGroup.Url = "   ";
+
+            Assert.That(nameGroup.Values, Is.EqualTo(new List<string> { "John Doe" }));
+            Assert.That(nameGroup.Values, Is.Not.SameAs(initialValues));
+        }
     }
 }
