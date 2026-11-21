@@ -43,6 +43,21 @@ namespace StellarisNameListGenerator.UnitTests.Service
                 NameTransliterator.ProcessName(string.Empty),
                 Is.Empty);
 
+        [TestCase("Kapteyn's Star")]
+        [TestCase("Cluj-Napoca")]
+        [TestCase("Home Fleet 42 (Alpha)")]
+        [TestCase("a-z, A-Z, 0-9, ., _, ', \"")]
+        public void GivenAPureAsciiName_WhenProcessingName_ThenTheSameInstanceIsReturned(string name)
+            => Assert.That(
+                NameTransliterator.ProcessName(name),
+                Is.SameAs(name));
+
+        [Test]
+        public void GivenAPureAsciiName_WhenProcessingName_ThenTheNameIsUnchanged()
+            => Assert.That(
+                NameTransliterator.ProcessName("Kapteyn's Star"),
+                Is.EqualTo("Kapteyn's Star"));
+
         [Test]
         public void GivenTheSameName_WhenProcessingTwice_ThenReturnsTheSameResult()
         {

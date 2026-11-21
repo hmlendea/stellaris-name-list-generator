@@ -16,6 +16,9 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
         private static int IndentationSize => 4;
         private static int MaximumLineLength => 150;
 
+        private static readonly ConcurrentDictionary<string, string> ComparableNames = new();
+        private static readonly ConcurrentDictionary<string, string> ProcessedNames = new();
+
         protected string BuildNameArray(IEnumerable<NameGroup> nameGroups, string arrayName, int indentationLevels)
             => BuildNameArray(nameGroups, arrayName, indentationLevels, string.Empty);
 
@@ -25,14 +28,17 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             int indentationLevels,
             string sequentialName)
         {
-            if (string.IsNullOrWhiteSpace(sequentialName) && nameGroups.All(x => x.Values.Count.Equals(0)))
+            List<NameGroup> groups = [.. nameGroups];
+            int totalValues = groups.Sum(x => x.Values.Count);
+
+            if (string.IsNullOrWhiteSpace(sequentialName) && totalValues == 0)
             {
                 return string.Empty;
             }
 
             string content = $"{GetIndentation(indentationLevels)}{arrayName} = {{{Environment.NewLine}";
 
-            if (nameGroups.Sum(x => x.Values.Count) > 0)
+            if (totalValues > 0)
             {
                 int contentIndentation = indentationLevels;
 
@@ -42,7 +48,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                     contentIndentation += 1;
                 }
 
-                content += BuildNameCollection(nameGroups, contentIndentation + 1);
+                content += BuildNameCollection(groups, contentIndentation + 1);
 
                 if (!string.IsNullOrWhiteSpace(sequentialName))
                 {
@@ -133,7 +139,7 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
 
         private static string GetFormattedName(string name)
         {
-            string formattedName = NameTransliterator.ProcessName(name);
+            string formattedName = ProcessedNames.GetOrAdd(name, NameTransliterator.ProcessName);
 
             if (formattedName.Contains(' '))
             {
@@ -143,12 +149,15 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             return formattedName;
         }
 
-        private static string GetComparableName(string name) => name.RemoveDiacritics();
+        private static string GetComparableName(string name)
+            => ComparableNames.GetOrAdd(name, static x => x.RemoveDiacritics());
 
         protected static IEnumerable<NameGroup> ExcludeSpecificNames(
             IEnumerable<NameGroup> genericNameGroups,
             params IEnumerable<NameGroup>[] specificNameGroupLists)
         {
+            HashSet<string> specificComparableNames = BuildComparableNameSet(specificNameGroupLists);
+
             ConcurrentBag<NameGroup> exclusiveNameGroups = [];
 
             Parallel.ForEach(genericNameGroups, genericNameGroup =>
@@ -156,17 +165,30 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
                 exclusiveNameGroups.Add(new NameGroup
                 {
                     Name = genericNameGroup.Name,
-                    ExplicitValues = [.. genericNameGroup.Values.Where(genericName => !IsUsedInAny(specificNameGroupLists, genericName))]
+                    ExplicitValues = [.. genericNameGroup.Values.Where(genericName => !specificComparableNames.Contains(GetComparableName(genericName)))]
                 });
             });
 
             return exclusiveNameGroups;
         }
 
-        private static bool IsUsedInAny(IEnumerable<IEnumerable<NameGroup>> specificNameGroupLists, string name)
-            => specificNameGroupLists.Any(specificGroupList => specificGroupList.Any(
-                specificGroup => specificGroup.Values.Any(specificName => DoNamesMatch(specificName, name))));
+        private static HashSet<string> BuildComparableNameSet(IEnumerable<IEnumerable<NameGroup>> specificNameGroupLists)
+        {
+            HashSet<string> comparableNames = [];
 
+            foreach (IEnumerable<NameGroup> specificGroupList in specificNameGroupLists)
+            {
+                foreach (NameGroup specificGroup in specificGroupList)
+                {
+                    foreach (string specificName in specificGroup.Values)
+                    {
+                        comparableNames.Add(GetComparableName(specificName));
+                    }
+                }
+            }
+
+            return comparableNames;
+        }
         protected static NameGroup BuildUnifiedNameGroup(
             IEnumerable<NameGroup> nameGroups,
             string category,
@@ -185,6 +207,6 @@ namespace StellarisNameListGenerator.Service.NamesBuilders
             => string.Empty.PadRight(levels * IndentationSize, ' ');
 
         protected static bool DoNamesMatch(string name1, string name2)
-            => name1.RemoveDiacritics().Equals(name2.RemoveDiacritics());
+            => string.Equals(GetComparableName(name1), GetComparableName(name2));
     }
 }
