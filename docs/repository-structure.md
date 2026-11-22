@@ -77,16 +77,24 @@ StellarisNameListGenerator/
 ```
 StellarisNameListGenerator.UnitTests/
 ├── StellarisNameListGenerator.UnitTests.csproj
+├── ArgumentNormaliserTests.cs             # Option aliases, bare and valued lock forms
 ├── Models/
-│   ├── CharacterNamesTests.cs
-│   ├── NameGroupTests.cs
-│   ├── NameListTests.cs
-│   ├── OtherModelTests.cs
-│   └── PlaceNamesTests.cs
+│   ├── CharacterNamesTests.cs             # IsEmpty and gender-specific groups
+│   ├── ModelDefaultInitialisationTests.cs # Every collection on every model
+│   ├── NameGroupTests.cs                  # IsEmpty, Values, URL behaviour
+│   ├── NameGroupValueTests.cs             # Value resolution and caching semantics
+│   ├── NameListMergeCoverageTests.cs      # Every AddRange collection
+│   ├── NameListTests.cs                   # Defaults, AddRange, property storage
+│   ├── OtherModelTests.cs                 # Model default initialisations
+│   └── PlaceNamesTests.cs                 # Concatenation properties
 └── Service/
-    ├── FileContentBuilderTests.cs
-    ├── NameListGeneratorTests.cs
-    └── NameTransliteratorTests.cs
+    ├── FileContentBuilderTests.cs         # Content building and generator wiring
+    ├── NameListGeneratorServiceTests.cs   # Identity, lock, merge, encoding
+    ├── NameListGeneratorTests.cs          # Merge behaviour and file writing
+    ├── NamesBuilderTests.cs               # Per-builder sections and derived names
+    ├── NameTransliteratorCompositionTests.cs # Multi-character and idempotence
+    ├── NameTransliteratorTableTests.cs    # 335 verified character mappings
+    └── NameTransliteratorTests.cs         # Representative substitutions
 ```
 
 ## Integration Test Project: `StellarisNameListGenerator.IntegrationTests/`
@@ -94,13 +102,30 @@ StellarisNameListGenerator.UnitTests/
 ```
 StellarisNameListGenerator.IntegrationTests/
 ├── StellarisNameListGenerator.IntegrationTests.csproj
-├── CommandLineTests.cs               # Argument aliases, lock flag, validation, failure modes
-├── NameListGenerationTests.cs        # Envelope, encoding, identifier, ordering, overwrite
-├── NameListFormattingTests.cs        # Per-builder grammar, quoting, sorting, exclusions
+├── BlockCompositionTests.cs          # Exact source composition of every block
+├── BlockOrderingTests.cs             # Declaration order of every sub-block
+├── CharacterCategoryMappingTests.cs  # Character script keys and ordering
 ├── CharacterNameGenerationTests.cs   # Character ordering, empty groups, duplicate identifiers
+├── CommandLineScenarioTests.cs       # Option-like values, repeated options, boolean parsing
+├── CommandLineTests.cs               # Argument aliases, lock flag, validation, failure modes
+├── FleetNameGenerationTests.cs       # Fleet template expansion and pluralisation
+├── GenerationDeterminismTests.cs     # Locked determinism and lock-flag isolation
+├── GenerationMatrixTests.cs          # Document × invariant cross-product
+├── InputDocumentToleranceTests.cs    # Missing declaration, byte-order mark, root element
+├── ArmyNameGenerationTests.cs        # Army sub-blocks, psionic and xenomorph variants
+├── NameListFormattingTests.cs        # Per-builder grammar, quoting, sorting, exclusions
+├── NameListGenerationTests.cs        # Envelope, encoding, identifier, ordering, overwrite
+├── NameListHeaderTests.cs            # Comment header lines, samples, separator
+├── NameListValueHandlingTests.cs     # Sorting, distinctness, trimming, entities, wrapping
 ├── NameTransliterationTests.cs       # Diacritic removal, transliterated dedup, quoting
-├── RemoteNameResolutionTests.cs      # Unusable URL degradation, cache-directory contract
+├── PlanetNameGenerationTests.cs      # Planet class mapping and generic exclusion
+├── RemoteNameResolutionTests.cs      # URL degradation, cache contract, cached reuse
+├── ShipClassNameGenerationTests.cs   # Manufacturer and station class composition
+├── ShipNameGenerationTests.cs        # Ship category composition and fixed order
+├── SourceRoutingTests.cs             # Exact destination blocks of every source
+├── StationNameGenerationTests.cs     # Station name and class categories
 ├── Fixtures/
+│   ├── CoverageDocument.cs           # Tokenised all-category document
 │   └── NameListFixtures.cs           # Canonical XML inputs and shared expected values
 └── Tools/
     ├── GeneratorEnvironment.cs       # Isolated temporary working directory per invocation

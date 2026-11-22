@@ -420,4 +420,4 @@ Program.cs
 
 - `NameListGeneratorTests`: 4 tests covering merge behavior, single list, empty repo, file path ID
 - `FileContentBuilderTests`: 5 tests covering content building, merge behavior
-- `FileDownloader` and `CacheManager`: Not directly unit tested (integration tested via `NameGroup` URL behavior)
+- `FileDownloader` and `CacheManager`: Not directly unit tested; the integration suite covers the degradation contract for unusable URLs and the merge success path through a pre-populated cache entry

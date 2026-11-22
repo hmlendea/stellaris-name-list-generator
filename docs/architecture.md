@@ -418,16 +418,41 @@ Test boundaries:
 - `PlaceNamesTests`: Tests WaterBodies, GeographicalPlaces concatenation
 - `OtherModelTests`: Tests all model default initializations
 - `CommandLineTests`: Tests argument aliases, the lock flag, argument validation, and input failure modes end-to-end
-- `NameListGenerationTests`: Tests file envelope, encoding, identifier derivation, category ordering, overwrite, and merging end-to-end
+- `CommandLineScenarioTests`: Tests option-like values, repeated options, and case-insensitive boolean parsing end-to-end
+- `ArgumentNormaliserTests`: Tests every alias form, bare and valued lock forms, pass-through, and validation failures
+- `InputDocumentToleranceTests`: Tests tolerance of a missing declaration, byte-order mark, leading whitespace, and an unrecognised root element
+- `NameListGenerationTests`: Tests file envelope, encoding, identifier derivation, category ordering, overwrite, deduplication, and merging end-to-end
+- `NameListHeaderTests`: Tests the comment header lines, sample lines, and separator
 - `NameListFormattingTests`: Tests per-builder grammar, quoting, sorting, exclusions, derived names, and sequential fallbacks
+- `NameListValueHandlingTests`: Tests sorting, case-sensitive distinctness, trimming, entity decoding, group headers, and line wrapping
+- `GenerationDeterminismTests`: Tests locked-output determinism, identifier isolation, and lock-flag isolation
+- `GenerationMatrixTests`: Tests envelope, encoding, ordering, and reproducibility across twelve document shapes and five lock forms
+- `BlockCompositionTests`: Asserts the exact source composition of every generated block
+- `SourceRoutingTests`: Asserts the exact destination blocks of every routed source category
+- `BlockOrderingTests`: Asserts the declaration order of every sub-block in every category
+- `ShipNameGenerationTests`: Tests per-hull source composition, denonym exclusion, deduplication, and sub-block ordering
+- `ShipClassNameGenerationTests`: Tests manufacturer and station class composition and category ordering
+- `FleetNameGenerationTests`: Tests fleet template expansion, pluralisation, and the sequential fallback
+- `ArmyNameGenerationTests`: Tests army sub-block ordering, psionic and xenomorph variants, and sequential fallbacks
+- `PlanetNameGenerationTests`: Tests planet class mapping, generic exclusion, and class omission
+- `StationNameGenerationTests`: Tests station name and class categories and generic accumulation
 - `CharacterNameGenerationTests`: Tests character ordering, empty groups, duplicate identifiers, and missing identifiers
+- `CharacterCategoryMappingTests`: Tests every character script key, category ordering, weight, and quoting
 - `NameTransliterationTests`: Tests diacritic removal, transliterated deduplication, and quoting of spaced names
-- `RemoteNameResolutionTests`: Tests degradation when a URL source is unusable and the cache-directory contract
+- `NameTransliteratorTableTests`: Tests 335 verified per-character transliteration mappings
+- `NameTransliteratorCompositionTests`: Tests multi-character names, idempotence, and permitted characters
+- `NameListMergeCoverageTests`: Tests every merged collection in three merge scenarios
+- `ModelDefaultInitialisationTests`: Tests every model collection for defaults, mutability, and stable identity
+- `NamesBuilderTests`: Tests each category builder directly
+- `NameListGeneratorServiceTests`: Tests identity, lock propagation, merged-list selection, and encoding
+- `NameGroupValueTests`: Tests value resolution, caching semantics, and URL degradation
+- `RemoteNameResolutionTests`: Tests degradation when a URL source is unusable, the cache-directory contract, and cached-name reuse
 - `DependencyRuleTests`, `ProjectAndSolutionTests`, `SourceFileConventionTests`: Architecture and fitness tests
 
 Material coverage gaps:
 - No golden-file comparison against a captured Stellaris reference output
-- Remote name resolution is only exercised against unusable URLs; the static downloader is not stubbed for a successful download
+- The live network download path of remote name resolution is not exercised; the merge success path is verified through a pre-populated cache entry, while the network path is verified only through its degradation contract
+- Comment header sample lines draw random values, so whole-file byte comparison requires normalising them
 - No UI or manual verification procedures documented
 
 

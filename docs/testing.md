@@ -9,26 +9,51 @@ The project uses **NUnit** with **Moq** for mocking. Tests are grouped into thre
 ```
 StellarisNameListGenerator.UnitTests/
 ├── StellarisNameListGenerator.UnitTests.csproj
+├── ArgumentNormaliserTests.cs
 ├── Models/
 │   ├── CharacterNamesTests.cs
+│   ├── ModelDefaultInitialisationTests.cs
 │   ├── NameGroupTests.cs
+│   ├── NameGroupValueTests.cs
+│   ├── NameListMergeCoverageTests.cs
 │   ├── NameListTests.cs
 │   ├── OtherModelTests.cs
 │   └── PlaceNamesTests.cs
 └── Service/
     ├── FileContentBuilderTests.cs
+    ├── NameListGeneratorServiceTests.cs
     ├── NameListGeneratorTests.cs
+    ├── NamesBuilderTests.cs
+    ├── NameTransliteratorCompositionTests.cs
+    ├── NameTransliteratorTableTests.cs
     └── NameTransliteratorTests.cs
 
 StellarisNameListGenerator.IntegrationTests/
 ├── StellarisNameListGenerator.IntegrationTests.csproj
-├── CommandLineTests.cs
-├── NameListGenerationTests.cs
-├── NameListFormattingTests.cs
+├── BlockCompositionTests.cs
+├── BlockOrderingTests.cs
+├── CharacterCategoryMappingTests.cs
 ├── CharacterNameGenerationTests.cs
+├── CommandLineScenarioTests.cs
+├── CommandLineTests.cs
+├── FleetNameGenerationTests.cs
+├── GenerationDeterminismTests.cs
+├── GenerationMatrixTests.cs
+├── InputDocumentToleranceTests.cs
+├── ArmyNameGenerationTests.cs
+├── NameListFormattingTests.cs
+├── NameListGenerationTests.cs
+├── NameListHeaderTests.cs
+├── NameListValueHandlingTests.cs
 ├── NameTransliterationTests.cs
+├── PlanetNameGenerationTests.cs
 ├── RemoteNameResolutionTests.cs
+├── ShipClassNameGenerationTests.cs
+├── ShipNameGenerationTests.cs
+├── SourceRoutingTests.cs
+├── StationNameGenerationTests.cs
 ├── Fixtures/
+│   ├── CoverageDocument.cs
 │   └── NameListFixtures.cs
 └── Tools/
     ├── GeneratorEnvironment.cs
@@ -74,6 +99,29 @@ run: dotnet test --no-build --verbosity normal
 
 ## Test Categories
 
+The suite contains 1914 tests across the three projects: 1387 unit, 506 integration, and 21 architecture.
+
+### Suite Overview
+
+| Suite | Project | Coverage |
+|-------|---------|----------|
+| `NameTransliteratorTableTests` | Unit | 335 verified single-character transliteration mappings, one per replacement branch |
+| `NameListMergeCoverageTests` | Unit | All 149 merged collections, each in three merge scenarios |
+| `ModelDefaultInitialisationTests` | Unit | Every collection property on every model: non-null, empty, mutable, stable |
+| `ArgumentNormaliserTests` | Unit | Every option alias, bare and valued lock forms, validation failures |
+| `NamesBuilderTests` | Unit | Each category builder: envelope, exclusions, quoting, derived names, random selection |
+| `NameTransliteratorCompositionTests` | Unit | Multi-character names, idempotence, permitted characters, script mixing |
+| `NameGroupValueTests` | Unit | Value resolution, caching semantics, URL degradation, emptiness |
+| `NameListGeneratorServiceTests` | Unit | Identity, lock propagation, merged-list selection, encoding, replacement |
+| `BlockCompositionTests` | Integration | Exact source composition of all 73 populated blocks |
+| `SourceRoutingTests` | Integration | Exact destination blocks of all 153 routed source categories |
+| `BlockOrderingTests` | Integration | Declaration order of every sub-block in every category |
+| `GenerationMatrixTests` | Integration | 12 documents × 9 invariant classes, including all lock forms |
+| Per-category suites | Integration | Ships, ship classes, fleets, armies, planets, stations, characters |
+| `NameListValueHandlingTests` | Integration | Sorting, distinctness, trimming, entity decoding, wrapping |
+| `GenerationDeterminismTests` | Integration | Locked reproducibility and lock-flag isolation |
+| `InputDocumentToleranceTests` | Integration | Declaration, byte-order mark, whitespace, unknown root |
+
 ### Model Tests (`Models/`)
 
 Test domain model behavior: defaults, collections, merging, URL behavior, concatenation properties.
@@ -90,6 +138,17 @@ Test domain model behavior: defaults, collections, merging, URL behavior, concat
 | `AddRange_DenonymsConcatenated` | Denonyms list concatenated |
 | `AddRange_PlacesConcatenated` | Places subcategories concatenated |
 
+#### `NameListMergeCoverageTests` (447 tests)
+
+Every collection merged by `NameList.AddRange` is exercised in three scenarios: both operands populated
+(two items), the other operand empty (count unchanged), and the target empty (one item). This proves that
+no collection was omitted from the merge implementation.
+
+#### `ModelDefaultInitialisationTests` (298 tests)
+
+Every collection property on every model is checked for non-nullness, emptiness, mutability, and stable
+identity across reads, so deserialisation cannot encounter a null collection.
+
 #### `NameGroupTests` (6 tests)
 
 | Test | Description |
@@ -100,6 +159,11 @@ Test domain model behavior: defaults, collections, merging, URL behavior, concat
 | `Values_CombinesExplicitAndUrlValues` | Explicit + URL values combined |
 | `IsEmpty_NoValues_ReturnsTrue` | No names → IsEmpty true |
 | `IsEmpty_WithValues_ReturnsFalse` | Has names → IsEmpty false |
+
+#### `NameGroupValueTests` (21 tests)
+
+Value resolution ordering, cache identity, cache invalidation on list replacement, conservative cache
+serving on in-place mutation, URL degradation for unreachable and malformed URLs, and whitespace URLs.
 
 #### `CharacterNamesTests` (5 tests)
 
@@ -222,18 +286,23 @@ Note: Most tests use real implementations (not mocks) since the services are sim
 
 | Layer | Coverage | Notes |
 |-------|----------|-------|
-| Models | High | All models tested for defaults, merging, URL behavior |
-| Services | Medium | Merge, build, write tested; download not directly tested |
-| Builders | High | Directly covered end-to-end by `NameListFormattingTests` |
-| Presentation | High | `CommandLineTests` exercises argument parsing, validation, and failure modes |
-| Encoding and grammar | High | `NameListGenerationTests` asserts the UTF-8 preamble, line endings, identifier derivation, and category ordering |
+| Models | Exhaustive | Every model collection is asserted for default initialisation, and every `AddRange` collection is asserted in three merge scenarios |
+| Transliteration | Exhaustive | 335 verified per-character mappings plus composition, idempotence, and permitted-character tests |
+| Services | High | Merge, build, write, identity, lock propagation, and encoding tested; live download not directly tested |
+| Builders | High | Each builder is unit-tested directly and every generated block is asserted for exact source composition |
+| Presentation | High | `CommandLineTests`, `CommandLineScenarioTests`, and `ArgumentNormaliserTests` cover parsing, validation, aliases, and failure modes |
+| Encoding and grammar | High | The UTF-8 preamble, line endings, identifier derivation, and category ordering are asserted across 12 document shapes |
+| Determinism | High | `GenerationDeterminismTests` and `GenerationMatrixTests` assert reproducible locked output and lock-flag isolation |
+| Value handling | High | `NameListValueHandlingTests` asserts sorting, distinctness, trimming, entity decoding, and wrapping |
+| Block composition | Exhaustive | 73 block compositions and 153 source routings are asserted against captured ground truth |
 
 ### Gaps
 
 1. **Golden files**: No comparison against a captured Stellaris reference output
-2. **Successful remote download**: `FileDownloader`/`CacheManager` cannot be stubbed from the command line boundary, so only the degradation path is covered
+2. **Live remote download**: `FileDownloader`/`CacheManager` cannot be stubbed from the command line boundary; the merge success path is covered offline through a pre-populated cache entry, while the live network path is verified only through its degradation contract
 3. **Stellaris acceptance**: Game ingestion is verified manually, not automatically
 4. **Performance**: No performance benchmarks or load tests
+5. **Header samples**: The sample lines in the comment header draw random values, so byte-identical comparison of a full file requires normalising those lines
 
 ### Recommended Additional Tests
 
@@ -247,7 +316,7 @@ public void GivenRichDocument_WhenGenerating_ThenOutputMatchesTheGoldenFile()
         Is.EqualTo(expectedGoldenContent));
 }
 
-// Successful remote download (requires a stubbable downloader)
+// Live remote download (requires a stubbable downloader)
 [Test]
 public void GivenReachableUrl_WhenGenerating_ThenDownloadedNamesAreMerged()
 {
@@ -304,7 +373,11 @@ Test results uploaded as artifact:
 
 ## Test Data
 
-The unit tests construct in-memory model objects. The integration tests build XML documents through `Tools/NameListXml.cs` and the canonical inputs in `Fixtures/NameListFixtures.cs`, writing each document into a private temporary directory. No external data file is required, so the suite is cross-platform, environment-independent, and machine-independent.
+The unit tests construct in-memory model objects. The integration tests build XML documents through `Tools/NameListXml.cs` and the canonical inputs in `Fixtures/NameListFixtures.cs`, writing each document into a private temporary directory. `Fixtures/CoverageDocument.cs` builds a single document in which every recognised source category carries a unique traceable token (`NucQVnnn`), which is what makes the composition and routing matrices exact. No external data file is required, so the suite is cross-platform, environment-independent, and machine-independent.
+
+### Captured Ground Truth
+
+The composition, routing, and transliteration tables were produced by running the generator over purpose-built documents and reading back the result, not by transcribing the implementation. Any behavioural change that alters a mapping therefore fails a test rather than silently agreeing with itself.
 
 ## Test Execution Time
 
@@ -320,7 +393,10 @@ The unit tests construct in-memory model objects. The integration tests build XM
 When adding new models or builders:
 1. Add model tests for new model classes
 2. Add builder tests if new builder is added
-3. Update `FileContentBuilderTests` if builder order changes
-4. Update `NameListGeneratorTests` if merge behavior changes
-5. Update `OtherModelTests` if new model needs default initialization test
-6. Extend `Fixtures/NameListFixtures.cs` and the matching integration fixture if the generated grammar changes
+3. Extend the matching per-category generation suite when the category grammar changes
+4. Extend `CoverageDocument` when a new source category is added, then regenerate the composition and routing expectations by running the generator
+5. Update `FileContentBuilderTests` if builder order changes
+6. Update `NameListGeneratorTests` if merge behavior changes
+7. Update `OtherModelTests` and `ModelDefaultInitialisationTests` if new model needs default initialization test
+8. Update `NameListMergeCoverageTests` when a collection is added to `NameList.AddRange`
+9. Extend `Fixtures/NameListFixtures.cs` and the matching integration fixture if the generated grammar changes

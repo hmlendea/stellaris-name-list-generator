@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -160,6 +161,22 @@ namespace StellarisNameListGenerator.IntegrationTests
             Assert.That(content, Does.Contain(NameListFixtures.CountryOne));
             Assert.That(content, Does.Contain(NameListFixtures.CountryTwo));
             Assert.That(content, Does.Contain(NameListFixtures.CountryThree));
+        }
+
+        [Test]
+        public void GivenTwoRecordsSharingAValue_WhenGenerating_ThenTheSharedValueIsEmittedOnce()
+        {
+            string content = environment.GenerateFromDocument(NameListFixtures.OverlappingDocument, OutputFileName, DisplayName);
+
+            IReadOnlyList<string> genericLines = GeneratedNameList.Parse(content).GetBlockLines("ship_names", "generic");
+            int occurrences = 0;
+
+            foreach (string line in genericLines)
+            {
+                occurrences += line.Split(NameListFixtures.OverlapDenonym).Length - 1;
+            }
+
+            Assert.That(occurrences, Is.EqualTo(1));
         }
     }
 }

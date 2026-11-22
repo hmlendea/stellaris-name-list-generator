@@ -486,6 +486,7 @@ In `FileContentBuilder.BuildContent()`, builders execute in fixed order:
 
 ## Testing
 
-No direct unit tests for builders. Tested indirectly via:
+No direct unit tests for builders. Tested end-to-end via:
 - `FileContentBuilderTests` - Full content generation
 - `NameListGeneratorTests` - End-to-end generation
+- Per-category integration suites - `ShipNameGenerationTests`, `ShipClassNameGenerationTests`, `FleetNameGenerationTests`, `ArmyNameGenerationTests`, `PlanetNameGenerationTests`, `StationNameGenerationTests`, `CharacterCategoryMappingTests`
