@@ -132,4 +132,4 @@ On success, writes a Stellaris-compatible name list file to the output path. The
 
 ## Testing
 
-The presentation layer is not unit tested directly (integration tested via `NameListGeneratorTests`). CLI argument parsing is validated by `NuciCLI` at runtime.
+The presentation layer is not unit tested directly; it is covered end-to-end by `CommandLineTests` and `CommandLineScenarioTests`, which exercise argument aliases, the lock flag, validation, and failure modes through the command line entry point. CLI argument parsing is also validated by `NuciCLI` at runtime.

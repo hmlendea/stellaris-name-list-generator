@@ -82,6 +82,40 @@ namespace StellarisNameListGenerator.IntegrationTests
             Assert.That(Directory.Exists(environment.GetPath(".cache")), Is.False);
         }
 
+        [Test]
+        public void GivenAPopulatedCacheEntry_WhenGenerating_ThenCachedNamesAreMergedWithoutNetworkAccess()
+        {
+            using GeneratorEnvironment environment = new($"{nameof(RemoteNameResolutionTests)}_cached");
+            environment.WriteInput(NameListFixtures.UrlDocument(CachedUrl));
+
+            Directory.CreateDirectory(environment.GetPath(".cache"));
+            File.WriteAllText(environment.GetPath(Path.Combine(".cache", CachedUrl)), $"{CachedNameOne}\n{CachedNameTwo}");
+
+            GeneratedNameList output = environment.Generate(OutputFileName, DisplayName);
+
+            Assert.That(output.SubBlockContains("ship_names", "generic", CachedNameOne), Is.True);
+            Assert.That(output.SubBlockContains("ship_names", "generic", CachedNameTwo), Is.True);
+            Assert.That(output.SubBlockContains("ship_names", "generic", NameListFixtures.CountryTwo), Is.True);
+        }
+
+        [Test]
+        public void GivenNoCacheEntry_WhenGeneratingFromAnUnreachableUrl_ThenOnlyExplicitValuesRemain()
+        {
+            using GeneratorEnvironment environment = new($"{nameof(RemoteNameResolutionTests)}_uncached");
+            environment.WriteInput(NameListFixtures.UrlDocument(UnresolvableUrl));
+
+            GeneratedNameList output = environment.Generate(OutputFileName, DisplayName);
+
+            Assert.That(output.SubBlockContains("ship_names", "generic", NameListFixtures.CountryTwo), Is.True);
+            Assert.That(output.SubBlockContains("ship_names", "generic", CachedNameOne), Is.False);
+        }
+
+        private static string CachedUrl => "dummy-url.com";
+
+        private static string CachedNameOne => "Alpha";
+
+        private static string CachedNameTwo => "Zenith";
+
         private static string[] UnusableUrls => [UnresolvableUrl, InvalidUrl];
     }
 }

@@ -316,7 +316,7 @@ dotnet run --no-build -- \
   --locked true
 ```
 
-The smoke result must be inspected for a top-level identifier derived from `generated_name_list.txt`, `randomized = no`, expected builder sections, and UTF-8 BOM encoding. Stellaris ingestion remains a specialised manual verification; the integration suite asserts the generated grammar structure, quoting, transliteration, category ordering, and failure modes, but not game acceptance. Remote name resolution is exercised only against deliberately unusable URLs, because the downloader is a process-wide static dependency that cannot be substituted from the command line boundary.
+The smoke result must be inspected for a top-level identifier derived from `generated_name_list.txt`, `randomized = no`, expected builder sections, and UTF-8 BOM encoding. Stellaris ingestion remains a specialised manual verification; the integration suite asserts the generated grammar structure, quoting, transliteration, category ordering, determinism, and failure modes, but not game acceptance. Remote name resolution is exercised against deliberately unusable URLs and against a pre-populated cache entry that yields the merge success path; the live network fetch itself is not exercised, because the downloader is a process-wide static dependency that cannot be substituted from the command line boundary.
 
 
 ## ⚠️ Design Constraints
